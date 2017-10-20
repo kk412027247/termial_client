@@ -15,16 +15,25 @@ import LinearProgress from 'material-ui/LinearProgress';
 import {Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn} from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
+import ActionSearch from 'material-ui/svg-icons/action/search';
+import {Motion, spring} from 'react-motion';
+
+
+
 
 import './main.css';
+
+
+
+
 
 let i = 1;
 
 class Query extends Component {
   state = {
     drawer:false,
-    snackbar:true,
-    snackbarMessage: '登陆/新增/修改/删除 成功',
+    snackbar:false,
+    snackbarMessage: '',
     input:'',
     dialog: false,
     data:[],
@@ -39,9 +48,13 @@ class Query extends Component {
     })
     .then(res=>res.json())
     .then(result=>{
-      if(result.length === 0) console.log('无查询结果，请修改关键字');
-      result.forEach(item=>console.log(item));
+      if(result.length === 0) {
+        this.setState({
+          snackbarMessage: '没有匹配信息，请更新关键字',
+          snackbar: true,
+        })}
       this.setState({data: result});
+      console.log(this.state.data)
     })
     .catch(err=>{
        console.log(err)
@@ -50,13 +63,10 @@ class Query extends Component {
 
   handleDrawer = () => this.setState({drawer: !this.state.drawer});
 
-
   handleInput = (event, newValue) => {
     this.setState({
       input: newValue.replace(/(^\s*)|(\s*$)/g, '').replace(/\s+/g, ' '),
-      fetching:true,
     });
-
     const check =  ++i;
     // console.log(check);
     // console.log(i);
@@ -72,8 +82,8 @@ class Query extends Component {
        // console.log(check);
        // console.log(i);
       if(check === i) {
+        this.setState({data: result});
         result.forEach(item=>console.log(item));
-        this.setState({date: result})
       }else{console.log('数据返回慢了，放弃这个数据')}
 
     })
@@ -81,6 +91,8 @@ class Query extends Component {
       console.log(err);
     })
   };
+
+
 
 
   handleDialog = () => {this.setState({dialog: !this.state.dialog})};
@@ -117,31 +129,30 @@ class Query extends Component {
           </Drawer>
         </header>
 
+        <Motion defaultStyle={{x: 0}} style={{x: spring(10)}}>
+          {value => <div>{value.x}</div>}
+        </Motion>
 
         <div id="main">
-           <Paper className="search">
-              <AppBar
-                title="输入搜索信息"
-                style={{backgroundColor: '#00BCD4'}}
-                iconElementLeft={<IconButton iconClassName="material-icons">search</IconButton>}
+          <div className="searchInput">
+            <Paper className="searchPaper">
+              <TextField
+              style={{display:'flex',flex: 0.8}}
+              hintStyle={{fontSize: '25px'}}
+              inputStyle={{fontSize: '25px'}}
+              hintText='输入手机型号或品牌进行搜索，多个关键词请用空格隔开'
+              underlineShow={false}
+              onChange={this.handleInput}
               />
-              <div className="searchInput">
-                <Paper className="searchPaper">
-                   <TextField
-                     style={{display:'flex',flex: 0.8}}
-                     hintText='输入手机型号或品牌进行搜索，多个关键词请用空格隔开'
-                     underlineShow={false}
-                     onChange={this.handleInput}
-                   />
-                    <RaisedButton
-                      label="搜索"
-                      primary={true}
-                      onClick={this.handleFetch}
-                    />
-                </Paper>
-              </div>
-          </Paper>
-          {this.state.input}
+              <IconButton
+              label="搜索"
+              onClick={this.handleFetch}
+              >
+              <ActionSearch />
+              </IconButton>
+
+            </Paper>
+          </div>
           <Divider/>
           <br/>
           <Paper className="show">
@@ -150,6 +161,7 @@ class Query extends Component {
               style={{backgroundColor: '#00BCD4'}}
               iconElementLeft={<IconButton iconClassName="material-icons">language</IconButton>}
             />
+            
             <Table multiSelectable={true} fixedHeader={true}>
               <TableHeader>
                 <TableRow>
@@ -167,86 +179,22 @@ class Query extends Component {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableRowColumn>三星</TableRowColumn>
-                  <TableRowColumn>Note7</TableRowColumn>
-                  <TableRowColumn>8888</TableRowColumn>
-                  <TableRowColumn>201701</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>IOS</TableRowColumn>
-                  <TableRowColumn>1234</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>
-                    <IconButton
-                      iconClassName="material-icons"
-                      onClick={this.handleDialog}
-                    >
-                      more_horiz
-                    </IconButton>
-                  </TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableRowColumn>三星</TableRowColumn>
-                  <TableRowColumn>Note7</TableRowColumn>
-                  <TableRowColumn>8888</TableRowColumn>
-                  <TableRowColumn>201701</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>IOS</TableRowColumn>
-                  <TableRowColumn>1234</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>
-                    <IconButton
-                      iconClassName="material-icons"
-                      onClick={this.handleDialog}
-                    >
-                      more_horiz
-                    </IconButton>
-                  </TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableRowColumn>三星</TableRowColumn>
-                  <TableRowColumn>Note7</TableRowColumn>
-                  <TableRowColumn>8888</TableRowColumn>
-                  <TableRowColumn>201701</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>IOS</TableRowColumn>
-                  <TableRowColumn>1234</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>
-                    <IconButton
-                      iconClassName="material-icons"
-                      onClick={this.handleDialog}
-                    >
-                      more_horiz
-                    </IconButton>
-                  </TableRowColumn>
-                </TableRow>
-                <TableRow>
-                  <TableRowColumn>三星</TableRowColumn>
-                  <TableRowColumn>Note7</TableRowColumn>
-                  <TableRowColumn>8888</TableRowColumn>
-                  <TableRowColumn>201701</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>IOS</TableRowColumn>
-                  <TableRowColumn>1234</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>是</TableRowColumn>
-                  <TableRowColumn>
-                    <IconButton
-                      iconClassName="material-icons"
-                      onClick={this.handleDialog}
-                    >
-                      more_horiz
-                    </IconButton>
-                  </TableRowColumn>
-                </TableRow>
+
+                  {this.state.data.map((item,index)=>(
+                    <TableRow key={item["_id"]}>
+                      <TableRowColumn key={item['厂商']}>{item['厂商']}</TableRowColumn>
+                      <TableRowColumn key={item[ "品牌(英文)"]}>{item[ "品牌(英文)"]}</TableRowColumn>
+                      <TableRowColumn key={item["价格"]}>{item["价格"]}</TableRowColumn>
+                      <TableRowColumn key={item["上市时间"]}>{item["上市时间"]}</TableRowColumn>
+                      <TableRowColumn key={item["SIM卡"]}>{item["SIM卡"]}</TableRowColumn>
+                      <TableRowColumn key={item["操作系统"]}>{item["操作系统"]}</TableRowColumn>
+                      <TableRowColumn key={item["网络制式"]}>{item["网络制式"]}</TableRowColumn>
+                      <TableRowColumn key={item["CPU数量"]}>{item["CPU数量"]}</TableRowColumn>
+                      <TableRowColumn key={item["ROM容量"]}>{item["ROM容量"]}</TableRowColumn>
+                      <TableRowColumn key={item["后置摄像头"]}>{item["后置摄像头"]}</TableRowColumn>
+                      <TableRowColumn key={item["电池容量"]}>{item["电池容量"]}</TableRowColumn>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
              <Dialog
@@ -264,11 +212,12 @@ class Query extends Component {
 
 
 
-          
+
 
 
         </div>
 
+        
 
 
 
@@ -278,6 +227,7 @@ class Query extends Component {
           <Snackbar
             open={this.state.snackbar}
             message={this.state.snackbarMessage}
+            onRequestClose={()=>this.setState({snackbar: false})}
           />
         </footer>
 

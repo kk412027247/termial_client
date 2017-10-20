@@ -1,40 +1,64 @@
 
+body{
+    background-color: #e9e9e9;
+}
 
 #main{
     width: 1263px;
     margin: 5px auto;
+    display: flex;
+    flex-wrap: wrap;
+
 }
 
-.button1{
-    margin-left: 10%;
-}
-
-.search{
-    height: 200px;
-    width: 95%;
-    margin: 30px auto;
-}
 
 .searchInput{
     height: 135px;
     display: flex;
+    flex: 1;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .searchPaper{
     display:flex;
+    margin-Left:2.5%;
     flex:0.7;
     height:70px;
     justify-content: space-around;
     align-items: center;
-
-
+    flex-wrap: wrap;
 }
-
 
 
 .show{
     width: 95%;
     margin: 30px auto;
 }
+
+.showDetail-enter{
+    /*height: 0;*/
+    opacity:0;
+    transform: translateX(-250px);
+}
+
+.showDetail-enter.showDetail-enter-active{
+    /*height:100px;*/
+    opacity:1;
+    transform: translateX(0);
+    transition: 500ms ease-in;
+}
+
+.showDetail-leave{
+    /*height:100px;*/
+    opacity:1;
+    transform: translateX(0);
+}
+
+.showDetail-leave.showDetail-leave-active{
+    /*height:0;*/
+    opacity:0;
+    transform: translateX(250px);
+    transition:  500ms ease-in;
+}
+
