@@ -1,0 +1,40 @@
+
+
+#main{
+    width: 1263px;
+    margin: 5px auto;
+}
+
+.button1{
+    margin-left: 10%;
+}
+
+.search{
+    height: 200px;
+    width: 95%;
+    margin: 30px auto;
+}
+
+.searchInput{
+    height: 135px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchPaper{
+    display:flex;
+    flex:0.7;
+    height:70px;
+    justify-content: space-around;
+    align-items: center;
+
+
+}
+
+
+
+.show{
+    width: 95%;
+    margin: 30px auto;
+}
