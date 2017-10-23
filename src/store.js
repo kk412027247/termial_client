@@ -1,18 +1,18 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 
-import reducer1 from './reducer.js';
+import reducerQuery from './reducer.js';
 
 //As of React 16, react-addons-perf is not supported. Please use your browser’s profiling tools to get insight into which components re-render.
 //Load your app with ?react_perf in the query string (for example, http://localhost:3000/?react_perf).
 
 
-// import Perf from 'react-addons-perf';
+//import Perf from 'react-addons-perf';
 //
 const win = window;
-// win.Perf = Perf;
+//win.Perf = Perf;
 
 const reducer = combineReducers({
-  reducer1:reducer1,
+  reducerQuery,
 });
 
 const middlewares = [];
@@ -27,10 +27,10 @@ const storeEnhancers = compose(
 
 
 const iniState ={
-  reducer1:{
+  reducerQuery:{
     drawer:false,
     snackbar:false,
-    snackbarMessage: '',
+    snackbarMessage: '123123',
     input:'',
     dialog: false,
     data:[],
