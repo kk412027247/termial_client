@@ -16,7 +16,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn} from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
 import ActionSearch from 'material-ui/svg-icons/action/search';
-import {Motion, spring} from 'react-motion';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 
@@ -24,10 +24,9 @@ import {Motion, spring} from 'react-motion';
 import './main.css';
 
 
-
-
-
 let i = 1;
+
+
 
 class Query extends Component {
   state = {
@@ -93,13 +92,7 @@ class Query extends Component {
   };
 
 
-
-
   handleDialog = () => {this.setState({dialog: !this.state.dialog})};
-
-
-
-
 
   render() {
     return (
@@ -115,6 +108,7 @@ class Query extends Component {
             open={this.state.drawer}
             docked={false}
             onRequestChange={(open)=>this.setState({drawer: open})}
+            
           >
             <AppBar
               iconElementLeft={<IconButton iconClassName="material-icons">arrow_back</IconButton>}
@@ -128,11 +122,7 @@ class Query extends Component {
 
           </Drawer>
         </header>
-
-        <Motion defaultStyle={{x: 0}} style={{x: spring(10)}}>
-          {value => <div>{value.x}</div>}
-        </Motion>
-
+        
         <div id="main">
           <div className="searchInput">
             <Paper className="searchPaper">
@@ -145,10 +135,10 @@ class Query extends Component {
               onChange={this.handleInput}
               />
               <IconButton
-              label="搜索"
-              onClick={this.handleFetch}
+                label="搜索"
+                onClick={this.handleFetch}
               >
-              <ActionSearch />
+                <ActionSearch />
               </IconButton>
 
             </Paper>
@@ -161,7 +151,7 @@ class Query extends Component {
               style={{backgroundColor: '#00BCD4'}}
               iconElementLeft={<IconButton iconClassName="material-icons">language</IconButton>}
             />
-            
+
             <Table multiSelectable={true} fixedHeader={true}>
               <TableHeader>
                 <TableRow>
@@ -179,24 +169,24 @@ class Query extends Component {
                 </TableRow>
               </TableHeader>
               <TableBody>
-
-                  {this.state.data.map((item,index)=>(
-                    <TableRow key={item["_id"]}>
-                      <TableRowColumn key={item['厂商']}>{item['厂商']}</TableRowColumn>
-                      <TableRowColumn key={item[ "品牌(英文)"]}>{item[ "品牌(英文)"]}</TableRowColumn>
-                      <TableRowColumn key={item["价格"]}>{item["价格"]}</TableRowColumn>
-                      <TableRowColumn key={item["上市时间"]}>{item["上市时间"]}</TableRowColumn>
-                      <TableRowColumn key={item["SIM卡"]}>{item["SIM卡"]}</TableRowColumn>
-                      <TableRowColumn key={item["操作系统"]}>{item["操作系统"]}</TableRowColumn>
-                      <TableRowColumn key={item["网络制式"]}>{item["网络制式"]}</TableRowColumn>
-                      <TableRowColumn key={item["CPU数量"]}>{item["CPU数量"]}</TableRowColumn>
-                      <TableRowColumn key={item["ROM容量"]}>{item["ROM容量"]}</TableRowColumn>
-                      <TableRowColumn key={item["后置摄像头"]}>{item["后置摄像头"]}</TableRowColumn>
-                      <TableRowColumn key={item["电池容量"]}>{item["电池容量"]}</TableRowColumn>
-                    </TableRow>
-                  ))}
+                {this.state.data.map((item,index)=>(
+                  <TableRow key={item["_id"]}>
+                    <TableRowColumn >{item['厂商']}</TableRowColumn>
+                    <TableRowColumn >{item[ "品牌(英文)"]}</TableRowColumn>
+                    <TableRowColumn >{item["价格"]}</TableRowColumn>
+                    <TableRowColumn >{item["上市时间"]}</TableRowColumn>
+                    <TableRowColumn >{item["SIM卡"]}</TableRowColumn>
+                    <TableRowColumn >{item["操作系统"]}</TableRowColumn>
+                    <TableRowColumn >{item["网络制式"]}</TableRowColumn>
+                    <TableRowColumn >{item["CPU数量"]}</TableRowColumn>
+                    <TableRowColumn >{item["ROM容量"]}</TableRowColumn>
+                    <TableRowColumn >{item["后置摄像头"]}</TableRowColumn>
+                    <TableRowColumn >{item["电池容量"]}</TableRowColumn>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
+
              <Dialog
               title="详细信息"
               actions={[<RaisedButton label="更改"/>,<RaisedButton label='再更改' style={{marginLeft: '30px'}}/>]}

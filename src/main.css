@@ -22,7 +22,7 @@ body{
 
 .searchPaper{
     display:flex;
-    margin-Left:2.5%;
+    margin-Left:0.1%;
     flex:0.7;
     height:70px;
     justify-content: space-around;
@@ -31,10 +31,6 @@ body{
 }
 
 
-.show{
-    width: 95%;
-    margin: 30px auto;
-}
 
 .showDetail-enter{
     /*height: 0;*/
@@ -61,4 +57,3 @@ body{
     transform: translateX(250px);
     transition:  500ms ease-in;
 }
-
