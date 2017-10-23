@@ -1,4 +1,13 @@
 export const handleDrawer= ()=>({
   type:'HANDLE_DRAWER',
-  drawer: !state.drawer,
 });
+
+export const handleFetch = () =>({
+  type: 'HANDLE_FETCH',
+});
+
+export const handleInput = (event, newValue) =>({
+  type: 'HANDLE_INPUT',
+  input: newValue,
+});
+
