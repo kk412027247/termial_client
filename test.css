@@ -1,0 +1,64 @@
+
+#test{
+    width: 100px;
+    height: 100px;
+    background-color: chartreuse;
+    text-align: center;
+    line-height: 100px;
+    transition: height 1s 1s, background-color 1s;
+    animation: test 5s infinite linear;
+}
+
+#test:hover{
+    height:20px;
+    background-color: red;
+    transition: height 1s, background-color 1s 1s;
+}
+
+.test{
+    height:50px;
+    width:50px;
+    background-color:red;
+}
+
+.test-enter{
+    height:0;
+    width:0;
+    opacity:0;
+}
+
+.test-enter.test-enter-active{
+    height:50px;
+    width:50px;
+    background-color:red;
+    opacity: 1;
+    transition: height 1000ms ease-in,width 1000ms ease-in, background-color 1000ms 1000ms ease-in, opacity 1000ms 1000ms ease-in;
+    animation-name: test;
+    animation-duration: 1000ms;
+    animation-delay: 1000ms;
+    animation-timing-function: linear;
+}
+
+.test-leave{
+    height:50px;
+    width:50px;
+    background-color:red;
+    opacity: 1;
+}
+
+.test-leave.test-leave-active{
+    height:0;
+    width:0;
+    opacity:0;
+    transition: opacity 1000ms ease-out,width 1000ms 1000ms ease-out,height 1000ms 1000ms ease-out;
+}
+
+@keyframes test{
+    0% {transform: translateX(0);}
+    25%  {transform: translateX(50px);}
+    50%  {transform: translateX(150px);}
+    75%  {transform: translateX(50px);}
+    100% {transform: translateX(0);}
+}
+
+

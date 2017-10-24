@@ -3,12 +3,11 @@ body{
     background-color: #e9e9e9;
 }
 
-#main{
+#main, #update, #add{
     width: 1263px;
     margin: 5px auto;
     display: flex;
     flex-wrap: wrap;
-
 }
 
 
