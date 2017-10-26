@@ -16,9 +16,17 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../main.css';
 import {handleDrawer, handleFetch, handleInput, handleSnackbar, handleDialog} from '../actions.js'
+import {fetchData, searchData, showDetail} from '../actionsFetch.js'
 import ShowDetail from './showDetail.js'
 
-const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state }) =>(
+const styles= {
+  button:{
+    display: 'flex',
+    flex: 1,
+  }
+};
+
+const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state ,fData,stateFetch, sData, sDetail}) =>(
   <div>
     <div id="main">
       <div className="searchInput">
@@ -29,15 +37,14 @@ const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state }) =>(
             inputStyle={{fontSize: '25px'}}
             hintText='输入手机型号或品牌进行搜索，多个关键词请用空格隔开'
             underlineShow={false}
-            onChange={hInput}
+            onChange={fData}
           />
           <IconButton
             label="搜索"
-            onClick={hFetch}
+            onClick={sData}
           >
             <ActionSearch />
           </IconButton>
-
         </Paper>
       </div>
       <Divider/>
@@ -53,147 +60,131 @@ const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state }) =>(
           <TableHeader>
             <TableRow>
               <TableHeaderColumn>厂商</TableHeaderColumn>
-              <TableHeaderColumn>品牌</TableHeaderColumn>
-              <TableHeaderColumn>价格</TableHeaderColumn>
-              <TableHeaderColumn>上市时间</TableHeaderColumn>
+              <TableHeaderColumn style={{width:'100px'}}>品牌</TableHeaderColumn>
+              <TableHeaderColumn  style={{width:'80px'}}>价格</TableHeaderColumn>
+              <TableHeaderColumn style={{width:'80px'}}>上市时间</TableHeaderColumn>
               <TableHeaderColumn>双卡双待</TableHeaderColumn>
-              <TableHeaderColumn>系统</TableHeaderColumn>
+              <TableHeaderColumn style={{width:'50px'}}>系统</TableHeaderColumn>
               <TableHeaderColumn>网络</TableHeaderColumn>
+              <TableHeaderColumn>WIFI</TableHeaderColumn>
+              <TableHeaderColumn>智能机</TableHeaderColumn>
+              <TableHeaderColumn>单卡双待</TableHeaderColumn>
+              <TableHeaderColumn>VOLTE</TableHeaderColumn>
               <TableHeaderColumn>CSFB</TableHeaderColumn>
-              <TableHeaderColumn>FR</TableHeaderColumn>
-              <TableHeaderColumn>FR</TableHeaderColumn>
-              <TableHeaderColumn>更多信息</TableHeaderColumn>
+              <TableHeaderColumn>更多</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {state.data.map((item,index)=>(
+            {stateFetch.result.map((item,index)=>(
               <TableRow key={item["_id"]}>
                 <TableRowColumn >{item['厂商']}</TableRowColumn>
-                <TableRowColumn >{item[ "品牌(英文)"]}</TableRowColumn>
-                <TableRowColumn >{item["价格"]}</TableRowColumn>
-                <TableRowColumn >{item["上市时间"]}</TableRowColumn>
-                <TableRowColumn >{item["SIM卡"]}</TableRowColumn>
-                <TableRowColumn >{item["操作系统"]}</TableRowColumn>
+                <TableRowColumn style={{width:'100px'}}>{item[ "品牌(英文)"]}</TableRowColumn>
+                <TableRowColumn style={{width:'80px'}}>{item["价格"]}</TableRowColumn>
+                <TableRowColumn style={{width:'80px'}}>{item["上市时间"]}</TableRowColumn>
+                <TableRowColumn >{item["SIM卡"].includes('双')?1:0}</TableRowColumn>
+                <TableRowColumn style={{width:'50px'}}>{item["操作系统"]}</TableRowColumn>
                 <TableRowColumn >{item["网络制式"]}</TableRowColumn>
-                <TableRowColumn >{item["CPU数量"]}</TableRowColumn>
-                <TableRowColumn >{item["ROM容量"]}</TableRowColumn>
-                <TableRowColumn >{item["后置摄像头"]}</TableRowColumn>
-                <TableRowColumn >{item["电池容量"]}</TableRowColumn>
+                <TableRowColumn >{item["WIFI"]?1:0}</TableRowColumn>
+                <TableRowColumn >{item["是否智能机"]?1:0}</TableRowColumn>
+                <TableRowColumn >{item["单卡双待"]?0:1}</TableRowColumn>
+                <TableRowColumn >{item["CSFB"]}</TableRowColumn>
+                <TableRowColumn >{item["VOLTE"]}</TableRowColumn>
+                <TableRowColumn >
+                  <IconButton onClick={sDetail.bind(null,item["_id"])} style={styles.button}>
+                    <MoreHoriz/>
+                  </IconButton>
+                </TableRowColumn>
               </TableRow>
             ))}
-          </TableBody>
-          <TableBody>
             <TableRow>
               <TableRowColumn >三星</TableRowColumn>
-              <TableRowColumn >note 7</TableRowColumn>
-              <TableRowColumn >2000-3000</TableRowColumn>
-              <TableRowColumn >2015</TableRowColumn>
-              <TableRowColumn >双卡双待</TableRowColumn>
-              <TableRowColumn >android</TableRowColumn>
-              <TableRowColumn >4g</TableRowColumn>
-              <TableRowColumn >8</TableRowColumn>
-              <TableRowColumn >128g</TableRowColumn>
-              <TableRowColumn >2000</TableRowColumn>
+              <TableRowColumn style={{width:'100px'}} >GALAXY Note 8</TableRowColumn>
+              <TableRowColumn style={{width:'80px'}}>2000-3000</TableRowColumn>
+              <TableRowColumn style={{width:'80px'}}>2015</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn style={{width:'50px'}}>android</TableRowColumn>
+              <TableRowColumn >12345</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
               <TableRowColumn >
-                <IconButton onClick={hDialog}>
+                <IconButton onClick={sData} style={styles.button}>
                   <MoreHoriz/>
                 </IconButton>
               </TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn >三星</TableRowColumn>
-              <TableRowColumn >note 7</TableRowColumn>
-              <TableRowColumn >2000-3000</TableRowColumn>
-              <TableRowColumn >2015</TableRowColumn>
-              <TableRowColumn >双卡双待</TableRowColumn>
-              <TableRowColumn >android</TableRowColumn>
-              <TableRowColumn >4g</TableRowColumn>
-              <TableRowColumn >8</TableRowColumn>
-              <TableRowColumn >128g</TableRowColumn>
-              <TableRowColumn >2000</TableRowColumn>
-              <TableRowColumn >10000</TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn >三星</TableRowColumn>
-              <TableRowColumn >note 7</TableRowColumn>
-              <TableRowColumn >2000-3000</TableRowColumn>
-              <TableRowColumn >2015</TableRowColumn>
-              <TableRowColumn >双卡双待</TableRowColumn>
-              <TableRowColumn >android</TableRowColumn>
-              <TableRowColumn >4g</TableRowColumn>
-              <TableRowColumn >8</TableRowColumn>
-              <TableRowColumn >128g</TableRowColumn>
-              <TableRowColumn >2000</TableRowColumn>
-              <TableRowColumn >10000</TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn >三星</TableRowColumn>
-              <TableRowColumn >note 7</TableRowColumn>
-              <TableRowColumn >2000-3000</TableRowColumn>
-              <TableRowColumn >2015</TableRowColumn>
-              <TableRowColumn >双卡双待</TableRowColumn>
-              <TableRowColumn >android</TableRowColumn>
-              <TableRowColumn >4g</TableRowColumn>
-              <TableRowColumn >8</TableRowColumn>
-              <TableRowColumn >128g</TableRowColumn>
-              <TableRowColumn >2000</TableRowColumn>
-              <TableRowColumn >10000</TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn >三星</TableRowColumn>
-              <TableRowColumn >note 7</TableRowColumn>
-              <TableRowColumn >2000-3000</TableRowColumn>
-              <TableRowColumn >2015</TableRowColumn>
-              <TableRowColumn >双卡双待</TableRowColumn>
-              <TableRowColumn >android</TableRowColumn>
-              <TableRowColumn >4g</TableRowColumn>
-              <TableRowColumn >8</TableRowColumn>
-              <TableRowColumn >128g</TableRowColumn>
-              <TableRowColumn >2000</TableRowColumn>
-              <TableRowColumn >10000</TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn >三星</TableRowColumn>
-              <TableRowColumn >note 7</TableRowColumn>
-              <TableRowColumn >2000-3000</TableRowColumn>
-              <TableRowColumn >2015</TableRowColumn>
-              <TableRowColumn >双卡双待</TableRowColumn>
-              <TableRowColumn >android</TableRowColumn>
-              <TableRowColumn >4g</TableRowColumn>
-              <TableRowColumn >8</TableRowColumn>
-              <TableRowColumn >128g</TableRowColumn>
-              <TableRowColumn >2000</TableRowColumn>
-              <TableRowColumn >10000</TableRowColumn>
-            </TableRow>
-            <TableRow>
-              <TableRowColumn >三星</TableRowColumn>
-              <TableRowColumn >note 7</TableRowColumn>
-              <TableRowColumn >2000-3000</TableRowColumn>
-              <TableRowColumn >2015</TableRowColumn>
-              <TableRowColumn >双卡双待</TableRowColumn>
-              <TableRowColumn >android</TableRowColumn>
-              <TableRowColumn >4g</TableRowColumn>
-              <TableRowColumn >8</TableRowColumn>
-              <TableRowColumn >128g</TableRowColumn>
-              <TableRowColumn >2000</TableRowColumn>
-              <TableRowColumn >10000</TableRowColumn>
-            </TableRow>
+              <TableRowColumn style={{width:'100px'}} >GALAXY Note 8</TableRowColumn>
+              <TableRowColumn style={{width:'80px'}}>2000-3000</TableRowColumn>
+              <TableRowColumn style={{width:'80px'}}>2015</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn style={{width:'50px'}}>android</TableRowColumn>
+              <TableRowColumn >12345</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn >1</TableRowColumn>
+              <TableRowColumn >
+                <IconButton onClick={sData} style={styles.button}>
+                  <MoreHoriz/>
+                </IconButton>
+              </TableRowColumn>
+            </TableRow> <TableRow>
+            <TableRowColumn >三星</TableRowColumn>
+            <TableRowColumn style={{width:'100px'}} >GALAXY Note 8</TableRowColumn>
+            <TableRowColumn style={{width:'80px'}}>2000-3000</TableRowColumn>
+            <TableRowColumn style={{width:'80px'}}>2015</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn style={{width:'50px'}}>android</TableRowColumn>
+            <TableRowColumn >12345</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn >
+              <IconButton onClick={sData} style={styles.button}>
+                <MoreHoriz/>
+              </IconButton>
+            </TableRowColumn>
+          </TableRow> <TableRow>
+            <TableRowColumn >三星</TableRowColumn>
+            <TableRowColumn style={{width:'100px'}} >GALAXY Note 8</TableRowColumn>
+            <TableRowColumn style={{width:'80px'}}>2000-3000</TableRowColumn>
+            <TableRowColumn style={{width:'80px'}}>2015</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn style={{width:'50px'}}>android</TableRowColumn>
+            <TableRowColumn >12345</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn >1</TableRowColumn>
+            <TableRowColumn >
+              <IconButton onClick={sData} style={styles.button}>
+                <MoreHoriz/>
+              </IconButton>
+            </TableRowColumn>
+          </TableRow>
           </TableBody>
         </Table>
-
         <ShowDetail/>
         <LinearProgress/>
       </Paper>
-      {state.input}
     </div>
+
     <footer>
       <Snackbar
-        open={state.snackbar}
-        message={state.snackbarMessage}
+        open={stateFetch.snackbar}
+        message={stateFetch.snackbarMessage}
         onRequestClose={hSnackbar}
       />
     </footer>
-    
+    {console.log(stateFetch)}
   </div>
 );
 
@@ -208,10 +199,17 @@ Query.propTypes = {
   snackbar:  PropTypes.bool,
   hSnackbar: PropTypes.func,
   hDialog: PropTypes.func,
+  fData:PropTypes.func,
+  sData:PropTypes.func,
+  sDetail:PropTypes.func,
+  stateFetch:PropTypes.object,
 };
 
 
-const mapStateToProps = (state) => ({state:state.reducerQuery});
+const mapStateToProps = (state) => ({
+  state:state.reducerQuery,
+  stateFetch:state.reducerFetch,
+});
 
 
 
@@ -220,8 +218,10 @@ const mapDispatchToProps = (dispatch) =>({
   hFetch: () => dispatch(handleFetch()),
   hInput: (event, newValue) => dispatch(handleInput(event, newValue)),
   hSnackbar: () => dispatch(handleSnackbar()) ,
-  hDialog: () => dispatch(handleDialog())
-
+  hDialog: () => dispatch(handleDialog()),
+  fData:(event, newValue)=> dispatch(fetchData(event, newValue)),
+  sData: ()=> dispatch(searchData()),
+  sDetail: (id) => dispatch(showDetail(id))
 });
 
 
