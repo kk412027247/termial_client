@@ -1,0 +1,44 @@
+.contain0{
+    display: flex;
+    color: #333333;
+    padding: 50px 0;
+    margin:0 15%;
+    border:1px red solid;
+}
+
+.contain1{
+    flex-basis: 400px;
+    font-size: 24px;
+    font-weight: 600;
+    padding-top: 10px;
+}
+
+.contain2{
+    flex-basis: 100%;
+}
+
+.item{
+    display: flex;
+    flex-basis: 100%;
+}
+
+.key{
+    display:flex;
+    flex-basis: 300px;
+    align-items: center;
+    font-size:18px;
+    font-weight:600;
+    color: #040036;
+}
+
+
+
+
+.divider{
+    margin:0 50%
+}
+
+.value{
+}
+
+
