@@ -24,12 +24,16 @@ const styles = {
     width: '1263px',
     maxWidth:'none'
   },
+  title:{
+    marginLeft:'14%',
+  }
 };
 
 
 const ShowDetail= ({state,fDialog}) =>(
   <Dialog
     title="详细信息"
+    titleStyle={styles.title}
     autoScrollBodyContent={true}
     contentStyle={styles.dialogContent}
     onRequestClose={fDialog}
@@ -51,18 +55,21 @@ const ShowDetail= ({state,fDialog}) =>(
     modal={false}
   > <br/>
     <div className="contain0">
-      <span className="contain1"> ‘图片预留区域’ </span>
+      <span className="contain1">
+        <div className="image">
+         ' 图片预留区域'
+        </div>
+      </span>
       <span className="contain2">
         <div className="item">
           <span className="key"> 厂商(中文) </span>
           <TextField
-            onFocus={console.log('focus')}
-            onBlur={console.log('blur')}
-            onChange={console.log('change')}
             className="value"
             fullWidth={true}
             underlineShow={false}
+            underlineStyle={{color:'rgb(0, 139, 139)'}}
             defaultValue="三星"
+            onFocus={()=>console.log(1)}
           />
         </div>
         <div className="item">
@@ -80,7 +87,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="Note 7"
+            defaultValue="GALAXY Note 8"
           />
         </div>
         <div className="item">
@@ -93,9 +100,10 @@ const ShowDetail= ({state,fDialog}) =>(
           />
         </div>
       </span>
-    </div>
 
-    <Divider className="divider"/>
+    </div>
+    <Divider inset={true}/>
+
 
     <div className="contain0">
       <span className="contain1">基础信息</span>
@@ -106,16 +114,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机长（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="162.5"
           />
         </div>
         <div className="item">
@@ -124,7 +123,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="74.8"
           />
         </div>
         <div className="item">
@@ -133,7 +132,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="8x8.6"
           />
         </div>
         <div className="item">
@@ -142,7 +141,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="195g"
           />
         </div>
         <div className="item">
@@ -151,7 +150,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="直板"
           />
         </div>
         <div className="item">
@@ -160,16 +159,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">市场价格</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="¥6638 - 7588"
           />
         </div>
         <div className="item">
@@ -178,7 +168,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="2017年09月"
           />
         </div>
         <div className="item">
@@ -187,7 +177,8 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="移动TD-LTE，联通TD-LTE，联通FDD-LTE，电信TD-LTE，电信FDD-LTE
+3G网络移动3G（TD-SCDMA），联通3G（WCDMA）"
           />
         </div>
       </span>
@@ -203,7 +194,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="八核"
           />
         </div>
         <div className="item">
@@ -212,7 +203,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="高通"
           />
         </div>
         <div className="item">
@@ -221,7 +212,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="骁龙835（MSM8998）"
           />
         </div>
         <div className="item">
@@ -230,7 +221,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="2.35GHz（大四核），1.9GHz（小四核）"
           />
         </div>
       </span>
@@ -246,7 +237,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
         <div className="item">
@@ -255,7 +246,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="电容屏，多点触控"
           />
         </div>
         <div className="item">
@@ -264,7 +255,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
         <div className="item">
@@ -273,7 +264,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
         <div className="item">
@@ -282,7 +273,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="6.3英寸"
           />
         </div>
         <div className="item">
@@ -291,7 +282,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="2960"
           />
         </div>
         <div className="item">
@@ -300,7 +291,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1440"
           />
         </div>
         <div className="item">
@@ -309,7 +300,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
       </span>
@@ -325,7 +316,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="USB Type-C接口"
           />
         </div>
         <div className="item">
@@ -334,7 +325,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="3300mAh"
           />
         </div>
         <div className="item">
@@ -343,7 +334,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="600小时"
           />
         </div>
         <div className="item">
@@ -352,7 +343,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
       </span>
@@ -368,7 +359,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="虚拟按键"
           />
         </div>
         <div className="item">
@@ -377,7 +368,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="2"
           />
         </div>
         <div className="item">
@@ -386,7 +377,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
         <div className="item">
@@ -395,7 +386,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
         <div className="item">
@@ -404,7 +395,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
         <div className="item">
@@ -413,7 +404,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
       </span>
@@ -429,7 +420,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="三摄像头（后双）"
           />
         </div>
         <div className="item">
@@ -438,7 +429,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="双1200万像素"
           />
         </div>
         <div className="item">
@@ -465,7 +456,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="LED补光灯"
           />
         </div>
         <div className="item">
@@ -474,7 +465,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
         <div className="item">
@@ -483,7 +474,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="双OIS光学防抖，相位对焦，3D深度感测，超级夜景拍摄，智能自动对焦，2倍光学变焦，10倍数码变焦，饮食模式，专业模式，全景模式，慢动作，双景深拍摄，白平衡，极速双核对焦 "
           />
         </div>
         <div className="item">
@@ -492,7 +483,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
       </span>
@@ -508,7 +499,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="Android 7.1"
           />
         </div>
         <div className="item">
@@ -517,7 +508,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="7.1"
           />
         </div>
         <div className="item">
@@ -526,7 +517,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
         <div className="item">
@@ -535,7 +526,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
       </span>
@@ -551,7 +542,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
         <div className="item">
@@ -560,7 +551,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="6GB"
           />
         </div>
         <div className="item">
@@ -569,7 +560,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="64GB/128GB/256GB"
           />
         </div>
         <div className="item">
@@ -578,7 +569,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="MicroSD卡"
           />
         </div>
         <div className="item">
@@ -587,7 +578,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="256GB"
           />
         </div>
         <div className="item">
@@ -596,7 +587,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
         <div className="item">
@@ -605,7 +596,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
         <div className="item">
@@ -614,7 +605,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
       </span>
@@ -630,7 +621,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
       </span>
@@ -645,7 +636,13 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="2G：CDMA 800
+                          2G：GSM 850/900/1800/1900
+                          3G：TD-SCDMA B34/39
+                          3G：WCDMA B1/2/5/8
+                          3G：CDMA EVDO 800
+                          4G：TD-LTE B34/38/39/40/41
+                          4G：FDD-LTE B1/2/3/4/5/7/8/12/13/17/18/19/20/25/26/28"
           />
         </div>
         <div className="item">
@@ -654,7 +651,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
         <div className="item">
@@ -663,7 +660,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
         <div className="item">
@@ -672,7 +669,13 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="2G：CDMA 800
+                          2G：GSM 850/900/1800/1900
+                          3G：TD-SCDMA B34/39
+                          3G：WCDMA B1/2/5/8
+                          3G：CDMA EVDO 800
+                          4G：TD-LTE B34/38/39/40/41
+                          4G：FDD-LTE B1/2/3/4/5/7/8/12/13/17/18/19/20/25/26/28"
           />
         </div>
         <div className="item">
@@ -681,7 +684,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
         <div className="item">
@@ -690,7 +693,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="5.0"
           />
         </div>
         <div className="item">
@@ -699,11 +702,11 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
         <div className="item">
-          <span className="key">WIFI支持协议</span>
+          <span className="key">IEEE 802.11 a/b/g/n/ac</span>
           <TextField
             className="value"
             fullWidth={true}
@@ -717,7 +720,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="0"
           />
         </div>
         <div className="item">
@@ -726,7 +729,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="USB Type-C接口 "
           />
         </div>
         <div className="item">
@@ -735,7 +738,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
         <div className="item">
@@ -744,7 +747,7 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
         <div className="item">
@@ -753,399 +756,506 @@ const ShowDetail= ({state,fDialog}) =>(
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
       </span>
     </div>
     <Divider className="divider"/>
     <div className="contain0">
-      <span className="contain1">基础信息</span>
+      <span className="contain1">浏览器</span>
       <span className="contain2">
         <div className="item">
-          <span className="key">机长（mm）</span>
+          <span className="key">是否支持表格</span>
           <TextField
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机长（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机宽（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机厚（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">重量(g)</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">外观</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">市场定位</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">市场价格</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">上市时间</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">终端支持能力</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
       </span>
     </div>
     <Divider className="divider"/>
     <div className="contain0">
-      <span className="contain1">基础信息</span>
+      <span className="contain1">WAP</span>
       <span className="contain2">
         <div className="item">
-          <span className="key">机长（mm）</span>
+          <span className="key">WAP版本</span>
           <TextField
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机长（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机宽（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机厚（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">重量(g)</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">外观</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">市场定位</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">市场价格</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">上市时间</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">终端支持能力</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue=""
           />
         </div>
       </span>
     </div>
     <Divider className="divider"/>
     <div className="contain0">
-      <span className="contain1">基础信息</span>
+      <span className="contain1">MMS</span>
       <span className="contain2">
         <div className="item">
-          <span className="key">机长（mm）</span>
+          <span className="key">是否支持彩信</span>
           <TextField
             className="value"
             fullWidth={true}
             underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机长（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机宽（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机厚（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">重量(g)</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">外观</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">市场定位</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">市场价格</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">上市时间</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">终端支持能力</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-      </span>
-    </div>
-    <Divider className="divider"/>
-    <div className="contain0">
-      <span className="contain1">基础信息</span>
-      <span className="contain2">
-        <div className="item">
-          <span className="key">机长（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机长（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机宽（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">机厚（mm）</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">重量(g)</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">外观</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">市场定位</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">市场价格</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">上市时间</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
-          />
-        </div>
-        <div className="item">
-          <span className="key">终端支持能力</span>
-          <TextField
-            className="value"
-            fullWidth={true}
-            underlineShow={false}
-            defaultValue="2222222222"
+            defaultValue="1"
           />
         </div>
       </span>
     </div>
     <Divider className="divider"/>
 
+    <div className="contain0">
+      <span className="contain1">JAVA</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">是否支持Java</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
 
+    <div className="contain0">
+      <span className="contain1">图片</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">支持的图像格式</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue=""
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
 
+    <div className="contain0">
+      <span className="contain1">声音</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">支持的声音格式</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="mp3"
+          />
+        </div>
+        <div className="item">
+          <span className="key">是否支持彩信</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">和旋数</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="64"
+          />
+        </div>
+        <div className="item">
+          <span className="key">是否有独立扬声器</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">是否支持mp3</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">FLASH</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">播放器支持的音乐格式</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="mp3"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">文件应用</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">支持的邮件协议</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue=""
+          />
+        </div>
+        <div className="item">
+          <span className="key">支持的文档格式</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue=""
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">流媒体</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">流媒体下载</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">流媒体支持的声音格式</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="mp3"
+          />
+        </div>
+        <div className="item">
+          <span className="key">流媒体支持的视频格式</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="mp4"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">视频</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">是否支持动态内存</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">其它</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">一分钟录音</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">一万单词词典</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">关机闹铃</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">娱乐</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">重力感应</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">距离感应器器</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">电子罗盘</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">FM收音机</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">光线感应器</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">短信</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">长短信</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">短信群发</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">视频</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">是否支持动态内存</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">数据业务支持能力</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">MM客户端</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">手机阅读</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">无线城市</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">游戏</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">终端数据显示</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">是否支持显示附着状态</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+         <div className="item">
+          <span className="key">是否支持显示激活状态</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
+
+    <div className="contain0">
+      <span className="contain1">新增属性</span>
+      <span className="contain2">
+        <div className="item">
+          <span className="key">是否智能机</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+         <div className="item">
+          <span className="key">LTE设备是否支持CSFB</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">LTE设备是否支持单卡双待</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">是否支持FR</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">是否支持上行载波聚合</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">是否支持下行载波聚合</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+        <div className="item">
+          <span className="key">LTE设备是否支持CSFB</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+         <div className="item">
+          <span className="key">是否支持VOLTE</span>
+          <TextField
+            className="value"
+            fullWidth={true}
+            underlineShow={false}
+            defaultValue="1"
+          />
+        </div>
+      </span>
+    </div>
+    <Divider className="divider"/>
 
 
     {Object.keys(state.detail).map(item=>(
