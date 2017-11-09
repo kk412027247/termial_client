@@ -5,3 +5,8 @@
 #### ReactCSSTransitionGroup 结合 transition 分步变化可以搞很多负责的效果，因为本质上是css，所以还能跟keyframes一起用。ps 组件动画默认500ms记得。
 
 ### transparent 透明色
+
+### 创建搜索索引，文本索引关键字是text
+```
+.createIndex({"厂商(中文)":"text", "品牌(英文)": "text"})
+```

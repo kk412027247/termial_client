@@ -99,7 +99,7 @@ export const searchData = () => (
 export const showDetail = (id) =>(
   (dispatch, getState)=>{
     const detail = getState().reducerFetch.result.filter(item=>item._id === id);
-    console.log(detail[0]);
+    //console.log(detail[0]);
     dispatch(saveDetail(detail[0]))
   }
 );

@@ -23,6 +23,32 @@ const styles= {
   button:{
     display: 'flex',
     flex: 1,
+  },
+  search:{
+    display:'flex',
+    flex: 0.8
+  },
+  hint:{
+    fontSize: '25px'
+  },
+  input:{
+    fontSize: '25px'
+  },
+  iconButton:{
+    marginTop: -7
+  },
+  icon:{
+    width: 38,
+    height: 38,
+  },
+  tradMark:{
+    width:'100px'
+  },
+  appearTime:{
+    width:'80px'
+  },
+  system:{
+    width:'50px'
   }
 };
 
@@ -32,14 +58,16 @@ const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state ,fData,stateF
       <div className="searchInput">
         <Paper className="searchPaper">
           <TextField
-            style={{display:'flex',flex: 0.8}}
-            hintStyle={{fontSize: '25px'}}
-            inputStyle={{fontSize: '25px'}}
+            style={styles.search}
+            hintStyle={styles.hint}
+            inputStyle={styles.input}
             hintText='输入手机型号或品牌进行搜索，多个关键词请用空格隔开'
             underlineShow={false}
             onChange={fData}
           />
           <IconButton
+            style={styles.iconButton}
+            iconStyle={styles.icon}
             label="搜索"
             onClick={sData}
           >
@@ -60,11 +88,11 @@ const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state ,fData,stateF
           <TableHeader>
             <TableRow>
               <TableHeaderColumn>厂商</TableHeaderColumn>
-              <TableHeaderColumn style={{width:'100px'}}>品牌</TableHeaderColumn>
-              <TableHeaderColumn  style={{width:'80px'}}>价格</TableHeaderColumn>
-              <TableHeaderColumn style={{width:'80px'}}>上市时间</TableHeaderColumn>
+              <TableHeaderColumn style={styles.tradMark}>品牌</TableHeaderColumn>
+              <TableHeaderColumn  >价格</TableHeaderColumn>
+              <TableHeaderColumn style={styles.appearTime}>上市时间</TableHeaderColumn>
               <TableHeaderColumn>双卡双待</TableHeaderColumn>
-              <TableHeaderColumn style={{width:'50px'}}>系统</TableHeaderColumn>
+              <TableHeaderColumn style={styles.system}>系统</TableHeaderColumn>
               <TableHeaderColumn>网络</TableHeaderColumn>
               <TableHeaderColumn>WIFI</TableHeaderColumn>
               <TableHeaderColumn>智能机</TableHeaderColumn>
@@ -77,20 +105,23 @@ const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state ,fData,stateF
           <TableBody>
             {stateFetch.result.map((item,index)=>(
               <TableRow key={item["_id"]}>
-                <TableRowColumn >{item['厂商']}</TableRowColumn>
-                <TableRowColumn style={{width:'100px'}}>{item[ "品牌(英文)"]}</TableRowColumn>
-                <TableRowColumn style={{width:'80px'}}>{item["价格"]}</TableRowColumn>
-                <TableRowColumn style={{width:'80px'}}>{item["上市时间"]}</TableRowColumn>
-                <TableRowColumn >{item["SIM卡"].includes('双')?1:0}</TableRowColumn>
-                <TableRowColumn style={{width:'50px'}}>{item["操作系统"]}</TableRowColumn>
+                <TableRowColumn >{item['厂商(中文)']}</TableRowColumn>
+                <TableRowColumn style={styles.tradMark}>{item[ "品牌(英文)"]}</TableRowColumn>
+                <TableRowColumn >{item["市场价格"]}</TableRowColumn>
+                <TableRowColumn style={styles.appearTime}>{item["上市时间"]}</TableRowColumn>
+                <TableRowColumn >{item["是否支持双卡双待"]}</TableRowColumn>
+                <TableRowColumn style={styles.system}>{item["操作系统"]}</TableRowColumn>
                 <TableRowColumn >{item["网络制式"]}</TableRowColumn>
                 <TableRowColumn >{item["WIFI"]?1:0}</TableRowColumn>
-                <TableRowColumn >{item["是否智能机"]?1:0}</TableRowColumn>
-                <TableRowColumn >{item["单卡双待"]?0:1}</TableRowColumn>
-                <TableRowColumn >{item["CSFB"]}</TableRowColumn>
-                <TableRowColumn >{item["VOLTE"]}</TableRowColumn>
+                <TableRowColumn >{item["是否智能机"]}</TableRowColumn>
+                <TableRowColumn >{item["单卡双待"]}</TableRowColumn>
+                <TableRowColumn >{item["LTE设备是否支持CSFB"]}</TableRowColumn>
+                <TableRowColumn >{item["是否支持VOLTE"]}</TableRowColumn>
                 <TableRowColumn >
-                  <IconButton onClick={sDetail.bind(null,item["_id"])} style={styles.button}>
+                  <IconButton
+                    onClick={sDetail.bind(null,item["_id"])}
+                    style={styles.button}
+                  >
                     <MoreHoriz/>
                   </IconButton>
                 </TableRowColumn>
