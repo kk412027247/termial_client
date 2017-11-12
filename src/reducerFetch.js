@@ -46,6 +46,12 @@ export default (state = {}, action)=>{
         dialog:action.dialog,
       }
     }
+    case '_SEARCH_DETAIL':{
+      return{
+        ...state,
+        detail:action.detail,
+      }
+    }
     case 'FETCH_DIALOG':{
       return{
         ...state,
@@ -86,6 +92,13 @@ export default (state = {}, action)=>{
         snackbar: false,
       }
     }
+    case 'ADD_INPUT':{
+      return{
+        ...state,
+        addInput:action.addInput,
+      }
+    }
+
     default:{
       return state ;
     }

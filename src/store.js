@@ -47,6 +47,7 @@ const iniState ={
     detail:{},
     updateDetail:{},
     dialog: false,
+    addInput:'',
   }
 };
 

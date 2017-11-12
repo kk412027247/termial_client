@@ -31,9 +31,10 @@ class DetailItem extends React.Component {
                   id = {item}
                   fullWidth={true}
                   underlineStyle={styles.underLine}
-                  hintText={state.detail[item]}
                   defaultValue={state.detail[item]}
+                  hintText={state.detail[item]}
                   onChange={changeDetail}
+                  multiLine={false}
                 />
               </div>
             ))}
@@ -73,7 +74,7 @@ class DetailItem extends React.Component {
         {DetailItem('数据业务支持能力','MM客户端','手机阅读','无线城市','游戏')}
         {DetailItem('终端数据显示','是否支持显示附着状态','是否支持显示激活状态')}
         {DetailItem('新增属性','是否智能机','LTE设备是否支持CSFB','LTE设备是否支持单卡双待','是否支持FR','是否支持上行载波聚合','是否支持下行载波聚合','是否支持VOLTE')}
-       { console.log(state.updateDetail)}
+       { console.log(state.detail)}
       </div>
     )
   }

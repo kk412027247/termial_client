@@ -44,6 +44,11 @@ export const saveDetail = (value)=>({
   dialog: true,
 });
 
+const _saveDetail = (value)=>({
+  type:'_SEARCH_DETAIL',
+  detail:value,
+});
+
 export const fetchDialog = () =>({
   type: 'FETCH_DIALOG',
 });
@@ -56,6 +61,12 @@ export const _changeDetail = (obj) =>({
 
 export const handleSnackbar = () =>({
   type: 'HANDLE_SNACKBAR',
+});
+
+
+export const addInput = (event,value)=>({
+  type: 'ADD_INPUT',
+  addInput: value,
 });
 
 
@@ -152,5 +163,21 @@ export const updateDetail = ()=>(
       console.log(err);
       updateFailure()
     });
+  }
+);
+
+
+
+export const add = ()=>(
+  (dispatch, getState)=>{
+    fetch('http://127.0.0.1:3001/add',{
+      method:'post',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({'add':getState().reducerFetch.addInput})
+    })
+    .then(res=>res.json())
+    .then(
+      detail=>dispatch(_saveDetail(detail))
+    )
   }
 );
