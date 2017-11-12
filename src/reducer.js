@@ -21,12 +21,7 @@ export default (state={}, action)=>{
         input: action.input,
       };
     }
-    case 'HANDLE_SNACKBAR':{
-      return{
-        ...state,
-        snackbar: false,
-      }
-    }
+   
     case 'HANDLE_DIALOG':{
       return{
         ...state,

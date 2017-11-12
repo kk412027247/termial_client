@@ -1,3 +1,5 @@
+
+
 export default (state = {}, action)=>{
   switch(action.type){
     case 'FETCH_STARTED':{
@@ -39,6 +41,7 @@ export default (state = {}, action)=>{
     case 'SEARCH_DETAIL':{
       return{
         ...state,
+        updateDetail:action.detail===state.detail._id ? state.updateDetail : {},
         detail:action.detail,
         dialog:action.dialog,
       }
@@ -48,6 +51,39 @@ export default (state = {}, action)=>{
         ...state,
         dialog: !state.dialog,
 
+      }
+    }
+    case 'CHANGE_DETAIL':{
+      return{
+        ...state,
+        updateDetail: action.updateDetail,
+      }
+    }
+    case 'UPDATE_SUCCESS':{
+      return{
+        ...state,
+        result:state.result.map(item=>{
+          if(item._id === state.updateDetail._id){
+            return {...item,...state.updateDetail}
+          }else{
+            return item
+          }
+        }),
+        snackbar:action.snackbar,
+        snackbarMessage:action.snackbarMessage
+      }
+    }
+    case 'UPDATE_FAILURE':{
+      return{
+        ...state,
+        snackbar:action.snackbar,
+        snackbarMessage:action.snackbarMessage
+      }
+    }
+    case 'HANDLE_SNACKBAR':{
+      return{
+        ...state,
+        snackbar: false,
       }
     }
     default:{

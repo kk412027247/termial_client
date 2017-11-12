@@ -1,0 +1,16 @@
+.add{
+    width: 1263px;
+
+}
+
+.input{
+    margin:30px 15%;display:flex;
+}
+
+.button{
+    margin:0 40%;
+}
+
+.save{
+    margin:30px 10% 30px;
+}

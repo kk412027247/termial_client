@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
-import RaisedButton from 'material-ui/RaisedButton';
+//import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
@@ -15,8 +15,8 @@ import MoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../main.css';
-import {handleDrawer, handleFetch, handleInput, handleSnackbar, handleDialog} from '../actions.js'
-import {fetchData, searchData, showDetail} from '../actionsFetch.js'
+import {handleDrawer, handleFetch, handleInput,  handleDialog} from '../actions.js'
+import {fetchData, searchData, showDetail,handleSnackbar,} from '../actionsFetch.js'
 import ShowDetail from './showDetail.js'
 
 const styles= {
@@ -114,9 +114,9 @@ const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state ,fData,stateF
                 <TableRowColumn >{item["网络制式"]}</TableRowColumn>
                 <TableRowColumn >{item["WIFI"]?1:0}</TableRowColumn>
                 <TableRowColumn >{item["是否智能机"]}</TableRowColumn>
-                <TableRowColumn >{item["单卡双待"]}</TableRowColumn>
-                <TableRowColumn >{item["LTE设备是否支持CSFB"]}</TableRowColumn>
+                <TableRowColumn >{item["LTE设备是否支持单卡双待"]}</TableRowColumn>
                 <TableRowColumn >{item["是否支持VOLTE"]}</TableRowColumn>
+                <TableRowColumn >{item["LTE设备是否支持CSFB"]}</TableRowColumn>
                 <TableRowColumn >
                   <IconButton
                     onClick={sDetail.bind(null,item["_id"])}
@@ -211,11 +211,12 @@ const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state ,fData,stateF
     <footer>
       <Snackbar
         open={stateFetch.snackbar}
+        autoHideDuration={4000}
         message={stateFetch.snackbarMessage}
         onRequestClose={hSnackbar}
       />
     </footer>
-    {console.log(stateFetch)}
+    {/*{console.log(stateFetch)}*/}
   </div>
 );
 

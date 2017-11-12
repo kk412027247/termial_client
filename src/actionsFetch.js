@@ -10,6 +10,19 @@ export const fetchDataEmpty = ()=>({
   snackbarMessage: '没有匹配信息，请更新关键字',
 });
 
+const updateSuccess = ()=>({
+  type:'UPDATE_SUCCESS',
+  snackbar:true,
+  snackbarMessage: '修改成功',
+});
+
+const updateFailure = ()=>({
+  type:'UPDATE_FAILURE',
+  snackbar:true,
+  snackbarMessage: '修改失败',
+});
+
+
 export const fetchDataSuccess = (result) =>({
   type: 'FETCH_SUCCESS',
   result,
@@ -33,6 +46,16 @@ export const saveDetail = (value)=>({
 
 export const fetchDialog = () =>({
   type: 'FETCH_DIALOG',
+});
+
+export const _changeDetail = (obj) =>({
+  type: 'CHANGE_DETAIL',
+  updateDetail:obj
+});
+
+
+export const handleSnackbar = () =>({
+  type: 'HANDLE_SNACKBAR',
 });
 
 
@@ -73,9 +96,6 @@ export const searchData = () => (
         return dispatch(action);
       }
     };
-
-    //dispatchIfValid(fetchDataStarted());
-
     fetch('http://127.0.0.1:3001/query',{
       method:'post',
       headers:{'Content-Type':'application/json'},
@@ -101,5 +121,36 @@ export const showDetail = (id) =>(
     const detail = getState().reducerFetch.result.filter(item=>item._id === id);
     //console.log(detail[0]);
     dispatch(saveDetail(detail[0]))
+  }
+);
+
+export const changeDetail = (event, newValue) =>(
+  (dispatch, getState) => {
+    // 下面不是一个纯函数了，但是为了缩减代码，想不出其他办法了，下面这数据会把自己再结构一遍
+    dispatch(_changeDetail({
+      ...getState().reducerFetch.detail,
+      ...getState().reducerFetch.updateDetail,
+      [event.target.id]:newValue,
+    }))
+  }
+);
+
+export const updateDetail = ()=>(
+  (dispatch,getState)=>{
+    fetch('http://127.0.0.1:3001/updates',{
+      method:'post',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({'update':getState().reducerFetch.updateDetail})
+    })
+    .then(res=>{
+      dispatch(fetchDialog());
+      dispatch(updateSuccess());
+      return res.json()
+    })
+    .then(console.log)
+    .catch(err=>{
+      console.log(err);
+      updateFailure()
+    });
   }
 );

@@ -11,9 +11,7 @@ export const handleInput = (event, newValue) =>({
   input: newValue,
 });
 
-export const handleSnackbar = () =>({
-  type: 'HANDLE_SNACKBAR',
-});
+
 
 export const handleDialog = () => ({
   type: 'HANDLE_DIALOG'

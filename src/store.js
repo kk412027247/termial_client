@@ -45,6 +45,7 @@ const iniState ={
     snackbar:false,
     snackbarMessage: '',
     detail:{},
+    updateDetail:{},
     dialog: false,
   }
 };
