@@ -98,7 +98,18 @@ export default (state = {}, action)=>{
         addInput:action.addInput,
       }
     }
-
+    case 'CLEAN_DETAIL':{
+      return{
+        ...state,
+        detail:{},
+      }
+    }
+    case'SIGN_IN':{
+      return{
+        ...state,
+        auth:action.auth
+      }
+    }
     default:{
       return state ;
     }

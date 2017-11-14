@@ -48,6 +48,8 @@ const iniState ={
     updateDetail:{},
     dialog: false,
     addInput:'',
+    signInInfo:{"userName" : "tmd", "passWord" : "123" },
+    auth:'',
   }
 };
 

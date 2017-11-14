@@ -46,7 +46,7 @@ class DetailItem extends React.Component {
 
     return(
       <div>
-        {DetailItem(' ','厂商(中文)','品牌(英文)','型号','子型号')}
+        {DetailItem(' ','tac','厂商(中文)','品牌(英文)','型号','子型号')}
         {DetailItem('基础信息','机长(mm)','机宽(mm)','机厚(mm)','重量(g)','外观','市场价格','上市时间','终端支持能力')}
         {DetailItem('CPU','CPU数量','CPU厂家','CPU型号','CPU时钟频率(MHz)')}
         {DetailItem('屏幕','是否触摸屏','触摸屏类型','是否支持多点触摸','屏幕个数','主屏大小(英寸)','主屏分辨率(横)','主屏分辨率(纵)','主屏色深')}
@@ -74,7 +74,8 @@ class DetailItem extends React.Component {
         {DetailItem('数据业务支持能力','MM客户端','手机阅读','无线城市','游戏')}
         {DetailItem('终端数据显示','是否支持显示附着状态','是否支持显示激活状态')}
         {DetailItem('新增属性','是否智能机','LTE设备是否支持CSFB','LTE设备是否支持单卡双待','是否支持FR','是否支持上行载波聚合','是否支持下行载波聚合','是否支持VOLTE')}
-       { console.log(state.detail)}
+        { console.log(state.detail)}
+        { console.log(state.updateDetail)}
       </div>
     )
   }

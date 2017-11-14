@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import TextField from 'material-ui/TextField'
 import DetailItem from '../query/detailItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 import {addInput,add,updateDetail} from '../actionsFetch';
 
 import './add.css'
@@ -16,7 +17,7 @@ const styles = {
 
 
 
-const Add = ({add,addInput,updateDetail}) =>(
+const Add = ({add,addInput,updateDetail,state}) =>(
   <div id="add" style={styles.add}>
 
     <Paper className="add">
@@ -37,29 +38,34 @@ const Add = ({add,addInput,updateDetail}) =>(
 
       </div>
       <br/>
-      <DetailItem/>
+      {
+        Object.keys(state.detail).length === 0 ?
+        <div className='progress'><CircularProgress/></div> :
+        <div>
+          <DetailItem/>
+          <div className="save">
+            <RaisedButton
+              fullWidth={true}
+              label='保存'
+              secondary={true}
+              onClick={updateDetail}
+            />
+          </div>
+        </div>
+      }
 
-      <div className="save">
-        <RaisedButton
-          fullWidth={true}
-          label='保存'
-          secondary={true}
-          onClick={updateDetail}
-        />
-      </div>
+
+
 
     </Paper>
-
-
-
-
-
-
   </div>
 
 );
 
 
+const mapStateToProps = (state) =>({
+  state:state.reducerFetch
+});
 
 
 const mapDispatchToProps = (dispatch)=>({
@@ -69,4 +75,4 @@ const mapDispatchToProps = (dispatch)=>({
 });
 
 
-export default connect(null,mapDispatchToProps)(Add);
+export default connect(mapStateToProps,mapDispatchToProps)(Add);

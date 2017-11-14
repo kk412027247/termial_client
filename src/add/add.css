@@ -4,7 +4,8 @@
 }
 
 .input{
-    margin:30px 15%;display:flex;
+    margin:30px 15%;
+    display:flex;
 }
 
 .button{
@@ -13,4 +14,10 @@
 
 .save{
     margin:30px 10% 30px;
+}
+
+.progress{
+    display:flex;
+    justify-content: center;
+    margin-bottom: 50px;
 }

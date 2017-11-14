@@ -70,6 +70,10 @@ export const addInput = (event,value)=>({
 });
 
 
+const cleanDetail = () =>({
+  type:'CLEAN_DETAIL'
+});
+
 //异步redux 发起的是一个函数，
 export const fetchData = (event, newValue) => (
   dispatch=>{
@@ -167,9 +171,9 @@ export const updateDetail = ()=>(
 );
 
 
-
 export const add = ()=>(
   (dispatch, getState)=>{
+    dispatch(cleanDetail());
     fetch('http://127.0.0.1:3001/add',{
       method:'post',
       headers:{'Content-Type':'application/json'},
@@ -181,3 +185,24 @@ export const add = ()=>(
     )
   }
 );
+
+const _signIn =(level) =>({
+  type: 'SIGN_IN',
+  auth: level
+});
+
+export const signIn = () =>(
+  (dispatch,getState)=>{
+    fetch('http://127.0.01:3001/signIn',{
+      method:'post',
+      headers:{'Content-Type':'application/json'},
+      //请求要带上cookies，因为要做会话
+      credentials: 'include',
+      body:JSON.stringify(getState().reducerFetch.signInInfo)
+    })
+    .then(res=>res.json())
+    .then(level=>dispatch(_signIn(level)))
+    .catch(console.log)
+  }
+);
+
