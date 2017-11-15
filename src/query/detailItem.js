@@ -12,7 +12,7 @@ class DetailItem extends React.Component {
 
   render(){
     
-    const {state, changeDetail} = this.props;
+    const {detail, changeDetail} = this.props;
     const styles = {
       underLine:{
         borderColor: '#FFF'
@@ -31,8 +31,8 @@ class DetailItem extends React.Component {
                   id = {item}
                   fullWidth={true}
                   underlineStyle={styles.underLine}
-                  defaultValue={state.detail[item]}
-                  hintText={state.detail[item]}
+                  defaultValue={detail[item]}
+                  hintText={detail[item]}
                   onChange={changeDetail}
                   multiLine={false}
                 />
@@ -74,21 +74,19 @@ class DetailItem extends React.Component {
         {DetailItem('数据业务支持能力','MM客户端','手机阅读','无线城市','游戏')}
         {DetailItem('终端数据显示','是否支持显示附着状态','是否支持显示激活状态')}
         {DetailItem('新增属性','是否智能机','LTE设备是否支持CSFB','LTE设备是否支持单卡双待','是否支持FR','是否支持上行载波聚合','是否支持下行载波聚合','是否支持VOLTE')}
-        { console.log(state.detail)}
-        { console.log(state.updateDetail)}
       </div>
     )
   }
 }
 
 DetailItem.propTypes ={
-  state: PropTypes.object,
+  state: PropTypes.array,
   changeDetail: PropTypes.func,
 };
 
 
 const mapStateToProps = (state)=>({
-  state: state.reducerFetch
+  detail: state.reducerFetch.detail
 });
 
 const mapDispatchToProps = (dispatch) =>({

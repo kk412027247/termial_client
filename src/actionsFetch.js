@@ -1,3 +1,5 @@
+import {push} from 'react-router-redux';
+
 let nextFetchId = 0;
 
 export const fetchDataStarted = () =>({
@@ -77,6 +79,7 @@ const cleanDetail = () =>({
 //异步redux 发起的是一个函数，
 export const fetchData = (event, newValue) => (
   dispatch=>{
+    console.log(newValue);
     const fetchId= ++ nextFetchId;
     const dispatchIfValid = (action)=>{
       if(fetchId === nextFetchId){
@@ -89,6 +92,7 @@ export const fetchData = (event, newValue) => (
 
     fetch('http://127.0.0.1:3001/query',{
       method:'post',
+      credentials:'include',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({'query': newValue.replace(/(^\s*)|(\s*$)/g, '').replace(/\s+/g, ' ')})
     })
@@ -114,6 +118,7 @@ export const searchData = () => (
     fetch('http://127.0.0.1:3001/query',{
       method:'post',
       headers:{'Content-Type':'application/json'},
+      credentials:'include',
       body:JSON.stringify({'query': getState().reducerFetch.input})
     })
     .then(res=>res.json())
@@ -154,6 +159,7 @@ export const updateDetail = ()=>(
   (dispatch,getState)=>{
     fetch('http://127.0.0.1:3001/updates',{
       method:'post',
+      credentials:'include',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({'update':getState().reducerFetch.updateDetail})
     })
@@ -176,6 +182,7 @@ export const add = ()=>(
     dispatch(cleanDetail());
     fetch('http://127.0.0.1:3001/add',{
       method:'post',
+      credentials:'include',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({'add':getState().reducerFetch.addInput})
     })
@@ -198,11 +205,52 @@ export const signIn = () =>(
       headers:{'Content-Type':'application/json'},
       //请求要带上cookies，因为要做会话
       credentials: 'include',
-      body:JSON.stringify(getState().reducerFetch.signInInfo)
+      body:JSON.stringify({
+        userName:getState().reducerFetch.userName,
+        passWord:getState().reducerFetch.passWord
+      })
     })
     .then(res=>res.json())
-    .then(level=>dispatch(_signIn(level)))
+    .then(level=> {
+      dispatch(push('/'));
+      dispatch(_signIn(level))
+    })
     .catch(console.log)
   }
 );
 
+export const handleUserName = (event,value) =>({
+  type:'HANDLE_USERNAME',
+  userName:value,
+});
+
+export const handlePassWord = (event,value) =>({
+  type:'HANDLE_PASSWORD',
+  passWord:value,
+});
+
+export const checkAuth = ()=>(
+  dispatch=>{
+    fetch('http://127.0.0.1:3001/getSession',{
+      headers:{'Content-Type':'application/json'},
+      credentials:'include',
+    })
+    .then(res=>res.json())
+    .then(level=>{console.log(level);dispatch(_signIn(level))})
+    .catch(console.log)
+  }
+);
+
+export const signOut =()=>(
+  dispatch=>{
+    fetch('http://127.0.0.1:3001/signOut',{
+      credentials:'include'
+    })
+    .then(res=>res.json())
+    .then(message=>{
+      console.log(message);
+      dispatch(push('/signIn'));
+      //dispatch(_signIn(-1));
+    })
+  }
+);

@@ -1,7 +1,14 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+
+import createHistory from 'history/createBrowserHistory'
+import { routerReducer, routerMiddleware } from 'react-router-redux';
+
 import thunkMiddleware from 'redux-thunk';
 import reducerQuery from './reducer.js';
 import reducerFetch from './reducerFetch.js';
+
+const history = createHistory();
+const middleware = routerMiddleware(history);
 
 //As of React 16, react-addons-perf is not supported. Please use your browser’s profiling tools to get insight into which components re-render.
 //Load your app with ?react_perf in the query string (for example, http://localhost:3000/?react_perf).
@@ -14,10 +21,11 @@ const win = window;
 
 const reducer = combineReducers({
   reducerQuery,
-  reducerFetch
+  reducerFetch,
+  router: routerReducer,
 });
 
-const middlewares = [thunkMiddleware];
+const middlewares = [thunkMiddleware,middleware];
 if(process.env.NODE_ENV !== 'production'){
   middlewares.push( require('redux-immutable-state-invariant').default());
 }
@@ -48,7 +56,8 @@ const iniState ={
     updateDetail:{},
     dialog: false,
     addInput:'',
-    signInInfo:{"userName" : "tmd", "passWord" : "123" },
+    userName:'',
+    passWord:'',
     auth:'',
   }
 };

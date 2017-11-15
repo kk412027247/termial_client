@@ -110,6 +110,18 @@ export default (state = {}, action)=>{
         auth:action.auth
       }
     }
+    case 'HANDLE_USERNAME':{
+      return{
+        ...state,
+        userName:action.userName,
+      }
+    }
+    case 'HANDLE_PASSWORD':{
+      return{
+        ...state,
+        passWord:action.passWord,
+      }
+    }
     default:{
       return state ;
     }

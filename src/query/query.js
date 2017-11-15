@@ -4,7 +4,6 @@ import {PropTypes} from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 //import RaisedButton from 'material-ui/RaisedButton';
-import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
@@ -16,8 +15,10 @@ import ActionSearch from 'material-ui/svg-icons/action/search';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../main.css';
 import {handleDrawer, handleFetch, handleInput,  handleDialog} from '../actions.js'
-import {fetchData, searchData, showDetail,handleSnackbar,} from '../actionsFetch.js'
+import {fetchData, searchData, showDetail,handleSnackbar} from '../actionsFetch.js'
 import ShowDetail from './showDetail.js'
+
+import {push} from 'react-router-redux';
 
 const styles= {
   button:{
@@ -52,7 +53,7 @@ const styles= {
   }
 };
 
-const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state ,fData,stateFetch, sData, sDetail}) =>(
+const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state ,fData,stateFetch, sData, sDetail,link}) =>(
   <div>
     <div id="main">
       <div className="searchInput">
@@ -83,7 +84,7 @@ const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state ,fData,stateF
           style={{backgroundColor: '#00BCD4'}}
           iconElementLeft={<IconButton iconClassName="material-icons">language</IconButton>}
         />
-
+         <button onClick={link}>12</button>
         <Table multiSelectable={true} fixedHeader={true}>
           <TableHeader>
             <TableRow>
@@ -207,16 +208,6 @@ const Query = ({hDrawer, hFetch, hInput, hSnackbar, hDialog, state ,fData,stateF
         <LinearProgress/>
       </Paper>
     </div>
-
-    <footer>
-      <Snackbar
-        open={stateFetch.snackbar}
-        autoHideDuration={4000}
-        message={stateFetch.snackbarMessage}
-        onRequestClose={hSnackbar}
-      />
-    </footer>
-    {/*{console.log(stateFetch)}*/}
   </div>
 );
 
@@ -253,7 +244,8 @@ const mapDispatchToProps = (dispatch) =>({
   hDialog: () => dispatch(handleDialog()),
   fData:(event, newValue)=> dispatch(fetchData(event, newValue)),
   sData: ()=> dispatch(searchData()),
-  sDetail: (id) => dispatch(showDetail(id))
+  sDetail: (id) => dispatch(showDetail(id)) ,
+  link:()=>dispatch(push('/add'))
 });
 
 
