@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {BrowserRouter as Router, Route, NavLink, Switch,Redirect} from 'react-router-dom';
+import {Route, NavLink, Switch,Redirect} from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -16,7 +16,7 @@ import Analyze from '../analyze/analyze';
 import Delete from '../delete/delete';
 import SignIn from '../signIn/signIn'
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity' ;
-import {signOut} from '../actionsFetch';
+import {signOut} from '../fetchActions';
 import {handleDrawer} from '../actions';
 
 
@@ -42,16 +42,21 @@ const styles={
 
 
 class Body extends React.Component {
+  // shouldComponentUpdate(nextProps){
+  //   console.log('nextProps',nextProps.location);
+  //   console.log('this.props',this.props.location);
+  //   return (nextProps !== this.props)
+  // }
 
 
-  componentDidUpdate(){
-    //todo 这里做一个退出就关闭窗口，因为我不知道怎么做重定向了
-    if(this.props.auth===-1){console.log('你已经退出了，请关闭页面')}
-  }
+  // componentDidUpdate(){
+  //   //console.log('DidUpdate');
+  //   if(this.props.auth===-1){console.log('你已经退出了，请关闭页面')}
+  // }
 
   render(){
 
-    const {hDrawer, drawer, auth,userName,signOut} = this.props;
+    const {hDrawer, drawer, auth,userName,signOut, } = this.props;
     const position = {
       targetOrigin:{horizontal:'right',vertical:'top'},
       anchorOrigin:{horizontal:'right',vertical:'top'}
@@ -69,8 +74,6 @@ class Body extends React.Component {
       )} />
     );
     
-    if(auth===-1){return(<div>退出了</div>)}
-
 
     return(
       <ConnectedRouter history={history} >
@@ -85,14 +88,13 @@ class Body extends React.Component {
                   anchorOrigin={position.anchorOrigin}
                 >
                   <MenuItem>用户名：<b>{userName}</b></MenuItem>
-                  <MenuItem
-                    onClick={signOut}
-                  >退出</MenuItem>
+                  <MenuItem onClick={signOut} >退出</MenuItem>
                 </IconMenu>
               }
               onLeftIconButtonTouchTap={hDrawer}
               style={styles.AppBar}
             />
+            {/*<button onClick={link}>123</button>*/}
             <Drawer
               open={drawer}
               docked={false}
@@ -160,11 +162,14 @@ const mapStateToProps = (state) =>({
   drawer: state.reducerQuery.drawer,
   auth: state.reducerFetch.auth,
   userName:state.reducerFetch.userName,
+  //location:state.router.location
 });
 
 const mapDispatchToProps = (dispatch) =>({
   hDrawer: () => dispatch(handleDrawer()),
-  signOut: () => dispatch(signOut())
+  signOut: () => dispatch(signOut()),
+  //link:()=>dispatch(push('/somewhere'))
+
 });
 
 

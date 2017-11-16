@@ -122,6 +122,18 @@ export default (state = {}, action)=>{
         passWord:action.passWord,
       }
     }
+    case 'DOWNLOAD_QUERY':{
+      return{
+        ...state,
+        downloadQuery:action.query,
+      }
+    }
+    case 'DOWNLOAD_STATUS':{
+      return{
+        ...state,
+        downloadStatus:action.downloadStatus
+      }
+    }
     default:{
       return state ;
     }

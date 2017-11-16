@@ -5,20 +5,12 @@ import TextField from 'material-ui/TextField'
 import DetailItem from '../query/detailItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
-import {addInput,add,updateDetail} from '../actionsFetch';
+import {addInput,add,updateDetail} from '../fetchActions';
 
 import './add.css'
 
-const styles = {
-  add:{
-    border:'1px solid red'
-  }
-};
-
-
-
 const Add = ({add,addInput,updateDetail,state}) =>(
-  <div id="add" style={styles.add}>
+  <div id="add" >
 
     <Paper className="add">
       <div  className="input">

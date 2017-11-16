@@ -5,7 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 //import {Link} from 'react-router-dom'
-import {fetchDialog, updateDetail} from "../actionsFetch";
+import {fetchDialog, updateDetail} from "../fetchActions";
 import DetailItem from './detailItem';
 
 

@@ -1,4 +1,4 @@
-import {push} from 'react-router-redux';
+//import {push} from 'react-router-redux';
 
 let nextFetchId = 0;
 
@@ -79,7 +79,7 @@ const cleanDetail = () =>({
 //异步redux 发起的是一个函数，
 export const fetchData = (event, newValue) => (
   dispatch=>{
-    console.log(newValue);
+    //console.log(newValue);
     const fetchId= ++ nextFetchId;
     const dispatchIfValid = (action)=>{
       if(fetchId === nextFetchId){
@@ -182,8 +182,8 @@ export const add = ()=>(
     dispatch(cleanDetail());
     fetch('http://127.0.0.1:3001/add',{
       method:'post',
-      credentials:'include',
-      headers:{'Content-Type':'application/json'},
+        credentials:'include',
+        headers:{'Content-Type':'application/json'},
       body:JSON.stringify({'add':getState().reducerFetch.addInput})
     })
     .then(res=>res.json())
@@ -212,7 +212,7 @@ export const signIn = () =>(
     })
     .then(res=>res.json())
     .then(level=> {
-      dispatch(push('/'));
+      //dispatch(push('/'));
       dispatch(_signIn(level))
     })
     .catch(console.log)
@@ -249,8 +249,66 @@ export const signOut =()=>(
     .then(res=>res.json())
     .then(message=>{
       console.log(message);
-      dispatch(push('/signIn'));
-      //dispatch(_signIn(-1));
+      //dispatch(push('/signIn'));
+      dispatch(_signIn(-1));
     })
+  }
+);
+
+const _downloadQuery = (query)=>({
+  type:'DOWNLOAD_QUERY',
+  query:query,
+});
+
+export const downloadQuery = (index)=>(
+  (dispatch,getState)=>{
+    let _IDs ;
+    
+    if(index==='all') {
+      _IDs = getState().reducerFetch.result.map((item,index)=>index);
+    }else{
+      _IDs = index;
+    }
+
+
+    if(_IDs !== 'none' && _IDs.length !== 0){
+      let IDs = _IDs.map(item=>(getState().reducerFetch.result[item]._id))
+                    .reduce((pre,curr)=>(pre.concat(`_id=${curr}&`)),'http://127.0.0.1:3001/download?')
+                    .replace(/&$/,'');
+      //console.log(IDs);
+      dispatch(_downloadQuery(IDs))
+    }else{
+      let IDs = '';
+      //console.log(IDs);
+      setTimeout(()=>{
+        dispatch(_downloadQuery(IDs));
+      },50);
+
+
+    }
+  }
+);
+
+const downloadStatus = (status)=>({
+  type:'DOWNLOAD_STATUS',
+  downloadStatus:status
+});
+
+
+
+export const download = ()=>(
+  (dispatch,getState)=>{
+    dispatch(downloadStatus('downloading'));
+    fetch(getState().reducerFetch.downloadQuery)
+      .then(res => res.blob())
+      .then(blob => {
+        const a = document.createElement('a');
+        const url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = `${Date.now()}.csv`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        dispatch(downloadStatus('downloaded'));
+      });
   }
 );

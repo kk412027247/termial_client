@@ -4,7 +4,7 @@ import {PropTypes} from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 //import {orange500} from 'material-ui/styles/colors'
-import {changeDetail} from '../actionsFetch';
+import {changeDetail} from '../fetchActions';
 import './showDetail.css';
 
 
