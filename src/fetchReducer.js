@@ -107,7 +107,7 @@ export default (state = {}, action)=>{
     case'SIGN_IN':{
       return{
         ...state,
-        auth:action.auth
+        userInfo:action.userInfo
       }
     }
     case 'HANDLE_USERNAME':{

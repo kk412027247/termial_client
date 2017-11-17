@@ -4,7 +4,6 @@ import {PropTypes} from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-//import {Link} from 'react-router-dom'
 import {fetchDialog, updateDetail} from "../fetchActions";
 import DetailItem from './detailItem';
 
@@ -33,7 +32,7 @@ const styles = {
 class ShowDetail extends React.Component{
 
   render(){
-    const {state,fDialog,updateDetail} = this.props;
+    const {dialog,fetchDialog,updateDetail} = this.props;
 
     const  actions=[
       <RaisedButton
@@ -41,14 +40,10 @@ class ShowDetail extends React.Component{
         style={styles.update}
         label="修改"
         onClick={updateDetail}
-      />,
-      <FlatButton
-        label='导出'
-        onClick={fDialog}
-      />,
+      />,                             
       <FlatButton
         label='取消'
-        onClick={fDialog}
+        onClick={fetchDialog}
       />
     ];
 
@@ -59,10 +54,10 @@ class ShowDetail extends React.Component{
         titleStyle={styles.title}
         autoScrollBodyContent={true}
         contentStyle={styles.dialogContent}
-        onRequestClose={fDialog}
+        onRequestClose={fetchDialog}
         actions={actions}
         //open={true}
-        open={state.dialog}
+        open={dialog}
         modal={false}
       >
         <br/>
@@ -73,16 +68,16 @@ class ShowDetail extends React.Component{
 }
 
 ShowDetail.propTypes = {
-  fDialog:PropTypes.func,
+  fetchDialog:PropTypes.func,
   updateDetail:PropTypes.func,
 };
 
 const mapStateToProps = (state) =>({
-  state: state.reducerFetch
+  dialog: state.reducerFetch.dialog
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fDialog: () => dispatch(fetchDialog()),
+  fetchDialog: () => dispatch(fetchDialog()),
   updateDetail: ()=> dispatch(updateDetail())
 });
 

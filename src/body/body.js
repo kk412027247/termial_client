@@ -18,11 +18,10 @@ import SignIn from '../signIn/signIn'
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity' ;
 import {signOut} from '../fetchActions';
 import {handleDrawer} from '../actions';
-
-
 import {ConnectedRouter} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 const history = createHistory();
+
 
 const styles={
   AppBar:{
@@ -88,13 +87,13 @@ class Body extends React.Component {
                   anchorOrigin={position.anchorOrigin}
                 >
                   <MenuItem>用户名：<b>{userName}</b></MenuItem>
+                  <MenuItem>修改密码</MenuItem>
                   <MenuItem onClick={signOut} >退出</MenuItem>
                 </IconMenu>
               }
               onLeftIconButtonTouchTap={hDrawer}
               style={styles.AppBar}
             />
-            {/*<button onClick={link}>123</button>*/}
             <Drawer
               open={drawer}
               docked={false}
@@ -149,9 +148,6 @@ class Body extends React.Component {
 
 }
 
-
-
-
 Body.propTypes={
   hDrawer: PropTypes.func,
   signOut: PropTypes.func,
@@ -160,8 +156,8 @@ Body.propTypes={
 
 const mapStateToProps = (state) =>({
   drawer: state.reducerQuery.drawer,
-  auth: state.reducerFetch.auth,
-  userName:state.reducerFetch.userName,
+  auth: state.reducerFetch.userInfo.level,
+  userName:state.reducerFetch.userInfo.userName,
   //location:state.router.location
 });
 

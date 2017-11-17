@@ -2,12 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 import AppBar from 'material-ui/AppBar';
-//import Paper from 'material-ui/Paper';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {withRouter} from 'react-router-dom';
-import {signIn,handleUserName,handlePassWord,checkAuth} from '../fetchActions';
+import {signIn,handleUserName,handlePassWord,checkAuth,pressEnter} from '../fetchActions';
+
 import './signIn.css'
 
 const styles = {
@@ -31,16 +31,19 @@ class SignIn extends React.Component {
 
   //更新完之后，页面跳转到主页
   componentDidUpdate(){
-    console.log('DidUpdate');
-    if(this.props.auth !==0)this.props.history.push('/');
+    console.log('signInComponentDidUpdate');
+    if(this.props.auth !==0){
+      const path = (this.props.path === '/signIn'|| this.props.path ==='/signin') ? '/' : this.props.path;
+      this.props.history.push(path)
+    }
   }
 
   componentWillMount(){
-    if(this.props.auth === '') this.props.checkAuth()
+    if(this.props.auth === undefined) this.props.checkAuth()
   }
 
   render(){
-    const {signIn,handleUserName,handlePassWord} = this.props;
+    const {signIn,handleUserName,handlePassWord,pressEnter} = this.props;
 
     return(
       <Dialog
@@ -58,6 +61,7 @@ class SignIn extends React.Component {
             fullWidth={true}
             hintText='用户名'
             onChange={handleUserName}
+            onKeyDown={pressEnter}
           />
           <TextField
             className='text'
@@ -65,6 +69,7 @@ class SignIn extends React.Component {
             type='password'
             hintText='密码'
             onChange={handlePassWord}
+            onKeyDown={pressEnter}
           />
           <RaisedButton
             className='loginButton'
@@ -87,10 +92,13 @@ SignIn.protoTypes = {
   handleUserName:PropTypes.func,
   handlePassWord:PropTypes.func,
   checkAuth:PropTypes.func,
+  pressEnter:PropTypes.func,
+  path:PropTypes.string,
 };
 
 const mapStateToProps =(state)=>({
-  auth:state.reducerFetch.auth
+  auth:state.reducerFetch.userInfo.level,
+  path:state.router.location.pathname,
 });
 
 const mapDispatchToProps = (dispatch)=>({
@@ -98,6 +106,7 @@ const mapDispatchToProps = (dispatch)=>({
   handleUserName:(event, value)=>dispatch(handleUserName(event, value)),
   handlePassWord:(event, value)=>dispatch(handlePassWord(event, value)),
   checkAuth:()=>dispatch(checkAuth()),
+  pressEnter:(event)=>dispatch(pressEnter(event)),
 });
 
 

@@ -45,10 +45,6 @@ const Add = ({add,addInput,updateDetail,state}) =>(
           </div>
         </div>
       }
-
-
-
-
     </Paper>
   </div>
 

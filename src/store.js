@@ -58,7 +58,7 @@ const iniState ={
     addInput:'',
     userName:'',
     passWord:'',
-    auth:'',
+    userInfo:{},
     downloadQuery:'',
   },
 };

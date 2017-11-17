@@ -11,6 +11,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn} from 'material-ui/Table';
 import MoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import ActionSearch from 'material-ui/svg-icons/action/search';
+import Language from 'material-ui/svg-icons/action/language';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../main.css';
 import {fetchData, searchData, showDetail, downloadQuery} from '../fetchActions.js'
@@ -84,7 +85,7 @@ const Query = ({ fetchData, searchData, showDetail,result,downloadQuery}) =>(
         <AppBar
           title="显示数据"
           style={styles.appBar}
-          iconElementLeft={<IconButton iconClassName="material-icons">language</IconButton>}
+          iconElementLeft={<IconButton><Language/></IconButton>}
         />
         <Table
           multiSelectable={true}
@@ -95,7 +96,7 @@ const Query = ({ fetchData, searchData, showDetail,result,downloadQuery}) =>(
             <TableRow>
               <TableHeaderColumn>厂商</TableHeaderColumn>
               <TableHeaderColumn style={styles.tradMark}>品牌</TableHeaderColumn>
-              <TableHeaderColumn  >价格</TableHeaderColumn>
+              <TableHeaderColumn>价格</TableHeaderColumn>
               <TableHeaderColumn style={styles.appearTime}>上市时间</TableHeaderColumn>
               <TableHeaderColumn>双卡双待</TableHeaderColumn>
               <TableHeaderColumn style={styles.system}>系统</TableHeaderColumn>
@@ -140,6 +141,7 @@ const Query = ({ fetchData, searchData, showDetail,result,downloadQuery}) =>(
       </Paper>
       <Download/>
     </div>
+    {console.log(result)}
   </div>
 );
 

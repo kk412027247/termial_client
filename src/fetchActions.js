@@ -193,9 +193,9 @@ export const add = ()=>(
   }
 );
 
-const _signIn =(level) =>({
+const _signIn =(userInfo) =>({
   type: 'SIGN_IN',
-  auth: level
+  userInfo: userInfo
 });
 
 export const signIn = () =>(
@@ -211,9 +211,9 @@ export const signIn = () =>(
       })
     })
     .then(res=>res.json())
-    .then(level=> {
+    .then(userInfo=> {
       //dispatch(push('/'));
-      dispatch(_signIn(level))
+      dispatch(_signIn(userInfo))
     })
     .catch(console.log)
   }
@@ -236,7 +236,10 @@ export const checkAuth = ()=>(
       credentials:'include',
     })
     .then(res=>res.json())
-    .then(level=>{console.log(level);dispatch(_signIn(level))})
+    .then(userInfo=>{
+      console.log('userInfo',userInfo);
+      dispatch(_signIn(userInfo))
+    })
     .catch(console.log)
   }
 );
@@ -250,7 +253,7 @@ export const signOut =()=>(
     .then(message=>{
       console.log(message);
       //dispatch(push('/signIn'));
-      dispatch(_signIn(-1));
+      dispatch(_signIn({}));
     })
   }
 );
@@ -310,5 +313,24 @@ export const download = ()=>(
         window.URL.revokeObjectURL(url);
         dispatch(downloadStatus('downloaded'));
       });
+  }
+);
+
+export const pressEnter = (event)=>(
+  (dispatch)=>{
+    if(event.keyCode===13){dispatch(signIn())}
+  }
+);
+
+
+// todo 修改密码待完成
+export const inputChangePassword = (event,value)=>({
+  type:'INPUT_CHANGE_PASSWORD',
+  value
+});
+
+export const changePassword = ()=>(
+  (dispatch,getState)=>{
+    fetch
   }
 );

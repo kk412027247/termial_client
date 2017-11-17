@@ -2,3 +2,23 @@
     margin-top: 30px;
     margin-left: 30px;
 }
+
+.downloadButton-enter{
+    opacity:0;
+}
+
+.downloadButton-enter.downloadButton-enter-active{
+    opacity:1;
+    transition: 500ms;
+}
+
+/*
+.downloadButton-leave{
+    opacity:1;
+}
+
+.downloadButton-leave.downloadButton-leave-active{
+    opacity:0;
+    transition: 300ms;
+}
+*/
