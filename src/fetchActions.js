@@ -158,7 +158,7 @@ export const changeDetail = (event, newValue) =>(
     dispatch(_changeDetail({
       ...getState().reducerFetch.detail,
       ...getState().reducerFetch.updateDetail,
-      [event.target.id]:newValue,
+      [event.target.id]:newValue.replace(/,/g,'，').replace(/(^\s*)|(\s*$)/g,""),
     }))
   }
 );
@@ -234,11 +234,10 @@ const _signIn =(userInfo) =>({
 
 export const signIn = () =>(
   (dispatch,getState)=>{
-    fetch('http://127.0.01:3001/signIn',{
+    fetch(`http://${host}:3001/signIn`,{
+      credentials: 'include',
       method:'post',
       headers:{'Content-Type':'application/json'},
-      //请求要带上cookies，因为要做会话
-      credentials: 'include',
       body:JSON.stringify({
         userName:getState().reducerFetch.userName,
         passWord:getState().reducerFetch.passWord
