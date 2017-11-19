@@ -55,7 +55,7 @@ class SignIn extends React.Component {
           titleStyle={styles.title}
           title='用户登陆'
         />
-        <div className='loginInput'>
+        <form className='loginInput'>
           <TextField
             className='text'
             fullWidth={true}
@@ -78,7 +78,7 @@ class SignIn extends React.Component {
             primary={true}
             onClick={signIn}
           />
-        </div>
+        </form>
       </Dialog>
 
     )

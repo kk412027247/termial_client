@@ -8,5 +8,15 @@
 
 ### 创建搜索索引，文本索引关键字是text
 ```
-.createIndex({"厂商(中文)":"text", "品牌(英文)": "text"})
+.createIndex({"厂商(中文)": "text", "品牌(英文)": "text", "全称": "text", "上市时间": "text"})
+
+显示所有索引
+.getIndexes()
+
+
+删除所有索引
+.dropIndexes()
+
 ```
+
+### 注意！！！用了defaultValue的时候，记得保持顶层组件的更新，否则会出现defaultValue无效

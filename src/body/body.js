@@ -16,10 +16,11 @@ import Analyze from '../analyze/analyze';
 import Delete from '../delete/delete';
 import SignIn from '../signIn/signIn'
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity' ;
-import {signOut} from '../fetchActions';
+import {signOut,handleChangePassword} from '../fetchActions';
 import {handleDrawer} from '../actions';
 import {ConnectedRouter} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
+import ChangePassword from '../signIn/changePassword'
 const history = createHistory();
 
 
@@ -48,14 +49,15 @@ class Body extends React.Component {
   // }
 
 
-  // componentDidUpdate(){
-  //   //console.log('DidUpdate');
-  //   if(this.props.auth===-1){console.log('你已经退出了，请关闭页面')}
-  // }
+  componentDidUpdate(){
+    console.log('Body Component did update');
+  }
+
+
 
   render(){
 
-    const {hDrawer, drawer, auth,userName,signOut, } = this.props;
+    const {hDrawer, drawer, auth,userName,signOut, handleChangePassword} = this.props;
     const position = {
       targetOrigin:{horizontal:'right',vertical:'top'},
       anchorOrigin:{horizontal:'right',vertical:'top'}
@@ -87,7 +89,7 @@ class Body extends React.Component {
                   anchorOrigin={position.anchorOrigin}
                 >
                   <MenuItem>用户名：<b>{userName}</b></MenuItem>
-                  <MenuItem>修改密码</MenuItem>
+                  <MenuItem onClick={handleChangePassword}>修改密码</MenuItem>
                   <MenuItem onClick={signOut} >退出</MenuItem>
                 </IconMenu>
               }
@@ -130,6 +132,7 @@ class Body extends React.Component {
             </Drawer>
           </header>
           <main>
+            <ChangePassword/>
             <Switch>
               <Auth exact path="/" component={Query}/>
               <Auth path="/add" component={Add}/>
@@ -152,18 +155,22 @@ Body.propTypes={
   hDrawer: PropTypes.func,
   signOut: PropTypes.func,
   state: PropTypes.object,
+  handleChangePassword: PropTypes.func,
+  checkAuth:PropTypes.func,
 };
 
 const mapStateToProps = (state) =>({
   drawer: state.reducerQuery.drawer,
   auth: state.reducerFetch.userInfo.level,
   userName:state.reducerFetch.userInfo.userName,
-  //location:state.router.location
+  spiderStatus:state.reducerFetch.spiderStatus,
+  detail: state.reducerFetch.detail,
 });
 
 const mapDispatchToProps = (dispatch) =>({
   hDrawer: () => dispatch(handleDrawer()),
   signOut: () => dispatch(signOut()),
+  handleChangePassword:()=>dispatch(handleChangePassword()),
   //link:()=>dispatch(push('/somewhere'))
 
 });

@@ -1,6 +1,5 @@
 .add{
     width: 1263px;
-
 }
 
 .input{
@@ -17,7 +16,32 @@
 }
 
 .progress{
+    height:60px;
     display:flex;
     justify-content: center;
-    margin-bottom: 50px;
+    /*margin-bottom: 50px;*/
+}
+
+.detailItem{
+    margin-top:75px;
+    padding-top:50px;
+    padding-bottom:50px;
+}
+
+.load-enter{
+    opacity: 0;
+}
+
+.load-enter.load-enter-active{
+    opacity:1;
+    transition:300ms;
+}
+
+.load-leave{
+    opacity:1;
+}
+
+.load-leave.load-leave-active{
+    opacity:0;
+    transition:300ms;
 }

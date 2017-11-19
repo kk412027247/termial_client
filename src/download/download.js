@@ -25,6 +25,7 @@ class Download extends React.Component {
         >
           { urls ? <RaisedButton label='数据下载' onClick={download}/> : ''}
           { downloadStatus==='downloading' ? <CircularProgress/> : ''}
+
         </ReactCSSTransitionGroup>
       </div>
     )

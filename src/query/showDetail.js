@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {fetchDialog, updateDetail} from "../fetchActions";
 import DetailItem from './detailItem';
 
-
 const styles = {
   update:{
     marginRight: '64%',

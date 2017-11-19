@@ -1,10 +1,11 @@
 //import {push} from 'react-router-redux';
+import host from './host.js'
 
 let nextFetchId = 0;
 
-export const fetchDataStarted = () =>({
-  type:'FETCH_STARTED'
-});
+// export const fetchDataStarted = () =>({
+//   type:'FETCH_STARTED'
+// });
 
 export const fetchDataEmpty = ()=>({
   type:'FETCH_EMPTY',
@@ -55,10 +56,7 @@ export const fetchDialog = () =>({
   type: 'FETCH_DIALOG',
 });
 
-export const _changeDetail = (obj) =>({
-  type: 'CHANGE_DETAIL',
-  updateDetail:obj
-});
+
 
 
 export const handleSnackbar = () =>({
@@ -76,7 +74,6 @@ const cleanDetail = () =>({
   type:'CLEAN_DETAIL'
 });
 
-//异步redux 发起的是一个函数，
 export const fetchData = (event, newValue) => (
   dispatch=>{
     //console.log(newValue);
@@ -86,19 +83,25 @@ export const fetchData = (event, newValue) => (
         return dispatch(action);
       }
     };
+    const query = newValue.replace(/(^\s*)|(\s*$)/g, '')
+                        .replace(/\s+/g, ' ').split(' ')
+                        .reduce((prev,curr)=>([...prev,`"${curr}"`]),[])
+                        .toString()
+                        .replace(/,/g,' ');
 
     dispatch(fetchInput(newValue));
     //dispatchIfValid(fetchDataStarted());
 
-    fetch('http://127.0.0.1:3001/query',{
+    fetch(`http://${host}:3001/query`,{
       method:'post',
       credentials:'include',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({'query': newValue.replace(/(^\s*)|(\s*$)/g, '').replace(/\s+/g, ' ')})
+      body:JSON.stringify({'query': query})
     })
     .then(res=>res.json())
     .then(result=>{
-      if(result.length !== 0) dispatchIfValid(fetchDataSuccess(result))
+      dispatchIfValid(fetchDataSuccess(result))
+      //if(result.length !== 0) dispatchIfValid(fetchDataSuccess(result))
     })
     .catch(err=>{
       dispatchIfValid(fetchDataFailure(err))
@@ -115,7 +118,7 @@ export const searchData = () => (
         return dispatch(action);
       }
     };
-    fetch('http://127.0.0.1:3001/query',{
+    fetch(`http://${host}:3001/query`,{
       method:'post',
       headers:{'Content-Type':'application/json'},
       credentials:'include',
@@ -144,6 +147,11 @@ export const showDetail = (id) =>(
   }
 );
 
+export const _changeDetail = (obj) =>({
+  type: 'CHANGE_DETAIL',
+  updateDetail:obj
+});
+
 export const changeDetail = (event, newValue) =>(
   (dispatch, getState) => {
     // 下面不是一个纯函数了，但是为了缩减代码，想不出其他办法了，下面这数据会把自己再结构一遍
@@ -157,14 +165,14 @@ export const changeDetail = (event, newValue) =>(
 
 export const updateDetail = ()=>(
   (dispatch,getState)=>{
-    fetch('http://127.0.0.1:3001/updates',{
+    fetch(`http://${host}:3001/updates`,{
       method:'post',
       credentials:'include',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({'update':getState().reducerFetch.updateDetail})
     })
     .then(res=>{
-      dispatch(fetchDialog());
+      //dispatch(fetchDialog());
       dispatch(updateSuccess());
       return res.json()
     })
@@ -176,19 +184,45 @@ export const updateDetail = ()=>(
   }
 );
 
+const spiderStatus = (status) =>({
+  type:'SPIDER_STATUS',
+  status,
+});
 
 export const add = ()=>(
   (dispatch, getState)=>{
+    if(getState().reducerFetch.addInput===''){
+      dispatch(snackbarMessage('请输入地址'));
+      return;
+    }
+    dispatch(spiderStatus('fetching'));
     dispatch(cleanDetail());
-    fetch('http://127.0.0.1:3001/add',{
+    fetch(`http://${host}:3001/add`,{
       method:'post',
-        credentials:'include',
-        headers:{'Content-Type':'application/json'},
+      credentials:'include',
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({'add':getState().reducerFetch.addInput})
     })
     .then(res=>res.json())
     .then(
-      detail=>dispatch(_saveDetail(detail))
+      detail=>{
+        if(detail.status==='exist'){
+          dispatch(snackbarMessage('该信息已经存在'))
+        }
+        if(detail.status==='invalid' || detail.code==='ENOTFOUND'){
+          dispatch(snackbarMessage('地址无效，请更改后输入'));
+          dispatch(spiderStatus('failure'));
+          return;
+        }
+        dispatch(spiderStatus('haveDone'));
+        dispatch(_saveDetail(detail))
+      }
+    ).catch(
+      err=>{
+        dispatch(snackbarMessage(err));
+        dispatch(spiderStatus('spiderFailure'));
+
+      }
     )
   }
 );
@@ -231,7 +265,7 @@ export const handlePassWord = (event,value) =>({
 
 export const checkAuth = ()=>(
   dispatch=>{
-    fetch('http://127.0.0.1:3001/getSession',{
+    fetch(`http://${host}:3001/getSession`,{
       headers:{'Content-Type':'application/json'},
       credentials:'include',
     })
@@ -246,7 +280,7 @@ export const checkAuth = ()=>(
 
 export const signOut =()=>(
   dispatch=>{
-    fetch('http://127.0.0.1:3001/signOut',{
+    fetch(`http://${host}:3001/signOut`,{
       credentials:'include'
     })
     .then(res=>res.json())
@@ -276,7 +310,7 @@ export const downloadQuery = (index)=>(
 
     if(_IDs !== 'none' && _IDs.length !== 0){
       let IDs = _IDs.map(item=>(getState().reducerFetch.result[item]._id))
-                    .reduce((pre,curr)=>(pre.concat(`_id=${curr}&`)),'http://127.0.0.1:3001/download?')
+                    .reduce((pre,curr)=>(pre.concat(`_id=${curr}&`)),`http://${host}:3001/download?`)
                     .replace(/&$/,'');
       //console.log(IDs);
       dispatch(_downloadQuery(IDs))
@@ -294,7 +328,13 @@ export const downloadQuery = (index)=>(
 
 const downloadStatus = (status)=>({
   type:'DOWNLOAD_STATUS',
-  downloadStatus:status
+  downloadStatus:status,
+});
+
+const snackbarMessage = (message)=>({
+  type:'SNACKBAR_MESSAGE',
+  snackbarMessage:message,
+  snackbar:true,
 });
 
 
@@ -312,6 +352,7 @@ export const download = ()=>(
         a.click();
         window.URL.revokeObjectURL(url);
         dispatch(downloadStatus('downloaded'));
+        dispatch(snackbarMessage('下载已完成'))
       });
   }
 );
@@ -322,15 +363,39 @@ export const pressEnter = (event)=>(
   }
 );
 
-
-// todo 修改密码待完成
-export const inputChangePassword = (event,value)=>({
-  type:'INPUT_CHANGE_PASSWORD',
-  value
+export const handleNewPassword = (event,value)=>({
+  type:'CHANGE_PASSWORD',
+  newPassWord:value,
 });
+
 
 export const changePassword = ()=>(
   (dispatch,getState)=>{
-    fetch
+    fetch(`http://${host}:3001/changePassword`,{
+      method:'post',
+      credentials:'include',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        userName:getState().reducerFetch.userInfo.userName,
+        passWord:getState().reducerFetch.passWord,
+        newPassWord:getState().reducerFetch.newPassWord,
+      })
+    })
+    .then(res=>res.json())
+    .then(message=> {
+      if(message.nModified ===1 &&  message.ok ===1) {
+        dispatch(snackbarMessage('修改成功'));
+        dispatch(handleChangePassword())
+      }
+      if(message.nModified ===0 &&  message.ok ===1)
+        dispatch(snackbarMessage('修改失败，原密码输入错误'));
+      if(message.n ===1 && message.nModified ===0 && message.ok ===1)
+        dispatch(snackbarMessage('修改失败，新密码与原密码不能相同'));
+    })
+    .catch(message=> snackbarMessage(JSON.stringify(message)))
   }
 );
+
+export const handleChangePassword =()=>({
+  type:'HANDLE_CHANGE_PASSWORD',
+});

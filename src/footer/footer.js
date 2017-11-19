@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
 import {PropTypes} from 'prop-types';
 import {handleSnackbar} from '../fetchActions';
+import './footer.css';
 
 
 const Footer = ({snackbar,message, handleSnackbar})=>(

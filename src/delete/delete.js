@@ -2,7 +2,7 @@ import React from 'react' ;
 
 const Delete = () =>(
   <div>
-    数据删除
+    规划中……
   </div>
 );
 

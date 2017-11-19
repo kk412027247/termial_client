@@ -53,97 +53,116 @@ const styles= {
   },
   system:{
     width:'50px'
+  },
+  brand:{
+    width:'50px'
   }
 };
 
-const Query = ({ fetchData, searchData, showDetail,result,downloadQuery}) =>(
-  <div>
-    <div id="main">
-      <div className="searchInput">
-        <Paper className="searchPaper">
-          <TextField
-            style={styles.search}
-            hintStyle={styles.hint}
-            inputStyle={styles.input}
-            hintText='输入手机型号或品牌进行搜索，多个关键词请用空格隔开'
-            underlineShow={false}
-            onChange={fetchData}
-          />
-          <IconButton
-            style={styles.iconButton}
-            iconStyle={styles.icon}
-            label="搜索"
-            onClick={searchData}
-          >
-            <ActionSearch />
-          </IconButton>
-        </Paper>
+class Query extends React.Component {
+  
+  shouldComponentUpdate(nextProp){
+    return(JSON.stringify(nextProp.result) !== JSON.stringify(this.props.result));
+  }
+
+
+  render(){
+    const { fetchData, searchData, showDetail,result,downloadQuery} = this.props;
+    return(
+      <div>
+        <div id="main">
+          <div className="searchInput">
+            <Paper className="searchPaper">
+              <TextField
+                style={styles.search}
+                hintStyle={styles.hint}
+                inputStyle={styles.input}
+                hintText='请输入：厂商 品牌 上市时间进行查询'
+                underlineShow={false}
+                onChange={fetchData}
+              />
+              <IconButton
+                tooltip='点击显示更多内容'
+                touch={true}
+                style={styles.iconButton}
+                iconStyle={styles.icon}
+                label="搜索"
+                onClick={searchData}
+              >
+                <ActionSearch />
+              </IconButton>
+            </Paper>
+          </div>
+          <Divider/>
+          <br/>
+          <Paper className="show">
+            <AppBar
+              title="显示数据"
+              style={styles.appBar}
+              iconElementLeft={<IconButton><Language/></IconButton>}
+            />
+            <Table
+              multiSelectable={true}
+              fixedHeader={true}
+              onRowSelection={downloadQuery}
+            >
+              <TableHeader>
+                <TableRow>
+                  <TableHeaderColumn style={styles.brand}>厂商</TableHeaderColumn>
+                  <TableHeaderColumn style={styles.tradMark}>品牌</TableHeaderColumn>
+                  <TableHeaderColumn>价格</TableHeaderColumn>
+                  <TableHeaderColumn style={styles.appearTime}>上市时间</TableHeaderColumn>
+                  <TableHeaderColumn>双卡双待</TableHeaderColumn>
+                  <TableHeaderColumn style={styles.system}>系统</TableHeaderColumn>
+                  <TableHeaderColumn>网络</TableHeaderColumn>
+                  <TableHeaderColumn>WIFI</TableHeaderColumn>
+                  <TableHeaderColumn>智能机</TableHeaderColumn>
+                  <TableHeaderColumn>单卡双待</TableHeaderColumn>
+                  <TableHeaderColumn>VOLTE</TableHeaderColumn>
+                  <TableHeaderColumn>CSFB</TableHeaderColumn>
+                  <TableHeaderColumn>更多</TableHeaderColumn>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {result.map((item,index)=>(
+                  <TableRow key={item["_id"]} >
+                    <TableRowColumn style={styles.brand}>{item['厂商(中文)']}</TableRowColumn>
+                    <TableRowColumn style={styles.tradMark}>{item[ "品牌(英文)"]}</TableRowColumn>
+                    <TableRowColumn >{item["市场价格"]}</TableRowColumn>
+                    <TableRowColumn style={styles.appearTime}>{item["上市时间"]}</TableRowColumn>
+                    <TableRowColumn >{item["是否支持双卡双待"]}</TableRowColumn>
+                    <TableRowColumn style={styles.system}>{item["操作系统"]}</TableRowColumn>
+                    <TableRowColumn >{item["网络制式"]}</TableRowColumn>
+                    <TableRowColumn >{item["WIFI"]?1:0}</TableRowColumn>
+                    <TableRowColumn >{item["是否智能机"]}</TableRowColumn>
+                    <TableRowColumn >{item["LTE设备是否支持单卡双待"]}</TableRowColumn>
+                    <TableRowColumn >{item["是否支持VOLTE"]}</TableRowColumn>
+                    <TableRowColumn >{item["LTE设备是否支持CSFB"]}</TableRowColumn>
+                    <TableRowColumn >
+                      <IconButton
+                        onClick={showDetail.bind(null,item["_id"])}
+                        style={styles.button}
+                      >
+                        <MoreHoriz/>
+                      </IconButton>
+                    </TableRowColumn>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <ShowDetail/>
+            <LinearProgress/>
+          </Paper>
+          <Download/>
+        </div>
       </div>
-      <Divider/>
-      <br/>
-      <Paper className="show">
-        <AppBar
-          title="显示数据"
-          style={styles.appBar}
-          iconElementLeft={<IconButton><Language/></IconButton>}
-        />
-        <Table
-          multiSelectable={true}
-          fixedHeader={true}
-          onRowSelection={downloadQuery}
-        >
-          <TableHeader>
-            <TableRow>
-              <TableHeaderColumn>厂商</TableHeaderColumn>
-              <TableHeaderColumn style={styles.tradMark}>品牌</TableHeaderColumn>
-              <TableHeaderColumn>价格</TableHeaderColumn>
-              <TableHeaderColumn style={styles.appearTime}>上市时间</TableHeaderColumn>
-              <TableHeaderColumn>双卡双待</TableHeaderColumn>
-              <TableHeaderColumn style={styles.system}>系统</TableHeaderColumn>
-              <TableHeaderColumn>网络</TableHeaderColumn>
-              <TableHeaderColumn>WIFI</TableHeaderColumn>
-              <TableHeaderColumn>智能机</TableHeaderColumn>
-              <TableHeaderColumn>单卡双待</TableHeaderColumn>
-              <TableHeaderColumn>VOLTE</TableHeaderColumn>
-              <TableHeaderColumn>CSFB</TableHeaderColumn>
-              <TableHeaderColumn>更多</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {result.map((item,index)=>(
-              <TableRow key={item["_id"]} >
-                <TableRowColumn >{item['厂商(中文)']}</TableRowColumn>
-                <TableRowColumn style={styles.tradMark}>{item[ "品牌(英文)"]}</TableRowColumn>
-                <TableRowColumn >{item["市场价格"]}</TableRowColumn>
-                <TableRowColumn style={styles.appearTime}>{item["上市时间"]}</TableRowColumn>
-                <TableRowColumn >{item["是否支持双卡双待"]}</TableRowColumn>
-                <TableRowColumn style={styles.system}>{item["操作系统"]}</TableRowColumn>
-                <TableRowColumn >{item["网络制式"]}</TableRowColumn>
-                <TableRowColumn >{item["WIFI"]?1:0}</TableRowColumn>
-                <TableRowColumn >{item["是否智能机"]}</TableRowColumn>
-                <TableRowColumn >{item["LTE设备是否支持单卡双待"]}</TableRowColumn>
-                <TableRowColumn >{item["是否支持VOLTE"]}</TableRowColumn>
-                <TableRowColumn >{item["LTE设备是否支持CSFB"]}</TableRowColumn>
-                <TableRowColumn >
-                  <IconButton
-                    onClick={showDetail.bind(null,item["_id"])}
-                    style={styles.button}
-                  >
-                    <MoreHoriz/>
-                  </IconButton>
-                </TableRowColumn>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <ShowDetail/>
-        <LinearProgress/>
-      </Paper>
-      <Download/>
-    </div>
-    {console.log(result)}
-  </div>
-);
+    )
+  }
+}
+
+
+
+
 
 Query.propTypes = {
   result: PropTypes.array,

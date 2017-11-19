@@ -58,8 +58,10 @@ const iniState ={
     addInput:'',
     userName:'',
     passWord:'',
+    newPassWord:'',
     userInfo:{},
     downloadQuery:'',
+    changePasswordDialog :false,
   },
 };
 

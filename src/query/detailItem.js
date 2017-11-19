@@ -3,22 +3,29 @@ import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
-//import {orange500} from 'material-ui/styles/colors'
-import {changeDetail} from '../fetchActions';
+import {changeDetail,updateDetail} from '../fetchActions';
 import './showDetail.css';
 
 
 class DetailItem extends React.Component {
 
+   componentDidUpdate(){
+     console.log('DetailItemComponent did update')
+   }
+
   render(){
     
-    const {detail, changeDetail} = this.props;
+    const {detail, changeDetail,updateDetail} = this.props;
     const styles = {
       underLine:{
         borderColor: '#FFF'
       }
     };
-    //TODO 不同颜色下划线功能搁置，因为要把每一个input配置一个颜色的状态，太复杂。
+
+    const handleKeyDown=(event)=>{
+      if(event.keyCode === 13) updateDetail()
+    };
+
     const DetailItem =(info, ...arg)=>(
       <div>
         <div className="contain0">
@@ -35,6 +42,7 @@ class DetailItem extends React.Component {
                   hintText={detail[item]}
                   onChange={changeDetail}
                   multiLine={false}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
             ))}
@@ -80,16 +88,18 @@ class DetailItem extends React.Component {
 }
 
 DetailItem.propTypes ={
-  state: PropTypes.array,
+  detail: PropTypes.object,
   changeDetail: PropTypes.func,
+  updateDetail: PropTypes.func,
 };
 
 
 const mapStateToProps = (state)=>({
-  detail: state.reducerFetch.detail
+  detail: state.reducerFetch.detail,
 });
 
 const mapDispatchToProps = (dispatch) =>({
+  updateDetail: ()=> dispatch(updateDetail()),
   changeDetail: (event, newValue)=> dispatch(changeDetail(event, newValue))
 });
 

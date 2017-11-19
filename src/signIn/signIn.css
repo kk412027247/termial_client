@@ -15,3 +15,10 @@
 .text{
     margin-top: 3%;
 }
+
+.changePassWord{
+    margin-left: 25%;
+    width:50%;
+    display: flex;
+    flex-wrap: wrap;
+}

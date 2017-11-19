@@ -55,8 +55,9 @@ export default (state = {}, action)=>{
     case 'FETCH_DIALOG':{
       return{
         ...state,
-        dialog: !state.dialog,
-
+        dialog: false,
+        detail:{},
+        spiderStatus:'ready'
       }
     }
     case 'CHANGE_DETAIL':{
@@ -116,6 +117,13 @@ export default (state = {}, action)=>{
         userName:action.userName,
       }
     }
+
+    case 'CHANGE_PASSWORD':{
+      return{
+        ...state,
+        newPassWord:action.newPassWord
+      }
+    }
     case 'HANDLE_PASSWORD':{
       return{
         ...state,
@@ -132,6 +140,26 @@ export default (state = {}, action)=>{
       return{
         ...state,
         downloadStatus:action.downloadStatus
+      }
+    }
+    case 'SNACKBAR_MESSAGE':{
+      return{
+        ...state,
+        snackbarMessage:action.snackbarMessage,
+        snackbar:action.snackbar,
+      }
+    }
+
+    case 'HANDLE_CHANGE_PASSWORD':{
+      return{
+        ...state,
+        changePasswordDialog:!state.changePasswordDialog
+      }
+    }
+    case 'SPIDER_STATUS':{
+      return{
+        ...state,
+        spiderStatus:action.status,
       }
     }
     default:{
