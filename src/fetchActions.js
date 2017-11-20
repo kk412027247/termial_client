@@ -1,5 +1,6 @@
 //import {push} from 'react-router-redux';
-import host from './host.js'
+import host from './host.js';
+import 'whatwg-fetch';
 
 let nextFetchId = 0;
 
