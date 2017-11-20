@@ -7,7 +7,6 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {withRouter} from 'react-router-dom';
 import {signIn,handleUserName,handlePassWord,checkAuth,pressEnter} from '../fetchActions';
-
 import './signIn.css'
 
 const styles = {
@@ -15,8 +14,8 @@ const styles = {
     marginLeft:'10%'
   },
   dialog:{
-    marginTop:-50,
-    width:1500,
+    marginTop:-200,
+    width:700,
     position:'relate'
   }
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import {download} from '../fetchActions'
+import {snackbarMessage} from '../fetchActions'
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import './download.css';
 //import CircularProgress from 'material-ui/CircularProgress';
@@ -14,12 +14,11 @@ class Download extends React.Component {
   }
 
   render(){
-    const {urls} = this.props;
+    const {urls, snackbarMessage} = this.props;
     return(
       <div>
-        {urls ? <RaisedButton label='下载数据' href={urls}/> : ''}
+        {urls ? <RaisedButton label='下载数据' onClick={snackbarMessage} href={urls}/> : ''}
       </div>
-
 
     )
   }
@@ -46,11 +45,11 @@ class Download extends React.Component {
 
 const mapStateToProps = (state)=>({
   urls:state.reducerFetch.downloadQuery,
-  downloadStatus:state.reducerFetch.downloadStatus
+  //downloadStatus:state.reducerFetch.downloadStatus
 });
 
 const mapDispatchToProps = (dispatch)=>({
-  download:()=>dispatch(download())
+  snackbarMessage:()=>dispatch(snackbarMessage('正在下载，请稍后'))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Download);

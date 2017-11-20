@@ -326,12 +326,12 @@ export const downloadQuery = (index)=>(
   }
 );
 
-const downloadStatus = (status)=>({
-  type:'DOWNLOAD_STATUS',
-  downloadStatus:status,
-});
+// const downloadStatus = (status)=>({
+//   type:'DOWNLOAD_STATUS',
+//   downloadStatus:status,
+// });
 
-const snackbarMessage = (message)=>({
+export const snackbarMessage = (message)=>({
   type:'SNACKBAR_MESSAGE',
   snackbarMessage:message,
   snackbar:true,
@@ -339,23 +339,23 @@ const snackbarMessage = (message)=>({
 
 
 
-export const download = ()=>(
-  (dispatch,getState)=>{
-    dispatch(downloadStatus('downloading'));
-    fetch(getState().reducerFetch.downloadQuery)
-      .then(res => res.blob())
-      .then(blob => {
-        const a = document.createElement('a');
-        const url = window.URL.createObjectURL(blob);
-        a.href = url;
-        a.download = `${Date.now()}.csv`;
-        a.click();
-        window.URL.revokeObjectURL(url);
-        dispatch(downloadStatus('downloaded'));
-        dispatch(snackbarMessage('下载已完成'))
-      });
-  }
-);
+// export const download = ()=>(
+//   (dispatch,getState)=>{
+//     dispatch(downloadStatus('downloading'));
+//     fetch(getState().reducerFetch.downloadQuery)
+//       .then(res => res.blob())
+//       .then(blob => {
+//         const a = document.createElement('a');
+//         const url = window.URL.createObjectURL(blob);
+//         a.href = url;
+//         a.download = `${Date.now()}.csv`;
+//         a.click();
+//         window.URL.revokeObjectURL(url);
+//         dispatch(downloadStatus('downloaded'));
+//         dispatch(snackbarMessage('下载已完成'))
+//       });
+//   }
+// );
 
 export const pressEnter = (event)=>(
   (dispatch)=>{
