@@ -10,7 +10,7 @@
 
 #### 创建搜索索引，文本索引关键字是text
 ```
-.createIndex({"厂商(中文)": "text", "品牌(英文)": "text", "全称": "text", "上市时间": "text"})
+.createIndex({"厂商(中文)": "text", "品牌(英文)": "text", "型号": "text", "上市时间(年月，格式：YYYYMM)": "text"})
 
 显示所有索引
 .getIndexes()

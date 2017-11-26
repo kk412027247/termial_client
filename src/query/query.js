@@ -17,6 +17,7 @@ import '../main.css';
 import {fetchData, searchData, showDetail, downloadQuery} from '../fetchActions.js'
 import ShowDetail from './showDetail.js'
 import Download from '../download/download';
+//import DownloadInfo from '../download/downloadInfo';
 
 //import {push} from 'react-router-redux';
 
@@ -65,9 +66,8 @@ class Query extends React.Component {
     return(JSON.stringify(nextProp.result) !== JSON.stringify(this.props.result));
   }
 
-
   render(){
-    const { fetchData, searchData, showDetail,result,downloadQuery} = this.props;
+    const {fetchData, searchData, showDetail, result, downloadQuery} = this.props;
     return(
       <div>
         <div id="main">
@@ -77,7 +77,7 @@ class Query extends React.Component {
                 style={styles.search}
                 hintStyle={styles.hint}
                 inputStyle={styles.input}
-                hintText='请输入：厂商 品牌 上市时间进行查询'
+                hintText='请输入：厂商 品牌 型号进行查询'
                 underlineShow={false}
                 onChange={fetchData}
               />
@@ -108,36 +108,28 @@ class Query extends React.Component {
             >
               <TableHeader>
                 <TableRow>
-                  <TableHeaderColumn style={styles.brand}>厂商</TableHeaderColumn>
-                  <TableHeaderColumn style={styles.tradMark}>品牌</TableHeaderColumn>
-                  <TableHeaderColumn>价格</TableHeaderColumn>
-                  <TableHeaderColumn style={styles.appearTime}>上市时间</TableHeaderColumn>
-                  <TableHeaderColumn>双卡双待</TableHeaderColumn>
-                  <TableHeaderColumn style={styles.system}>系统</TableHeaderColumn>
-                  <TableHeaderColumn>网络</TableHeaderColumn>
-                  <TableHeaderColumn>WIFI</TableHeaderColumn>
-                  <TableHeaderColumn>智能机</TableHeaderColumn>
-                  <TableHeaderColumn>单卡双待</TableHeaderColumn>
-                  <TableHeaderColumn>VOLTE</TableHeaderColumn>
-                  <TableHeaderColumn>CSFB</TableHeaderColumn>
+                  <TableHeaderColumn >厂商</TableHeaderColumn>
+                  <TableHeaderColumn >品牌</TableHeaderColumn>
+                  <TableHeaderColumn>型号</TableHeaderColumn>
+                  <TableHeaderColumn >上市时间</TableHeaderColumn>
+                  <TableHeaderColumn>市场价格</TableHeaderColumn>
+                  <TableHeaderColumn >系统</TableHeaderColumn>
+                  <TableHeaderColumn>CPU数量</TableHeaderColumn>
+                  <TableHeaderColumn>存储空间</TableHeaderColumn>
                   <TableHeaderColumn>更多</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {result.map((item,index)=>(
                   <TableRow key={item["_id"]} >
-                    <TableRowColumn style={styles.brand}>{item['厂商(中文)']}</TableRowColumn>
-                    <TableRowColumn style={styles.tradMark}>{item[ "品牌(英文)"]}</TableRowColumn>
+                    <TableRowColumn >{item["厂商(中文)"]}</TableRowColumn>
+                    <TableRowColumn >{item["品牌(英文)"]}</TableRowColumn>
+                    <TableRowColumn >{item["型号"]}</TableRowColumn>
+                    <TableRowColumn >{item["上市时间(年月，格式：YYYYMM)"]}</TableRowColumn>
                     <TableRowColumn >{item["市场价格"]}</TableRowColumn>
-                    <TableRowColumn style={styles.appearTime}>{item["上市时间"]}</TableRowColumn>
-                    <TableRowColumn >{item["是否支持双卡双待"]}</TableRowColumn>
-                    <TableRowColumn style={styles.system}>{item["操作系统"]}</TableRowColumn>
-                    <TableRowColumn >{item["网络制式"]}</TableRowColumn>
-                    <TableRowColumn >{item["WIFI"]?1:0}</TableRowColumn>
-                    <TableRowColumn >{item["是否智能机"]}</TableRowColumn>
-                    <TableRowColumn >{item["LTE设备是否支持单卡双待"]}</TableRowColumn>
-                    <TableRowColumn >{item["是否支持VOLTE"]}</TableRowColumn>
-                    <TableRowColumn >{item["LTE设备是否支持CSFB"]}</TableRowColumn>
+                    <TableRowColumn >{item["操作系统"]}</TableRowColumn>
+                    <TableRowColumn >{item["CPU数量"]}</TableRowColumn>
+                    <TableRowColumn >{item["手机存储空间大小"]}</TableRowColumn>
                     <TableRowColumn >
                       <IconButton
                         onClick={showDetail.bind(null,item["_id"])}
@@ -155,14 +147,11 @@ class Query extends React.Component {
           </Paper>
           <Download/>
         </div>
+        {/*<DownloadInfo/>*/}
       </div>
     )
   }
 }
-
-
-
-
 
 Query.propTypes = {
   result: PropTypes.array,
@@ -172,12 +161,9 @@ Query.propTypes = {
   downloadQuery:PropTypes.func,
 };
 
-
 const mapStateToProps = (state) => ({
-  result:state.reducerFetch.result,
+  result:state.reducerFetch.result
 });
-
-
 
 const mapDispatchToProps = (dispatch) =>({
   fetchData:(event, newValue)=> dispatch(fetchData(event, newValue)),
@@ -185,6 +171,5 @@ const mapDispatchToProps = (dispatch) =>({
   showDetail: (id) => dispatch(showDetail(id)) ,
   downloadQuery: (index)=>dispatch(downloadQuery(index)),
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Query);

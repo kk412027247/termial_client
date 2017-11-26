@@ -49,7 +49,7 @@ const iniState ={
   reducerFetch:{
     status: 'LOADING',
     result:[],
-    input:'',
+    input:' ',
     snackbar:false,
     snackbarMessage: '',
     detail:{},
@@ -62,6 +62,7 @@ const iniState ={
     userInfo:{},
     downloadQuery:'',
     changePasswordDialog :false,
+    downloadInfo:[],
   },
 };
 

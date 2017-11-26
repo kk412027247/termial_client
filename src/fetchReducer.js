@@ -162,6 +162,12 @@ export default (state = {}, action)=>{
         spiderStatus:action.status,
       }
     }
+    case 'DOWNLOAD_INFO':{
+      return{
+        ...state,
+        downloadInfo:action.downloadInfo,
+      }
+    }
     default:{
       return state ;
     }

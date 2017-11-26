@@ -52,9 +52,38 @@ class DetailItem extends React.Component {
       </div>
     );
 
+    //tac 部分暂时不能修改
+    const ShowTac = ()=>(
+      <div>
+        <div className="contain0">
+          <span className="contain1">TAC</span>
+          <span className="contain2">
+            {detail.tac.map((tac,index)=>(
+              <div className="item" key={tac.TAC}>
+                <span className="key">{`TAC${index+1}`}</span>
+                <TextField
+                  id = {tac.TAC.toString()}
+                  fullWidth={true}
+                  underlineStyle={styles.underLine}
+                  value={tac.TAC}
+                  hintText={tac.TAC}
+                  //onChange={changeDetail}
+                  multiLine={false}
+                  //onKeyDown={handleKeyDown}
+                />
+              </div>
+            ))}
+          </span>
+        </div>
+        <Divider inset={true}/>
+      </div>
+    );
+
+
     return(
       <div>
-        {DetailItem(' ','tac','厂商(中文)','品牌(英文)','型号','子型号')}
+        <ShowTac/>
+        {DetailItem('概览','厂商(中文)','品牌(英文)','型号','子型号')}
         {DetailItem('基础信息','机长(mm)','机宽(mm)','机厚(mm)','重量(g)','外观','市场价格','上市时间','终端支持能力')}
         {DetailItem('CPU','CPU数量','CPU厂家','CPU型号','CPU时钟频率(MHz)')}
         {DetailItem('屏幕','是否触摸屏','触摸屏类型','是否支持多点触摸','屏幕个数','主屏大小(英寸)','主屏分辨率(横)','主屏分辨率(纵)','主屏色深')}

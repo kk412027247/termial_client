@@ -31,7 +31,7 @@ const styles = {
 class ShowDetail extends React.Component{
 
   render(){
-    const {dialog,fetchDialog,updateDetail} = this.props;
+    const {dialog,fetchDialog,updateDetail,detail} = this.props;
 
     const  actions=[
       <RaisedButton
@@ -45,11 +45,10 @@ class ShowDetail extends React.Component{
         onClick={fetchDialog}
       />
     ];
-
-
+    
     return(
       <Dialog
-        title="详细信息"
+        title={`${detail['厂商(中文)']} ${detail['型号']} 详细信息`}
         titleStyle={styles.title}
         autoScrollBodyContent={true}
         contentStyle={styles.dialogContent}
@@ -69,10 +68,13 @@ class ShowDetail extends React.Component{
 ShowDetail.propTypes = {
   fetchDialog:PropTypes.func,
   updateDetail:PropTypes.func,
+  dialog:PropTypes.bool,
+  detail:PropTypes.object,
 };
 
 const mapStateToProps = (state) =>({
-  dialog: state.reducerFetch.dialog
+  dialog: state.reducerFetch.dialog,
+  detail: state.reducerFetch.detail,
 });
 
 const mapDispatchToProps = (dispatch) => ({

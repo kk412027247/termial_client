@@ -142,9 +142,19 @@ export const searchData = () => (
 
 export const showDetail = (id) =>(
   (dispatch, getState)=>{
-    const detail = getState().reducerFetch.result.filter(item=>item._id === id);
-    //console.log(detail[0]);
-    dispatch(saveDetail(detail[0]))
+  fetch(`http://${host}:3001/getInfoTac`,{
+   method:'post',
+   headers:{'Content-Type':'application/json'},
+   credentials:'include',
+   body:JSON.stringify({'_id':id})
+  }).then(res=>res.json()).then(result=>dispatch(saveDetail(result)));
+
+
+
+
+
+    // const detail = getState().reducerFetch.result.filter(item=>item._id === id);
+    // dispatch(saveDetail(detail[0]))
   }
 );
 
@@ -297,6 +307,11 @@ const _downloadQuery = (query)=>({
   query:query,
 });
 
+const changeDownloadInfo = (info)=>({
+  type:'DOWNLOAD_INFO',
+  downloadInfo:info,
+});
+
 export const downloadQuery = (index)=>(
   (dispatch,getState)=>{
     let _IDs ;
@@ -312,7 +327,9 @@ export const downloadQuery = (index)=>(
       let IDs = _IDs.map(item=>(getState().reducerFetch.result[item]._id))
                     .reduce((pre,curr)=>(pre.concat(`_id=${curr}&`)),`http://${host}:3001/download?`)
                     .replace(/&$/,'');
-      //console.log(IDs);
+
+      let downloadInfo = _IDs.map(item=>(getState().reducerFetch.result[item]["厂商(中文)"]+getState().reducerFetch.result[item]["型号"]));
+      dispatch(changeDownloadInfo(downloadInfo));
       dispatch(_downloadQuery(IDs))
     }else{
       let IDs = '';
