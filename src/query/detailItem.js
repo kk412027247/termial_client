@@ -82,7 +82,6 @@ class DetailItem extends React.Component {
 
     return(
       <div>
-        <ShowTac/>
         {DetailItem('概览','厂商(中文)','品牌(英文)','型号','子型号')}
         {DetailItem('基础信息','机长(mm)','机宽(mm)','机厚(mm)','重量(g)','外观','市场价格','上市时间','终端支持能力')}
         {DetailItem('CPU','CPU数量','CPU厂家','CPU型号','CPU时钟频率(MHz)')}
@@ -111,6 +110,7 @@ class DetailItem extends React.Component {
         {DetailItem('数据业务支持能力','MM客户端','手机阅读','无线城市','游戏')}
         {DetailItem('终端数据显示','是否支持显示附着状态','是否支持显示激活状态')}
         {DetailItem('新增属性','是否智能机','LTE设备是否支持CSFB','LTE设备是否支持单卡双待','是否支持FR','是否支持上行载波聚合','是否支持下行载波聚合','是否支持VOLTE')}
+        <ShowTac/>
       </div>
     )
   }

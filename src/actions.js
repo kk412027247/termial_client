@@ -17,4 +17,9 @@ export const handleDialog = () => ({
   type: 'HANDLE_DIALOG'
 });
 
+export const changeSearch = (index)=>({
+  type:'CHANGE_SEARCH',
+  slideIndex:index,
+});
+
 

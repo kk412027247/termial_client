@@ -77,7 +77,6 @@ const cleanDetail = () =>({
 
 export const fetchData = (event, newValue) => (
   dispatch=>{
-    //console.log(newValue);
     const fetchId= ++ nextFetchId;
     const dispatchIfValid = (action)=>{
       if(fetchId === nextFetchId){
@@ -89,9 +88,7 @@ export const fetchData = (event, newValue) => (
                         .reduce((prev,curr)=>([...prev,`"${curr}"`]),[])
                         .toString()
                         .replace(/,/g,' ');
-
     dispatch(fetchInput(newValue));
-    //dispatchIfValid(fetchDataStarted());
 
     fetch(`http://${host}:3001/query`,{
       method:'post',
@@ -102,14 +99,42 @@ export const fetchData = (event, newValue) => (
     .then(res=>res.json())
     .then(result=>{
       dispatchIfValid(fetchDataSuccess(result))
-      //if(result.length !== 0) dispatchIfValid(fetchDataSuccess(result))
     })
     .catch(err=>{
       dispatchIfValid(fetchDataFailure(err))
     })
-
   }
 );
+
+export const getTacForInfo = (event, newValue) => (
+  dispatch=>{
+    const fetchId= ++ nextFetchId;
+    const dispatchIfValid = (action)=>{
+      if(fetchId === nextFetchId){
+        return dispatch(action);
+      }
+    };
+    fetch(`http://${host}:3001/getTacForInfo`,{
+      method:'post',
+      credentials:'include',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({'tac': newValue.replace(/[\s]*/,'')})
+    })
+    .then(res=>res.json())
+    .then(result=>{
+      if(Array.isArray(result)){
+        dispatchIfValid(fetchDataSuccess(result))
+      }else{
+        dispatchIfValid(fetchDataSuccess([]))
+      }
+    })
+    .catch(err=>{
+      dispatchIfValid(fetchDataFailure(err))
+    })
+  }
+);
+
+
 
 export const searchData = () => (
   (dispatch,getState)=>{
@@ -416,3 +441,8 @@ export const changePassword = ()=>(
 export const handleChangePassword =()=>({
   type:'HANDLE_CHANGE_PASSWORD',
 });
+
+
+
+
+

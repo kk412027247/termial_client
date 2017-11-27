@@ -4,20 +4,19 @@ import {PropTypes} from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import LinearProgress from 'material-ui/LinearProgress';
 import {Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn} from 'material-ui/Table';
 import MoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
-import ActionSearch from 'material-ui/svg-icons/action/search';
 import Language from 'material-ui/svg-icons/action/language';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../main.css';
-import {fetchData, searchData, showDetail, downloadQuery} from '../fetchActions.js'
+import {showDetail, downloadQuery} from '../fetchActions.js'
 import ShowDetail from './showDetail.js'
 import Download from '../download/download';
 //import DownloadInfo from '../download/downloadInfo';
+import Search from './search'
 
 //import {push} from 'react-router-redux';
 
@@ -67,32 +66,12 @@ class Query extends React.Component {
   }
 
   render(){
-    const {fetchData, searchData, showDetail, result, downloadQuery} = this.props;
+    const { showDetail, result, downloadQuery} = this.props;
     return(
       <div>
+        <Search/>
         <div id="main">
-          <div className="searchInput">
-            <Paper className="searchPaper">
-              <TextField
-                style={styles.search}
-                hintStyle={styles.hint}
-                inputStyle={styles.input}
-                hintText='请输入：厂商 品牌 型号进行查询'
-                underlineShow={false}
-                onChange={fetchData}
-              />
-              <IconButton
-                tooltip='点击显示更多内容'
-                touch={true}
-                style={styles.iconButton}
-                iconStyle={styles.icon}
-                label="搜索"
-                onClick={searchData}
-              >
-                <ActionSearch />
-              </IconButton>
-            </Paper>
-          </div>
+          
           <Divider/>
           <br/>
           <Paper className="show">
@@ -155,8 +134,6 @@ class Query extends React.Component {
 
 Query.propTypes = {
   result: PropTypes.array,
-  fetchData:PropTypes.func,
-  searchData:PropTypes.func,
   showDetail:PropTypes.func,
   downloadQuery:PropTypes.func,
 };
@@ -166,8 +143,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) =>({
-  fetchData:(event, newValue)=> dispatch(fetchData(event, newValue)),
-  searchData: ()=> dispatch(searchData()),
   showDetail: (id) => dispatch(showDetail(id)) ,
   downloadQuery: (index)=>dispatch(downloadQuery(index)),
 });

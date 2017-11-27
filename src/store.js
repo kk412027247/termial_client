@@ -45,6 +45,7 @@ const iniState ={
     data:[],
     dialog: false,
     fetching: false,
+    slideIndex:0,
   },
   reducerFetch:{
     status: 'LOADING',

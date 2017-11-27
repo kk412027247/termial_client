@@ -28,7 +28,12 @@ export default (state={}, action)=>{
         dialog: !state.dialog
       }
     }
-
+    case 'CHANGE_SEARCH':{
+      return{
+        ...state,
+        slideIndex:action.slideIndex ? 0 : 1,
+      }
+    }
     default:{
       return state;
     }
