@@ -1,0 +1,59 @@
+div.admin .paper{
+    min-width:1300px;
+    width:90%;
+    margin:30px auto 0;
+    padding-bottom:10px;
+}
+
+.paper h2 {
+    padding-top:30px;
+    margin-left:70px;
+}
+
+div.admin .paper2{
+    display:flex;
+}
+
+div.admin section.addUser,
+div.admin  section.updateUser{
+    /*min-width:1300px;*/
+    width:1000px;
+    margin-left:70px;
+    padding-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+}
+
+
+
+
+div.admin  div.submit{
+    padding-top:30px;
+}
+
+div.admin  div.remove{
+    margin-left:-200px;
+    margin-top: 60px;
+}
+
+
+div.admin div.auth{
+    margin-top:20px;
+}
+
+div.admin  h1{
+    padding-top:43px;
+    margin-bottom:-20px;
+}
+
+div.admin form.input{
+    margin-left:0;
+    display:flex;
+    justify-content:space-around;
+    flex:0.9;
+}
+
+form.updateUserItem{
+    width:50%;
+    margin:0 auto;
+}

@@ -7,7 +7,7 @@ import DetailItem from '../query/detailItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {addInput,add,updateDetail} from '../fetchActions';
+import {addInput,add,updateDetail} from '../actions/fetchActions';
 import './add.css'
 
 
@@ -101,7 +101,7 @@ add.protoTypes={
 };
 
 const mapStateToProps = (state) =>({
-  spiderStatus:state.reducerFetch.spiderStatus,
+  spiderStatus:state.fetchReducer.spiderStatus,
 });
 
 

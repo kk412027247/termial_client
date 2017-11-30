@@ -1,15 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import SwipeableViews from 'react-swipeable-views';
-import {changeSearch} from '../actions';
+import {changeSearch} from '../actions/actions';
 import {PropTypes} from 'prop-types';
-import {fetchData, searchData, getTacForInfo} from '../fetchActions.js'
+import {fetchData, searchData, getTacForInfo} from '../actions/fetchActions.js'
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import Toggle from 'material-ui/Toggle';
-
+import './search.css';
 
 const styles= {
   search:{
@@ -55,12 +55,9 @@ class Search extends React.Component{
                 onChange={getTacForInfo}
               />
               <IconButton
-                tooltip='点击显示更多内容'
                 touch={true}
                 style={styles.iconButton}
                 iconStyle={styles.icon}
-                label="搜索"
-                onClick={searchData}
               >
                 <ActionSearch />
               </IconButton>
@@ -81,7 +78,6 @@ class Search extends React.Component{
                 touch={true}
                 style={styles.iconButton}
                 iconStyle={styles.icon}
-                label="搜索"
                 onClick={searchData}
               >
                 <ActionSearch />
@@ -108,7 +104,7 @@ Search.propTypes = {
 
 
 const mapStateToProps = (state)=>({
-  index:state.reducerQuery.slideIndex,
+  index:state.generalReducer.slideIndex,
 });
 const mapDispatchToProps = (dispatch)=>({
   changeSearch:(event,toggle)=>dispatch(changeSearch(toggle)),

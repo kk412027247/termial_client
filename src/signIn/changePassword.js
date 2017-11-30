@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Dialog from 'material-ui/Dialog'
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import {handlePassWord, handleNewPassword, changePassword,handleChangePassword} from '../fetchActions'
+import {handlePassWord, handleNewPassword, changePassword,handleChangePassword} from '../actions/fetchActions'
 import './signIn.css';
 
 
@@ -64,8 +64,8 @@ class ChangePassword extends React.Component{
 }
 
 const mapStateToProps = (state)=>({
-  username:state.reducerFetch.userInfo.userName,
-  changePasswordDialog:state.reducerFetch.changePasswordDialog
+  username:state.fetchReducer.userInfo.userName,
+  changePasswordDialog:state.fetchReducer.changePasswordDialog
 });
 
 const mapDispatchToProps =(dispatch)=>({

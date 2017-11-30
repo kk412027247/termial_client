@@ -34,7 +34,7 @@ DownloadInfo.propTypes = {
 };
 
 const mapStateToProps = (state)=>({
-  infos:state.reducerFetch.downloadInfo
+  infos:state.fetchReducer.downloadInfo
 });
 const mapDispatchToProps = ()=>({});
 

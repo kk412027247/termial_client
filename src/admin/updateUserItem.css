@@ -1,0 +1,24 @@
+.signIn{
+    margin: 150px auto 0;
+    width: 450px;
+    height: 330px;
+}
+
+.loginInput{
+    margin:5% 14% 0;
+}
+
+.loginButton{
+    margin-top: 15%;
+}
+
+.text{
+    margin-top: 3%;
+}
+
+.changePassWord{
+    margin-left: 25%;
+    width:50%;
+    display: flex;
+    flex-wrap: wrap;
+}

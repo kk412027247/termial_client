@@ -6,7 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {withRouter} from 'react-router-dom';
-import {signIn,handleUserName,handlePassWord,checkAuth,pressEnter} from '../fetchActions';
+import {signIn,handleUserName,handlePassWord,checkAuth,pressEnter} from '../actions/fetchActions';
 import './signIn.css'
 
 const styles = {
@@ -96,8 +96,8 @@ SignIn.protoTypes = {
 };
 
 const mapStateToProps =(state)=>({
-  auth:state.reducerFetch.userInfo.level,
-  path:state.router.location.pathname,
+  auth:state.fetchReducer.userInfo.level,
+  path:state.routerReducer.location.pathname,
 });
 
 const mapDispatchToProps = (dispatch)=>({

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {PropTypes} from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
-import {changeDetail,updateDetail} from '../fetchActions';
+import {changeDetail,updateDetail} from '../actions/fetchActions';
 import './showDetail.css';
 
 
@@ -15,7 +15,7 @@ class DetailItem extends React.Component {
 
   render(){
     
-    const {detail, changeDetail,updateDetail} = this.props;
+    const {detail, changeDetail, updateDetail, auth} = this.props;
     const styles = {
       underLine:{
         borderColor: '#FFF'
@@ -34,16 +34,27 @@ class DetailItem extends React.Component {
             {arg.map(item=>(
               <div className="item" key={item}>
                 <span className="key">{item}</span>
-                <TextField
-                  id = {item}
-                  fullWidth={true}
-                  underlineStyle={styles.underLine}
-                  defaultValue={detail[item]}
-                  hintText={detail[item]}
-                  onChange={changeDetail}
-                  multiLine={false}
-                  onKeyDown={handleKeyDown}
-                />
+                {auth>1 ?
+                  <TextField
+                    id = {item}
+                    fullWidth={true}
+                    underlineStyle={styles.underLine}
+                    defaultValue={detail[item]}
+                    hintText={detail[item]}
+                    onChange={changeDetail}
+                    multiLine={false}
+                    onKeyDown={handleKeyDown}
+                  /> :
+                  <TextField
+                    id = {item}
+                    fullWidth={true}
+                    value={detail[item]}
+                    hintText={detail[item]}
+                    multiLine={false}
+                    underlineShow={false}
+                  />
+                }
+
               </div>
             ))}
           </span>
@@ -58,7 +69,7 @@ class DetailItem extends React.Component {
         <div className="contain0">
           <span className="contain1">TAC</span>
           <span className="contain2">
-            {detail.tac.map((tac,index)=>(
+            {Array.isArray(detail.tac)? detail.tac.map((tac,index)=>(
               <div className="item" key={tac.TAC}>
                 <span className="key">{`TAC${index+1}`}</span>
                 <TextField
@@ -70,9 +81,10 @@ class DetailItem extends React.Component {
                   //onChange={changeDetail}
                   multiLine={false}
                   //onKeyDown={handleKeyDown}
+                  underlineShow={false}
                 />
               </div>
-            ))}
+            )):''}
           </span>
         </div>
         <Divider inset={true}/>
@@ -120,11 +132,13 @@ DetailItem.propTypes ={
   detail: PropTypes.object,
   changeDetail: PropTypes.func,
   updateDetail: PropTypes.func,
+  auth:PropTypes.number,
 };
 
 
 const mapStateToProps = (state)=>({
-  detail: state.reducerFetch.detail,
+  detail: state.fetchReducer.detail,
+  auth: state.fetchReducer.userInfo.level,
 });
 
 const mapDispatchToProps = (dispatch) =>({

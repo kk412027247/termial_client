@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import {snackbarMessage} from '../fetchActions'
-//import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {snackbarMessage} from '../actions/fetchActions'
 import './download.css';
+//import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 //import CircularProgress from 'material-ui/CircularProgress';
 
 
@@ -14,10 +14,10 @@ class Download extends React.Component {
   }
 
   render(){
-    const {urls, snackbarMessage} = this.props;
+    const {urls, snackbarMessage, auth} = this.props;
     return(
       <div>
-        {urls ? <RaisedButton label='下载数据' onClick={snackbarMessage} href={urls}/> : ''}
+        {(urls && auth>=3) ? <RaisedButton label='下载数据' onClick={snackbarMessage} href={urls}/> : <output/>}
       </div>
 
     )
@@ -44,8 +44,9 @@ class Download extends React.Component {
 }
 
 const mapStateToProps = (state)=>({
-  urls:state.reducerFetch.downloadQuery,
-  //downloadStatus:state.reducerFetch.downloadStatus
+  urls:state.fetchReducer.downloadQuery,
+  auth: state.fetchReducer.userInfo.level,
+  //downloadStatus:state.fetchReducer.downloadStatus
 });
 
 const mapDispatchToProps = (dispatch)=>({

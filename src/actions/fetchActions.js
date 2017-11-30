@@ -1,5 +1,5 @@
 //import {push} from 'react-router-redux';
-import host from './host.js';
+import host from '../host.js';
 import 'whatwg-fetch';
 
 let nextFetchId = 0;
@@ -13,19 +13,6 @@ export const fetchDataEmpty = ()=>({
   snackbar:true,
   snackbarMessage: '没有匹配信息，请更新关键字',
 });
-
-const updateSuccess = ()=>({
-  type:'UPDATE_SUCCESS',
-  snackbar:true,
-  snackbarMessage: '修改成功',
-});
-
-const updateFailure = ()=>({
-  type:'UPDATE_FAILURE',
-  snackbar:true,
-  snackbarMessage: '修改失败',
-});
-
 
 export const fetchDataSuccess = (result) =>({
   type: 'FETCH_SUCCESS',
@@ -148,7 +135,7 @@ export const searchData = () => (
       method:'post',
       headers:{'Content-Type':'application/json'},
       credentials:'include',
-      body:JSON.stringify({'query': getState().reducerFetch.input})
+      body:JSON.stringify({'query': getState().fetchReducer.input})
     })
     .then(res=>res.json())
     .then(result=>{
@@ -178,7 +165,7 @@ export const showDetail = (id) =>(
 
 
 
-    // const detail = getState().reducerFetch.result.filter(item=>item._id === id);
+    // const detail = getState().fetchReducer.result.filter(item=>item._id === id);
     // dispatch(saveDetail(detail[0]))
   }
 );
@@ -192,8 +179,8 @@ export const changeDetail = (event, newValue) =>(
   (dispatch, getState) => {
     // 下面不是一个纯函数了，但是为了缩减代码，想不出其他办法了，下面这数据会把自己再结构一遍
     dispatch(_changeDetail({
-      ...getState().reducerFetch.detail,
-      ...getState().reducerFetch.updateDetail,
+      ...getState().fetchReducer.detail,
+      ...getState().fetchReducer.updateDetail,
       [event.target.id]:newValue.replace(/,/g,'，').replace(/(^\s*)|(\s*$)/g,""),
     }))
   }
@@ -205,17 +192,15 @@ export const updateDetail = ()=>(
       method:'post',
       credentials:'include',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({'update':getState().reducerFetch.updateDetail})
+      body:JSON.stringify({'update':getState().fetchReducer.updateDetail})
     })
     .then(res=>{
-      //dispatch(fetchDialog());
-      dispatch(updateSuccess());
+      dispatch(snackbarMessage('修改成功'));
       return res.json()
     })
-    .then(console.log)
+    .then()
     .catch(err=>{
-      console.log(err);
-      updateFailure()
+      dispatch(snackbarMessage('修改失败',JSON.stringify(err)))
     });
   }
 );
@@ -227,7 +212,7 @@ const spiderStatus = (status) =>({
 
 export const add = ()=>(
   (dispatch, getState)=>{
-    if(getState().reducerFetch.addInput===''){
+    if(getState().fetchReducer.addInput===''){
       dispatch(snackbarMessage('请输入地址'));
       return;
     }
@@ -237,7 +222,7 @@ export const add = ()=>(
       method:'post',
       credentials:'include',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({'add':getState().reducerFetch.addInput})
+      body:JSON.stringify({'add':getState().fetchReducer.addInput})
     })
     .then(res=>res.json())
     .then(
@@ -275,8 +260,8 @@ export const signIn = () =>(
       method:'post',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        userName:getState().reducerFetch.userName,
-        passWord:getState().reducerFetch.passWord
+        userName:getState().fetchReducer.userName,
+        passWord:getState().fetchReducer.passWord
       })
     })
     .then(res=>res.json())
@@ -342,18 +327,18 @@ export const downloadQuery = (index)=>(
     let _IDs ;
     
     if(index==='all') {
-      _IDs = getState().reducerFetch.result.map((item,index)=>index);
+      _IDs = getState().fetchReducer.result.map((item,index)=>index);
     }else{
       _IDs = index;
     }
 
 
     if(_IDs !== 'none' && _IDs.length !== 0){
-      let IDs = _IDs.map(item=>(getState().reducerFetch.result[item]._id))
+      let IDs = _IDs.map(item=>(getState().fetchReducer.result[item]._id))
                     .reduce((pre,curr)=>(pre.concat(`_id=${curr}&`)),`http://${host}:3001/download?`)
                     .replace(/&$/,'');
 
-      let downloadInfo = _IDs.map(item=>(getState().reducerFetch.result[item]["厂商(中文)"]+getState().reducerFetch.result[item]["型号"]));
+      let downloadInfo = _IDs.map(item=>(getState().fetchReducer.result[item]["厂商(中文)"]+getState().fetchReducer.result[item]["型号"]));
       dispatch(changeDownloadInfo(downloadInfo));
       dispatch(_downloadQuery(IDs))
     }else{
@@ -384,7 +369,7 @@ export const snackbarMessage = (message)=>({
 // export const download = ()=>(
 //   (dispatch,getState)=>{
 //     dispatch(downloadStatus('downloading'));
-//     fetch(getState().reducerFetch.downloadQuery)
+//     fetch(getState().fetchReducer.downloadQuery)
 //       .then(res => res.blob())
 //       .then(blob => {
 //         const a = document.createElement('a');
@@ -418,9 +403,9 @@ export const changePassword = ()=>(
       credentials:'include',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        userName:getState().reducerFetch.userInfo.userName,
-        passWord:getState().reducerFetch.passWord,
-        newPassWord:getState().reducerFetch.newPassWord,
+        userName:getState().fetchReducer.userInfo.userName,
+        passWord:getState().fetchReducer.passWord,
+        newPassWord:getState().fetchReducer.newPassWord,
       })
     })
     .then(res=>res.json())
@@ -441,6 +426,8 @@ export const changePassword = ()=>(
 export const handleChangePassword =()=>({
   type:'HANDLE_CHANGE_PASSWORD',
 });
+
+
 
 
 

@@ -4,8 +4,9 @@ import createHistory from 'history/createBrowserHistory'
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 
 import thunkMiddleware from 'redux-thunk';
-import reducerQuery from './reducer.js';
-import reducerFetch from './fetchReducer.js';
+import generalReducer from './reducer.js';
+import fetchReducer from './fetchReducer.js';
+import adminReducer from './adminReducer';
 
 const history = createHistory();
 const rMiddleware = routerMiddleware(history);
@@ -20,9 +21,10 @@ const win = window;
 //win.Perf = Perf;
 
 const reducer = combineReducers({
-  reducerQuery,
-  reducerFetch,
-  router: routerReducer,
+  generalReducer,
+  fetchReducer,
+  adminReducer,
+  routerReducer,
 });
 
 const middlewares = [rMiddleware,thunkMiddleware, ];
@@ -37,7 +39,7 @@ const storeEnhancers = compose(
 
 
 const iniState ={
-  reducerQuery:{
+  generalReducer:{
     drawer:false,
     snackbar:false,
     snackbarMessage: '123123',
@@ -47,7 +49,7 @@ const iniState ={
     fetching: false,
     slideIndex:0,
   },
-  reducerFetch:{
+  fetchReducer:{
     status: 'LOADING',
     result:[],
     input:' ',
@@ -65,6 +67,17 @@ const iniState ={
     changePasswordDialog :false,
     downloadInfo:[],
   },
+  adminReducer:{
+    addUserPassWord:'aaa111',
+    addUserAuth:1,
+    userList:[],
+    resetUserPassWord:'',
+    updateUserAuth:0,
+    updateUserDialog:false,
+    updateInfo:{},
+    alert:false,
+    removeUser:{}
+  }
 };
 
 

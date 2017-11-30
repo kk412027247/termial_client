@@ -12,7 +12,7 @@ import MoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import Language from 'material-ui/svg-icons/action/language';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../main.css';
-import {showDetail, downloadQuery} from '../fetchActions.js'
+import {showDetail, downloadQuery} from '../actions/fetchActions.js'
 import ShowDetail from './showDetail.js'
 import Download from '../download/download';
 //import DownloadInfo from '../download/downloadInfo';
@@ -66,12 +66,12 @@ class Query extends React.Component {
   }
 
   render(){
-    const { showDetail, result, downloadQuery} = this.props;
+    const { showDetail, result, downloadQuery,auth} = this.props;
     return(
       <div>
-        <Search/>
+
         <div id="main">
-          
+          <Search/>
           <Divider/>
           <br/>
           <Paper className="show">
@@ -80,10 +80,12 @@ class Query extends React.Component {
               style={styles.appBar}
               iconElementLeft={<IconButton><Language/></IconButton>}
             />
+            {/*暂时不让多选，因多选影响了UI展示*/}
             <Table
-              multiSelectable={true}
+              //multiSelectable={true}
               fixedHeader={true}
               onRowSelection={downloadQuery}
+              selectable={auth>=3}
             >
               <TableHeader>
                 <TableRow>
@@ -139,7 +141,8 @@ Query.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  result:state.reducerFetch.result
+  auth: state.fetchReducer.userInfo.level,
+  result:state.fetchReducer.result
 });
 
 const mapDispatchToProps = (dispatch) =>({
