@@ -41,7 +41,6 @@ class UpdateUserItem extends React.Component {
             <MenuItem value={1} primaryText={`权限等级: 1`}/>
             <MenuItem value={2} primaryText={'权限等级: 2'}/>
             <MenuItem value={3} primaryText={'权限等级: 3'}/>
-            <MenuItem value={4} primaryText={'权限等级: 4'}/>
           </DropDownMenu>
         </form>
       </Dialog>

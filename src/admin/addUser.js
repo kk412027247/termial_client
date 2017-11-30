@@ -34,7 +34,6 @@ class AddUser extends React.Component {
                 <MenuItem value={1} primaryText={'权限等级: 1'}/>
                 <MenuItem value={2} primaryText={'权限等级: 2'}/>
                 <MenuItem value={3} primaryText={'权限等级: 3'}/>
-                <MenuItem value={4} primaryText={'权限等级: 4'}/>
               </DropDownMenu>
             </div>
             {/*因为flex会对material-ui造成布局影响，所以外包了一层div，防止flex属性传递*/}
