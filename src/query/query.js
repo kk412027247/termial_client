@@ -15,7 +15,7 @@ import '../main.css';
 import {showDetail, downloadQuery} from '../actions/fetchActions.js'
 import ShowDetail from './showDetail.js'
 import Download from '../download/download';
-//import DownloadInfo from '../download/downloadInfo';
+import DownloadInfo from '../download/downloadInfo';
 import Search from './search'
 
 //import {push} from 'react-router-redux';
@@ -82,7 +82,7 @@ class Query extends React.Component {
             />
             {/*暂时不让多选，因多选影响了UI展示*/}
             <Table
-              //multiSelectable={true}
+              multiSelectable={true}
               fixedHeader={true}
               onRowSelection={downloadQuery}
               selectable={auth>=3}
@@ -126,9 +126,9 @@ class Query extends React.Component {
             <ShowDetail/>
             <LinearProgress/>
           </Paper>
+          <DownloadInfo/>
           <Download/>
         </div>
-        {/*<DownloadInfo/>*/}
       </div>
     )
   }

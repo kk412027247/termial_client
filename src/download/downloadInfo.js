@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Chip from 'material-ui/Chip';
 import {PropTypes} from 'prop-types';
+import './downloadInfo.css';
 
 class DownloadInfo extends React.Component{
   render(){
@@ -13,9 +14,10 @@ class DownloadInfo extends React.Component{
       console.log('click')
     };
     return(
-      <div>
+      <div className={'downloadInfo'}>
         {infos.map(info=>(
           <Chip
+            className={'chip'}
             key={info}
             onRequestDelete={deleteChip}
             onClick={handleClick}
@@ -23,7 +25,6 @@ class DownloadInfo extends React.Component{
             {info}
           </Chip>
         ))}
-
       </div>
     )
   }
