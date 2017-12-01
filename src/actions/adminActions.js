@@ -48,11 +48,11 @@ export const addUser =()=>(
       .then(result=>{
         if(!!result._id){
           dispatch(getUserList());
-          dispatch(snackbarMessage(`用户新增成功`))
+          dispatch(snackbarMessage(`新增用户成功`))
         }else{
           dispatch(snackbarMessage('新增失败,用户名重复'))
         }
-      })
+      }).catch(err=>snackbarMessage('新增失败,'+err))
   }
 );
 
@@ -65,7 +65,8 @@ export const getUserList = () => (
   dispatch=>{
     fetch(`http://${host}:3001/getUserList`,{credentials:'include'})
       .then(res=>res.json())
-      .then(result=>dispatch(userList(result)));
+      .then(result=>dispatch(userList(result)))
+      .catch(err=>snackbarMessage('用户列表获取失败,'+err));
   }
 );
 
@@ -97,7 +98,7 @@ export const updateUser = ()=>(
         }else{
           dispatch(snackbarMessage('修改失败，请刷新页面重试一遍'))
         }
-      })
+      }).catch(err=>snackbarMessage('修改失败,'+err))
   }
 );
 
@@ -150,8 +151,7 @@ export const removeUser = () =>(
           dispatch(snackbarMessage(`成功删除用户：${getState().adminReducer.removeUser.userName}`));
           dispatch(handleAlert());
           dispatch(getUserList());
-
         }
-      })
+      }).catch(err=>snackbarMessage('删除失败,'+err))
   }
 );

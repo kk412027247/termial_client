@@ -4,9 +4,9 @@ import createHistory from 'history/createBrowserHistory'
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 
 import thunkMiddleware from 'redux-thunk';
-import generalReducer from './reducer.js';
-import fetchReducer from './fetchReducer.js';
-import adminReducer from './adminReducer';
+import generalReducer from './reducer/reducer.js';
+import fetchReducer from './reducer/fetchReducer.js';
+import adminReducer from './reducer/adminReducer';
 
 const history = createHistory();
 const rMiddleware = routerMiddleware(history);

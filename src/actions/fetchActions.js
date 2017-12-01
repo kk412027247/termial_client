@@ -153,18 +153,15 @@ export const searchData = () => (
 );
 
 export const showDetail = (id) =>(
-  (dispatch, getState)=>{
-  fetch(`http://${host}:3001/getInfoTac`,{
-   method:'post',
-   headers:{'Content-Type':'application/json'},
-   credentials:'include',
-   body:JSON.stringify({'_id':id})
-  }).then(res=>res.json()).then(result=>dispatch(saveDetail(result)));
-
-
-
-
-
+  dispatch=>{
+    fetch(`http://${host}:3001/getInfoTac`,{
+      method:'post',
+      headers:{'Content-Type':'application/json'},
+      credentials:'include',
+      body:JSON.stringify({'_id':id})
+    }).then(res=>res.json())
+      .then(result=>dispatch(saveDetail(result)))
+      .catch(err=>dispatch(snackbarMessage(err)));
     // const detail = getState().fetchReducer.result.filter(item=>item._id === id);
     // dispatch(saveDetail(detail[0]))
   }
@@ -188,17 +185,21 @@ export const changeDetail = (event, newValue) =>(
 
 export const updateDetail = ()=>(
   (dispatch,getState)=>{
+    const update = {...getState().fetchReducer.updateDetail, author:getState().fetchReducer.userInfo.userName};
     fetch(`http://${host}:3001/updates`,{
       method:'post',
       credentials:'include',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({'update':getState().fetchReducer.updateDetail})
+      body:JSON.stringify({update}),
     })
-    .then(res=>{
-      dispatch(snackbarMessage('修改成功'));
-      return res.json()
+    .then(res=>res.json())
+    .then((result)=>{
+      if(!!result._id) {
+        dispatch(snackbarMessage('修改成功'))
+      }else if(Object.keys(result).length === 0){
+        dispatch(snackbarMessage('没有任何修改'))
+      }
     })
-    .then()
     .catch(err=>{
       dispatch(snackbarMessage('修改失败',JSON.stringify(err)))
     });

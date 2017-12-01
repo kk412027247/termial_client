@@ -8,9 +8,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-addons-css-transition-group": "^15.6.2",
-    "react-addons-perf": "^15.4.2",
     "react-dom": "^16.0.0",
-    "react-motion": "^0.5.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.8",
@@ -18,8 +16,7 @@
     "react-swipeable-views": "^0.12.12",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "whatwg-fetch": "^2.0.3",
-    "xlsx": "^0.11.8"
+    "whatwg-fetch": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
