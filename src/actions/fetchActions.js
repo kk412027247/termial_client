@@ -318,9 +318,35 @@ const _downloadQuery = (query)=>({
   query:query,
 });
 
-const changeDownloadInfo = (info)=>({
-  type:'DOWNLOAD_INFO',
-  downloadInfo:info,
+// const changeDownloadInfo = (info)=>({
+//   type:'DOWNLOAD_INFO',
+//   downloadInfo:info,
+// });
+//
+// const changeDownloadId = (id)=>({
+//   type:'DOWNLOAD_ID',
+//   downloadId:id,
+// });
+
+const _createUrl = (url)=>({
+  type:'CREATE_URL',
+  url,
+});
+
+const createUrl = ()=>(
+  (dispatch,getState)=>{
+    const url = getState()
+      .fetchReducer.combineInfo
+      .map(info=>info._id)
+      .reduce((pre,curr)=>(pre.concat(`_id=${curr}&`)),`http://${host}:3001/download?`)
+      .replace(/&$/,'');
+    dispatch(_createUrl(url))
+  }
+);
+
+const combine = (info)=>({
+  type:'COMBINE',
+  combineInfo:info,
 });
 
 export const downloadQuery = (index)=>(
@@ -333,26 +359,45 @@ export const downloadQuery = (index)=>(
       _IDs = index;
     }
 
-
     if(_IDs !== 'none' && _IDs.length !== 0){
       let IDs = _IDs.map(item=>(getState().fetchReducer.result[item]._id))
                     .reduce((pre,curr)=>(pre.concat(`_id=${curr}&`)),`http://${host}:3001/download?`)
                     .replace(/&$/,'');
 
-      let downloadInfo = _IDs.map(item=>(getState().fetchReducer.result[item]["厂商(中文)"]+getState().fetchReducer.result[item]["型号"]));
-      dispatch(changeDownloadInfo(downloadInfo));
-      dispatch(_downloadQuery(IDs))
+      const _combineInfo = _IDs.map(item=>({
+        brand:getState().fetchReducer.result[item]["厂商(中文)"]+getState().fetchReducer.result[item]["型号"],
+        _id:getState().fetchReducer.result[item]._id,
+      }));
+
+      //用reduce做了一个非纯函数，用来保存信息，set过滤数组不同对象的做法不行，因为不能对比两个对象。
+      const combineInfo = _combineInfo.reduce((pre,curr)=>{
+        if(!JSON.stringify(getState().fetchReducer.combineInfo).includes(JSON.stringify(curr))){
+          return [...pre,curr]
+        }else{
+          return pre
+        }
+      },getState().fetchReducer.combineInfo);
+      dispatch(_downloadQuery(IDs));
+      dispatch(combine(combineInfo));
+      dispatch(createUrl())
     }else{
       let IDs = '';
-      //console.log(IDs);
       setTimeout(()=>{
         dispatch(_downloadQuery(IDs));
       },50);
-
-
     }
   }
 );
+
+export const handleCombine = (_id)=>(
+  (dispatch,getState)=>{
+    const combineInfo = getState().fetchReducer.combineInfo.filter(info=>info._id !== _id);
+    dispatch(combine(combineInfo));
+    dispatch(createUrl());
+  }
+);
+
+
 
 // const downloadStatus = (status)=>({
 //   type:'DOWNLOAD_STATUS',

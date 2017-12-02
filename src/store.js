@@ -65,7 +65,7 @@ const iniState ={
     userInfo:{},
     downloadQuery:'',
     changePasswordDialog :false,
-    downloadInfo:[],
+    combineInfo:[],
   },
   adminReducer:{
     addUserPassWord:'aaa111',

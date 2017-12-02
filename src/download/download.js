@@ -9,9 +9,9 @@ import './download.css';
 
 
 class Download extends React.Component {
-  componentDidUpdate(){
-    console.log('done')
-  }
+  // componentDidUpdate(){
+  //   console.log('done')
+  // }
 
   render(){
     const {urls, snackbarMessage, auth} = this.props;

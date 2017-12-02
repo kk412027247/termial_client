@@ -22,3 +22,8 @@
 ```
 
 ### 注意！！！用了defaultValue的时候，记得保持顶层组件的更新，否则会出现defaultValue无效
+
+### 去除数组的重复成员
+```
+[...new Set(array)]
+```

@@ -9,7 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {addUserName, addUserPassWord, addUserAuth, addUser} from '../actions/adminActions'
 import './admin.css';
 
-// todo 用户名，密码安全性检测，以后再做。
+// todo 用户名，密码安全性、复杂程度检测，以后再做。
 class AddUser extends React.Component {
   render(){
     const {addUserName, addUserPassWord, addUserAuth, userAuth, addUser} = this.props;
