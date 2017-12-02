@@ -165,7 +165,8 @@ export default (state = {}, action)=>{
     case 'CREATE_URL':{
       return{
         ...state,
-        url:action.url
+        infoUrl:action.infoUrl,
+        tacUrl:action.tacUrl,
       }
     }
     case 'COMBINE':{

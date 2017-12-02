@@ -8,9 +8,6 @@ import './downloadInfo.css';
 class DownloadInfo extends React.Component{
   render(){
     const {infos, handleCombine} = this.props;
-    // const deleteChip =(_id)=>{
-    //   console.log('delete',_id)
-    // };
     const handleClick = (_id)=>{
       console.log('click',_id)
     };
@@ -19,11 +16,11 @@ class DownloadInfo extends React.Component{
         {infos.map(info=>(
           <Chip
             className={'chip'}
-            key={info.brand}
+            key={info.brand+info.model}
             onRequestDelete={handleCombine.bind(null,info._id)}
             onClick={handleClick.bind(null,info._id)}
           >
-            {info.brand}
+            {info.brand+' '+info.model}
           </Chip>
         ))}
       </div>

@@ -287,7 +287,6 @@ export const handlePassWord = (event,value) =>({
 export const checkAuth = ()=>(
   dispatch=>{
     fetch(`http://${host}:3001/getSession`,{
-      headers:{'Content-Type':'application/json'},
       credentials:'include',
     })
     .then(res=>res.json())
@@ -330,17 +329,32 @@ const _downloadQuery = (query)=>({
 
 const _createUrl = (url)=>({
   type:'CREATE_URL',
-  url,
+  infoUrl:url.infoUrl,
+  tacUrl:url.tacUrl
 });
 
 const createUrl = ()=>(
   (dispatch,getState)=>{
-    const url = getState()
+    const infoUrl = getState()
       .fetchReducer.combineInfo
       .map(info=>info._id)
       .reduce((pre,curr)=>(pre.concat(`_id=${curr}&`)),`http://${host}:3001/download?`)
       .replace(/&$/,'');
-    dispatch(_createUrl(url))
+
+    const query = getState().fetchReducer.combineInfo.map(info=>({"品牌1":info.brand, "型号1" :info.model}));
+
+    fetch(`http://${host}:3001/getTacId`,{
+      credentials: 'include',
+      method:'post',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(query)
+    }).then(res=>res.json())
+      .then(result=>{
+        const tacUrl = result.map(info=>info._id)
+          .reduce((pre,curr)=>(pre.concat(`_id=${curr}&`)),`http://${host}:3001/downloadTac?`)
+          .replace(/&$/,'');
+        dispatch(_createUrl({infoUrl,tacUrl}))
+      }).catch(err=>dispatch(snackbarMessage('服务器出错:'+err)));
   }
 );
 
@@ -365,7 +379,8 @@ export const downloadQuery = (index)=>(
                     .replace(/&$/,'');
 
       const _combineInfo = _IDs.map(item=>({
-        brand:getState().fetchReducer.result[item]["厂商(中文)"]+getState().fetchReducer.result[item]["型号"],
+        brand:getState().fetchReducer.result[item]["厂商(中文)"],
+        model:getState().fetchReducer.result[item]["型号"],
         _id:getState().fetchReducer.result[item]._id,
       }));
 

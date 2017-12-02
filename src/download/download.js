@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
-import {snackbarMessage} from '../actions/fetchActions'
+import FlatButton from 'material-ui/FlatButton';
+import {snackbarMessage} from '../actions/fetchActions';
 import './download.css';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 //import CircularProgress from 'material-ui/CircularProgress';
@@ -14,10 +14,15 @@ class Download extends React.Component {
   // }
 
   render(){
-    const {urls, snackbarMessage, auth} = this.props;
+    const {infoUrl, tacUrl, snackbarMessage, auth} = this.props;
     return(
       <div>
-        {(urls && auth>=3) ? <RaisedButton label='下载数据' onClick={snackbarMessage} href={urls}/> : <output/>}
+        {((!!infoUrl || !!tacUrl) && auth>=3)
+          ? <div>
+            <FlatButton label='下载手机参数表' primary={true} onClick={snackbarMessage.bind(null,'参数列表正在下载')} href={infoUrl}/>
+            <FlatButton label='下载TAC表' secondary={true} onClick={snackbarMessage.bind(null,'TAC正在下载')} href={tacUrl}/>
+          </div>
+          : <output className={'output'}/>}
       </div>
 
     )
@@ -44,13 +49,14 @@ class Download extends React.Component {
 }
 
 const mapStateToProps = (state)=>({
-  urls:state.fetchReducer.downloadQuery,
+  infoUrl:state.fetchReducer.infoUrl,
+  tacUrl:state.fetchReducer.tacUrl,
   auth: state.fetchReducer.userInfo.level,
   //downloadStatus:state.fetchReducer.downloadStatus
 });
 
 const mapDispatchToProps = (dispatch)=>({
-  snackbarMessage:()=>dispatch(snackbarMessage('正在下载，请稍后'))
+  snackbarMessage:(info)=>dispatch(snackbarMessage(info))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(Download);
