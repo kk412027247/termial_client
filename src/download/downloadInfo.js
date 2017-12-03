@@ -3,26 +3,27 @@ import {connect} from 'react-redux';
 import Chip from 'material-ui/Chip';
 import {PropTypes} from 'prop-types';
 import {handleCombine} from '../actions/fetchActions'
+import {blue300} from 'material-ui/styles/colors'
 import './downloadInfo.css';
 
 class DownloadInfo extends React.Component{
   render(){
     const {infos, handleCombine} = this.props;
-    const handleClick = (_id)=>{
-      console.log('click',_id)
-    };
     return(
       <div className={'downloadInfo'}>
-        {infos.map(info=>(
-          <Chip
-            className={'chip'}
-            key={info.brand+info.model}
-            onRequestDelete={handleCombine.bind(null,info._id)}
-            onClick={handleClick.bind(null,info._id)}
-          >
-            {info.brand+' '+info.model}
-          </Chip>
-        ))}
+        {infos.length !==0
+          ? infos.map(info=>(
+            <Chip
+              className={'chip'}
+              key={info.brand+info.model}
+              onRequestDelete={handleCombine.bind(null,info._id)}
+              backgroundColor={blue300}
+            >
+              {info.brand+' '+info.model}
+            </Chip>
+          ))
+          : <output className={'downloadInfo'}/>
+        }
       </div>
     )
   }

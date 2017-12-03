@@ -185,7 +185,7 @@ export const changeDetail = (event, newValue) =>(
 
 export const updateDetail = ()=>(
   (dispatch,getState)=>{
-    const update = {...getState().fetchReducer.updateDetail, author:getState().fetchReducer.userInfo.userName};
+    const update = {...getState().fetchReducer.updateDetail};
     fetch(`http://${host}:3001/updates`,{
       method:'post',
       credentials:'include',
@@ -342,6 +342,10 @@ const createUrl = ()=>(
       .replace(/&$/,'');
 
     const query = getState().fetchReducer.combineInfo.map(info=>({"品牌1":info.brand, "型号1" :info.model}));
+    if(query.length ===0 ){
+      dispatch(_createUrl({infoUrl:'',tacUrl:''}));
+      return;
+    }
 
     fetch(`http://${host}:3001/getTacId`,{
       credentials: 'include',

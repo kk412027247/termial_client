@@ -7,6 +7,7 @@ import thunkMiddleware from 'redux-thunk';
 import generalReducer from './reducer/reducer.js';
 import fetchReducer from './reducer/fetchReducer.js';
 import adminReducer from './reducer/adminReducer';
+import historyReducer from './reducer/historyReducer';
 
 const history = createHistory();
 const rMiddleware = routerMiddleware(history);
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   generalReducer,
   fetchReducer,
   adminReducer,
+  historyReducer,
   routerReducer,
 });
 
@@ -77,6 +79,10 @@ const iniState ={
     updateInfo:{},
     alert:false,
     removeUser:{}
+  },
+  historyReducer:{
+    updateHistory:[],
+    page:1,
   }
 };
 

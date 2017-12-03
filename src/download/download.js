@@ -19,8 +19,8 @@ class Download extends React.Component {
       <div>
         {((!!infoUrl || !!tacUrl) && auth>=3)
           ? <div>
-            <FlatButton label='下载手机参数表' primary={true} onClick={snackbarMessage.bind(null,'参数列表正在下载')} href={infoUrl}/>
-            <FlatButton label='下载TAC表' secondary={true} onClick={snackbarMessage.bind(null,'TAC正在下载')} href={tacUrl}/>
+            <FlatButton label='下载手机参数表' primary={true} onClick={snackbarMessage.bind(null,'参数列表正在下载,请稍后')} href={infoUrl}/>
+            <FlatButton label='下载TAC表' secondary={true} onClick={snackbarMessage.bind(null,'TAC正在下载，请稍后')} href={tacUrl}/>
           </div>
           : <output className={'output'}/>}
       </div>

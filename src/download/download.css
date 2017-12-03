@@ -7,11 +7,7 @@
     flex-wrap: wrap;
 }
 
-output.output{
-    display:block;
-    height:36px;
-    width:88px;
-}
+
 .downloadButton-enter{
     opacity:0;
 }

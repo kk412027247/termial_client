@@ -1,8 +1,17 @@
-div.downloadInfo{
-    border:1px solid red;
-    width: 100%;
-    display:flex;
-    flex-wrap:wrap;
+output{
+    display:block;
 }
 
 
+div.downloadInfo{
+    margin:30px 0 30px 20px;
+    width: 100%;
+    display:flex;
+    flex-wrap:wrap;
+    min-height: 32px;
+}
+
+output.output{
+    height:36px;
+    width:88px;
+}

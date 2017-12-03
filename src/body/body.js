@@ -15,6 +15,7 @@ import NoFound from '../noFound/noFound';
 import Analyze from '../analyze/analyze';
 import Delete from '../delete/delete';
 import SignIn from '../signIn/signIn'
+import UpdateHistory from '../updateHistory/updateHistory';
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import Menu from 'material-ui/svg-icons/navigation/menu';
@@ -125,6 +126,12 @@ class Body extends React.Component {
                   </MenuItem>
                   : ''
                 }
+                { auth>=4
+                  ?  <MenuItem onClick={hDrawer}>
+                    <NavLink to="/updateHistory"  style={styles.Link}>修改记录</NavLink>
+                  </MenuItem>
+                  : ''
+                }
                 <MenuItem onClick={hDrawer}>
                   <NavLink to="/analyze"  style={styles.Link}>数据分析</NavLink>
                 </MenuItem>
@@ -144,6 +151,7 @@ class Body extends React.Component {
               <Auth exact path="/" component={Query}/>
               {auth>=3?<Auth path="/add" component={Add}/>:''}
               {auth>=4?<Auth path='/admin' component={Admin}/>:''}
+              {auth>=4?<Auth path='/updateHistory' component={UpdateHistory}/>:''}
               <Auth path='/analyze' component={Analyze}/>
               {auth>=3?<Auth path='/delete' component={Delete}/>:''}
               <Route path='/signIn' component={SignIn}/>
