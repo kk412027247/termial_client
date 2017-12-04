@@ -82,7 +82,7 @@ const iniState ={
   },
   historyReducer:{
     updateHistory:[],
-    page:1,
+    pages:1,
   }
 };
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Paper from 'material-ui/Paper';
+import FlatButton from 'material-ui/FlatButton';
 import './updateHistory.css';
-import {getUpdateHistory} from '../actions/hIstoryActions'
+import {getUpdateHistory, handleSkip, handlePageUp, handlePageDown} from '../actions/hIstoryActions'
 
 class UpdateHistory extends React.Component{
   componentDidMount(){
@@ -14,7 +15,8 @@ class UpdateHistory extends React.Component{
     })
   }
   render(){
-    const {updateHistory, page} = this.props;
+    const {updateHistory, pages, handleSkip, handlePageUp, handlePageDown} = this.props;
+
     return(
       <div className={'updateHistory'}>
         条件筛选：修改人__，修改时间__，
@@ -43,7 +45,11 @@ class UpdateHistory extends React.Component{
             </section>
           </Paper>
         ))}
-        上一页 {page} 下一页
+
+        <FlatButton label={'上一页'} primary={true} onClick={handlePageUp}/>
+        {pages}
+        <FlatButton label={'下一页'} primary={true} onClick={handlePageDown}/>
+        {console.log(pages)}
       </div>
     )
   }
@@ -51,11 +57,14 @@ class UpdateHistory extends React.Component{
 
 const mapStateToProps = (state)=>({
   updateHistory:state.historyReducer.updateHistory,
-  page:state.historyReducer.page,
+  pages:state.historyReducer.pages,
 });
 
 const mapDispatchToProps = (dispatch)=>({
-  getUpdateHistory:(query)=>dispatch(getUpdateHistory(query))
+  getUpdateHistory:(query)=>dispatch(getUpdateHistory(query)),
+  handleSkip:(num)=>dispatch(handleSkip(num)),
+  handlePageUp:()=>dispatch(handlePageUp()),
+  handlePageDown:()=>dispatch(handlePageDown())
 });
 
 

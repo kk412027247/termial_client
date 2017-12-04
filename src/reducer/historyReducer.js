@@ -6,10 +6,10 @@ export default (state={}, action)=>{
         updateHistory:action.updateHistory
       }
     }
-    case 'HANDLE_PAGE':{
+    case 'PAGE':{
       return{
         ...state,
-        page:action.page
+        pages:action.pages
       }
     }
     default:{
