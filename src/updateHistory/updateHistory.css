@@ -2,6 +2,18 @@ div.updateHistory{
     width:90%;
     margin:0 auto;
 }
+
+section.condition{
+    display:flex;
+    align-items:center;
+    margin-top: 20px;
+}
+
+div.updateHistory section.condition span.checkbox{
+    display:flex;
+    flex-wrap:nowrap;
+}
+
 div.updateHistory .paper{
     padding-bottom:10px;
 }

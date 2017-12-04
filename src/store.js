@@ -82,7 +82,10 @@ const iniState ={
   },
   historyReducer:{
     updateHistory:[],
-    pages:1,
+    pages:0,
+    date:new Date(Date.now()),
+    userList:[],
+    user:".*",
   }
 };
 

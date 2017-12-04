@@ -12,6 +12,30 @@ export default (state={}, action)=>{
         pages:action.pages
       }
     }
+    case 'DATE_PICKER':{
+      return{
+        ...state,
+        date:action.date,
+      }
+    }
+    case 'HANDLE_USERS':{
+      return{
+        ...state,
+        user:action.user
+      }
+    }
+    case 'GET_USER_LIST':{
+      return{
+        ...state,
+        userList:action.userList,
+      }
+    }
+    case 'HANDLE_CHECK':{
+      return{
+        ...state,
+        check:action.check,
+      }
+    }
     default:{
       return state;
     }

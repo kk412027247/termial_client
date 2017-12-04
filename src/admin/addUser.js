@@ -66,7 +66,7 @@ const mapStateToProps = (state)=>({
 const mapDispatchToProps = (dispatch)=>({
   addUserName:(event, newValue)=>dispatch(addUserName(newValue)),
   addUserPassWord:(event, newValue)=>dispatch(addUserPassWord(newValue)),
-  addUserAuth:(event, index , value)=>dispatch(addUserAuth(value)),
+  addUserAuth:(event, index, value)=>dispatch(addUserAuth(value)),
   addUser:()=>dispatch(addUser()),
 });
 

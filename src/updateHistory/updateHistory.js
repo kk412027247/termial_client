@@ -3,23 +3,55 @@ import {connect} from 'react-redux';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import './updateHistory.css';
-import {getUpdateHistory, handleSkip, handlePageUp, handlePageDown} from '../actions/hIstoryActions'
+import {getUpdateHistory, handleSkip, handlePageUp, handlePageDown, handleDatePicker, getUserList, handleUser} from '../actions/hIstoryActions';
+import MenuItem from 'material-ui/MenuItem';
+import DatePicker from 'material-ui/DatePicker';
+import SelectField from 'material-ui/SelectField';
+import Checkbox from 'material-ui/Checkbox';
 
 class UpdateHistory extends React.Component{
   componentDidMount(){
     this.props.getUpdateHistory({
       author:".*",
-      startDate:new Date(1970-1-1).toLocaleDateString(),
-      endDate:new Date(Date.now()+24*60*60*1000).toLocaleDateString(),
+      startDate:this.props.date.toLocaleDateString(),
+      endDate:new Date(this.props.date.getTime()+24*60*60*1000).toLocaleDateString(),
       skip:0,
-    })
+    });
+    this.props.getUserList()
   }
-  render(){
-    const {updateHistory, pages, handleSkip, handlePageUp, handlePageDown} = this.props;
 
+
+  render(){
+    const {updateHistory, pages, handleSkip, handlePageUp, handlePageDown, date, handleDatePicker,userList, handleUser, user} = this.props;
+    
     return(
       <div className={'updateHistory'}>
-        条件筛选：修改人__，修改时间__，
+        <section className={'condition'}>
+          <span className={'checkbox'}>
+            <span>
+              <Checkbox
+                checked={true}
+                onCheck={(event,check)=>console.log(check)}
+              />
+            </span>
+            修改人:&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+          <SelectField value={user} onChange={handleUser}>
+            {userList.map(user=>(<MenuItem key={user} value={user} primaryText={user}/>))}
+          </SelectField> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span className={'checkbox'}>
+            <span>
+              <Checkbox checked={true}/>
+            </span>
+            修改时间:&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+          <DatePicker
+            id={'datePicker'}
+            value={date}
+            autoOk={true}
+            onChange={handleDatePicker}
+          /> 
+        </section>
         {updateHistory.map(info=>(
           <Paper key={info._id} className={'paper'}>
             <section className={'updateInfo'}>
@@ -47,24 +79,36 @@ class UpdateHistory extends React.Component{
         ))}
 
         <FlatButton label={'上一页'} primary={true} onClick={handlePageUp}/>
-        {pages}
+        {pages+1}
         <FlatButton label={'下一页'} primary={true} onClick={handlePageDown}/>
-        {console.log(pages)}
       </div>
     )
   }
 }
 
+
 const mapStateToProps = (state)=>({
   updateHistory:state.historyReducer.updateHistory,
   pages:state.historyReducer.pages,
+  date:state.historyReducer.date,
+  userList:state.historyReducer.userList,
+  user:state.historyReducer.user,
 });
 
 const mapDispatchToProps = (dispatch)=>({
   getUpdateHistory:(query)=>dispatch(getUpdateHistory(query)),
   handleSkip:(num)=>dispatch(handleSkip(num)),
-  handlePageUp:()=>dispatch(handlePageUp()),
-  handlePageDown:()=>dispatch(handlePageDown())
+  getUserList:()=>dispatch(getUserList()),
+  handlePageUp:()=>{
+    dispatch(handlePageUp());
+    //window.scrollTo(0,0);
+  },
+  handlePageDown:()=>{
+    dispatch(handlePageDown());
+    //window.scrollTo(0,0)
+  },
+  handleDatePicker:(event,date)=>dispatch(handleDatePicker(date)),
+  handleUser:(event,index,value)=>dispatch(handleUser(value))
 });
 
 
