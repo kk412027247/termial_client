@@ -236,8 +236,9 @@ export const add = ()=>(
           dispatch(spiderStatus('failure'));
           return;
         }
+
+        dispatch(_saveDetail(detail));
         dispatch(spiderStatus('haveDone'));
-        dispatch(_saveDetail(detail))
       }
     ).catch(
       err=>{

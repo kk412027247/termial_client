@@ -8,6 +8,9 @@ import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
 import Checkbox from 'material-ui/Checkbox';
+import Done from 'material-ui/svg-icons/action/done';
+import History from 'material-ui/svg-icons/action/history';
+import {green500, orange500} from 'material-ui/styles/colors'
 
 class UpdateHistory extends React.Component{
   componentDidMount(){
@@ -58,23 +61,29 @@ class UpdateHistory extends React.Component{
               型号：{info.brand} ，修改人：{info.author} ， 修改日期：{info.date.substring(0,10)}
             </section>
 
-            <section className={'afterUpdate'}>
-              <b>修改后：</b>
-              {info.afterUpdate.map(afterUpdate=>(
-                 <span key={JSON.stringify(afterUpdate)}>
-                   {Object.keys(afterUpdate)[0]}：{!!Object.values(afterUpdate)[0]?Object.values(afterUpdate)[0]+'，':'_，'}
-                 </span>
-              ))}
-            </section>
+            <div className={'update'}>
+              <section className={'afterUpdate'}>
+                <Done color={green500}/>
+                &nbsp;&nbsp;
+                <b>修改后：</b>
+                {info.afterUpdate.map(afterUpdate=>(
+                   <span key={JSON.stringify(afterUpdate)}>
+                     {Object.keys(afterUpdate)[0]}：{!!Object.values(afterUpdate)[0]?Object.values(afterUpdate)[0]+'，':'_，'}
+                   </span>
+                ))}
+              </section>
 
-            <section className={'beforeUpdate'}>
-              <b>修改前：</b>
-              {info.beforeUpdate.map(beforeUpdate=>(
-                <span key={JSON.stringify(beforeUpdate)}>
-                  {Object.keys(beforeUpdate)[0]}：{!!Object.values(beforeUpdate)[0]?Object.values(beforeUpdate)[0]+'，':'_，'}
-                </span>
-              ))}
-            </section>
+              <section className={'beforeUpdate'}>
+                <History color={orange500}/>
+                &nbsp;&nbsp;
+                <b>修改前：</b>
+                {info.beforeUpdate.map(beforeUpdate=>(
+                  <span key={JSON.stringify(beforeUpdate)}>
+                    {Object.keys(beforeUpdate)[0]}：{!!Object.values(beforeUpdate)[0]?Object.values(beforeUpdate)[0]+'，':'_，'}
+                  </span>
+                ))}
+              </section>
+            </div>
           </Paper>
         ))}
 

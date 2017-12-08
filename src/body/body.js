@@ -179,7 +179,7 @@ const mapStateToProps = (state) =>({
   drawer: state.generalReducer.drawer,
   auth: state.fetchReducer.userInfo.level,
   userName:state.fetchReducer.userInfo.userName,
-  //spiderStatus:state.fetchReducer.spiderStatus,
+  spiderStatus:state.fetchReducer.spiderStatus,
   //detail: state.fetchReducer.detail,
 });
 

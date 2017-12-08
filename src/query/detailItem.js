@@ -49,7 +49,6 @@ class DetailItem extends React.Component {
                     id = {item}
                     fullWidth={true}
                     value={detail[item]}
-                    hintText={detail[item]}
                     multiLine={false}
                     underlineShow={false}
                   />
@@ -123,6 +122,23 @@ class DetailItem extends React.Component {
         {DetailItem('终端数据显示','是否支持显示附着状态','是否支持显示激活状态')}
         {DetailItem('新增属性','是否智能机','LTE设备是否支持CSFB','LTE设备是否支持单卡双待','是否支持FR','是否支持上行载波聚合','是否支持下行载波聚合','是否支持VOLTE')}
         <ShowTac/>
+        <div>
+          <div className="contain0">
+            <span className="contain1">主键</span>
+            <span className="contain2">
+              <div className="item" key={detail._id}>
+                <span className="key">ID</span>
+                  <TextField
+                    id = {detail._id}
+                    fullWidth={true}
+                    value={detail._id}
+                    underlineShow={false}
+                  />
+              </div>
+          </span>
+          </div>
+          <Divider inset={true}/>
+        </div>
       </div>
     )
   }
