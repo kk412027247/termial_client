@@ -42,7 +42,7 @@ class Search extends React.Component{
       <div>
         <SwipeableViews
           index={index}
-          onChangeIndex={changeSearch}
+          //onChangeIndex={changeSearch}
         >
           <div className="searchInput">
             <Paper className="searchPaper">

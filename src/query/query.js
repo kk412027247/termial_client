@@ -10,14 +10,13 @@ import {Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn} from 'material-ui/Table';
 import MoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import Language from 'material-ui/svg-icons/action/language';
-//import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import '../main.css';
 import {showDetail, downloadQuery} from '../actions/fetchActions.js'
 import ShowDetail from './showDetail.js'
 import Download from '../download/download';
 import DownloadInfo from '../download/downloadInfo';
-import Search from './search'
-
+import Search from './search';
+import '../main.css';
+//import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 //import {push} from 'react-router-redux';
 
 const styles= {

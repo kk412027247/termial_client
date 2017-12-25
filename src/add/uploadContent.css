@@ -1,0 +1,56 @@
+.containPaper{
+    padding: 20px 0 20px 20px;
+    width: 1263px;
+    margin-bottom:20px;
+}
+
+.uploadButton{
+    margin-left:15px;
+}
+
+p.checkTitle{
+    color:#009688
+}
+
+p.warningTitle{
+    color:#FF5722;
+}
+
+p.alertTitle{
+    color:#673AB7;
+}
+
+div.uploadInfoTitle{
+    display:flex;
+    align-items:center;
+    margin-left:15px;
+    margin-bottom:15px;
+
+}
+
+div.textFieldGroup{
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+div.textFieldGroup div.keyValue{
+    display:flex;
+    align-items:center;
+}
+
+div.textFieldGroup div.uploadKey{
+    width:45px;
+    margin-left:15px;
+    font-weight:bold;
+}
+
+div.textFieldGroup div.value{
+    margin-left:5px;
+    width:100px;
+}
+
+div.textFieldGroup div.uploadKey, div.textFieldGroup div.value{
+    display:flex;
+    align-items:center;
+}

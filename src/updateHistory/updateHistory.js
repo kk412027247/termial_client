@@ -25,7 +25,7 @@ class UpdateHistory extends React.Component{
 
 
   render(){
-    const {updateHistory, pages, handleSkip, handlePageUp, handlePageDown, date, handleDatePicker,userList, handleUser, user} = this.props;
+    const {updateHistory, pages, handlePageUp, handlePageDown, date, handleDatePicker,userList, handleUser, user} = this.props;
     
     return(
       <div className={'updateHistory'}>

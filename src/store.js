@@ -8,6 +8,7 @@ import generalReducer from './reducer/reducer.js';
 import fetchReducer from './reducer/fetchReducer.js';
 import adminReducer from './reducer/adminReducer';
 import historyReducer from './reducer/historyReducer';
+import addReducer from './reducer/addReducer';
 
 const history = createHistory();
 const rMiddleware = routerMiddleware(history);
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   adminReducer,
   historyReducer,
   routerReducer,
+  addReducer,
 });
 
 const middlewares = [rMiddleware,thunkMiddleware, ];
@@ -86,6 +88,11 @@ const iniState ={
     date:new Date(Date.now()),
     userList:[],
     user:".*",
+  },
+  addReducer:{
+    dataExist:[],
+    uploadExist:[],
+    valid:[],
   }
 };
 

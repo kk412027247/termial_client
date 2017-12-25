@@ -1,0 +1,50 @@
+#spiderPaper{
+    margin-top: 20px;
+    width:1263px;
+    height:230px;
+}
+
+div#fileUpload{
+    margin:10px auto;
+    position:relative;
+    top:15px;
+    margin-bottom:50px;
+    width:130px;
+    height:140px;
+
+
+}
+div#fileUpload div.text{
+    position:absolute;
+    top:110px;
+    left:20px;
+    color:#2196F3;
+}
+
+
+input#fileUploadInput{
+    border:1px #fc7bff solid;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:2;
+    width:130px;
+    height:140px;
+    opacity:0;
+    cursor:pointer;
+}
+
+#fileUploadButton{
+    position:absolute;
+    top:-20px;
+    left:-10px;
+    z-index: 1;
+}
+
+.downloadButton{
+    position:absolute;
+    top:-20px;
+    left:45.5%;
+}
+
+

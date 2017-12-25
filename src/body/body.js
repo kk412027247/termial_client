@@ -51,10 +51,13 @@ class Body extends React.Component {
   //   return (nextProps !== this.props)
   // }
 
-
-  componentDidUpdate(){
-    console.log('Body Component did update');
-  }
+  // componentDidMount(){
+  //   console.log(navigator.userAgent);
+  // }
+  //
+  // componentDidUpdate(){
+  //   console.log('Body Component did update');
+  // }
 
 
 

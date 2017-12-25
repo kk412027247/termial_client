@@ -242,7 +242,7 @@ export const add = ()=>(
       }
     ).catch(
       err=>{
-        dispatch(snackbarMessage(err));
+        dispatch(snackbarMessage(JSON.stringify(err)));
         dispatch(spiderStatus('spiderFailure'));
 
       }
