@@ -8,12 +8,11 @@ import ContainItem from './containItem';
 class UploadContent extends React.Component{
   render(){
     const {valid, dataExist, uploadExist} = this.props;
-
     return(
       <div>
-        {valid.length !==0 ? <ContainItem arg={[valid,'新增TAC数据','#009688',Check]}/> : ''}
+        {valid.length !==0 ? <ContainItem arg={[valid,'TAC数据新增','#009688',Check]}/> : ''}
         {dataExist.length !==0 ? <ContainItem arg={[dataExist,'TAC数据已存在','#FF5722',Warning]}/> : ''}
-        {uploadExist.length !==0 ? <ContainItem arg={[uploadExist,'重复上传的数据','#673AB7',AddAlert]}/> : ''}
+        {uploadExist.length !==0 ? <ContainItem arg={[uploadExist,'重复上传的TAC数据','#673AB7',AddAlert]}/> : ''}
       </div>
     )
   }

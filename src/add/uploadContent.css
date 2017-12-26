@@ -54,3 +54,11 @@ div.textFieldGroup div.uploadKey, div.textFieldGroup div.value{
     display:flex;
     align-items:center;
 }
+
+.deleteButton{
+    display:none;
+}
+
+div.textFieldGroup:hover .deleteButton{
+    display:block;
+}

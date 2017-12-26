@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import './uploadContent.css';
 import KeyValue from './keyValue';
 
@@ -23,6 +24,9 @@ class ContainItem extends React.Component{
               <KeyValue arg={[_info.TAC.toString(),'TAC',_info.TAC,_info._id]}/>
               <KeyValue arg={[_info['品牌1']+index,'品牌1',_info['品牌1'],_info._id]}/>
               <KeyValue arg={[_info['型号1']+index,'型号1',_info['型号1'],_info._id]}/>
+              <div className={'deleteButton'}>
+                <FlatButton secondary={true} label={'删除'}/>
+              </div>
             </div>
           ))}
         </div>
