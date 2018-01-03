@@ -10,9 +10,34 @@ class UploadContent extends React.Component{
     const {valid, dataExist, uploadExist} = this.props;
     return(
       <div>
-        {valid.length !==0 ? <ContainItem arg={[valid,'TAC数据新增','#009688',Check]}/> : ''}
-        {dataExist.length !==0 ? <ContainItem arg={[dataExist,'TAC数据已存在','#FF5722',Warning]}/> : ''}
-        {uploadExist.length !==0 ? <ContainItem arg={[uploadExist,'重复上传的TAC数据','#673AB7',AddAlert]}/> : ''}
+        {valid.length !==0
+          ? <ContainItem
+            info={valid}
+            label={'valid'}
+            title={'TAC数据新增'}
+            color={'#009688'}
+            Icon={Check}
+          />
+          : ''
+        }
+        {dataExist.length !==0
+          ? <ContainItem
+            info={dataExist}
+            label={'dataExist'}
+            title={'TAC数据已存在'}
+            color={'#FF5722'}
+            Icon={Warning}
+          />
+          : ''}
+        {uploadExist.length !==0
+          ? <ContainItem
+            info={uploadExist}
+            label={'uploadExist'}
+            title={'重复上传的TAC数据'}
+            color={'#673AB7'}
+            Icon={AddAlert}
+          />
+          : ''}
       </div>
     )
   }

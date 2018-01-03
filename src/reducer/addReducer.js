@@ -24,6 +24,30 @@ export default (state={},action)=>{
         valid:action.valid,
       }
     }
+    case '_DATA_EXIST':{
+      return{
+        ...state,
+        _dataExist:action._dataExist
+      }
+    }
+    case '_UPLOAD_EXIST':{
+      return{
+        ...state,
+        _uploadExist:action._uploadExist
+      }
+    }
+    case '_VALID':{
+      return{
+        ...state,
+        _valid:action._valid
+      }
+    }
+    case 'HANDLE_FOCUS':{
+      return{
+        ...state,
+        focus:action.focus
+      }
+    }
     default:{
       return state;
     }

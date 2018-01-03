@@ -1,15 +1,14 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import './uploadContent.css';
-import KeyValue from './keyValue';
+import TextFieldGroup from './textFieldGroup';
+import {handleFetch} from '../actions/addActions';
 
 class ContainItem extends React.Component{
   render(){
-
-    const {info,title,color,Icon} = this.props;
+    const {info, title, color, Icon, label, handleFetch} = this.props;
     const style = {color};
     return(
       <Paper className={'containPaper'}>
@@ -19,15 +18,14 @@ class ContainItem extends React.Component{
           <p style={style}>{title}</p>
         </div>
         <div className={'content'}>
-          {info.map((_info,index)=>(
-            <div className={'textFieldGroup'} key={JSON.stringify(_info)}>
-              <KeyValue arg={[_info.TAC.toString(),'TAC',_info.TAC,_info._id]}/>
-              <KeyValue arg={[_info['品牌1']+index,'品牌1',_info['品牌1'],_info._id]}/>
-              <KeyValue arg={[_info['型号1']+index,'型号1',_info['型号1'],_info._id]}/>
-              <div className={'deleteButton'}>
-                <FlatButton secondary={true} label={'删除'}/>
-              </div>
-            </div>
+          {info.map((_info)=>(
+            <TextFieldGroup
+              label={label}
+              _id={_info._id}
+              key={_info._id+label}
+              _info={_info}
+              invalid={_info.invalid}
+            />
           ))}
         </div>
         <RaisedButton
@@ -35,16 +33,15 @@ class ContainItem extends React.Component{
           backgroundColor={color}
           labelColor={'#f9f9f9'}
           label={'提交'}
+          onClick={handleFetch.bind(null,label)}
         />
       </Paper>
     )
   }
 }
-const mapStateToProp = (state,ownProps) =>({
-  info:ownProps.arg[0],
-  title:ownProps.arg[1],
-  color:ownProps.arg[2],
-  Icon:ownProps.arg[3],
+
+const mapDispatchToProps = dispatch =>({
+  handleFetch:(label)=>dispatch(handleFetch(label))
 });
-export default connect(mapStateToProp)(ContainItem);
+export default connect(null, mapDispatchToProps)(ContainItem);
 

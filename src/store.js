@@ -93,6 +93,11 @@ const iniState ={
     dataExist:[],
     uploadExist:[],
     valid:[],
+    _dataExist:[],
+    _uploadExist:[],
+    _valid:[],
+    focus:{},
+    _id:0,
   }
 };
 
