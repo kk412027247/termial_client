@@ -34,6 +34,7 @@ class DetailItem extends React.Component {
             {arg.map(item=>(
               <div className="item" key={item}>
                 <span className="key">{item}</span>
+                {console.log(item)}
                 {auth>1 ?
                   <TextField
                     id = {item}

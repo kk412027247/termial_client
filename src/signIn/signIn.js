@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {PropTypes} from 'prop-types';
+import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
@@ -30,7 +30,7 @@ class SignIn extends React.Component {
 
   //更新完之后，页面跳转到主页
   componentDidUpdate(){
-    console.log('signInComponentDidUpdate');
+    //console.log('signInComponentDidUpdate');
     if(this.props.auth !==0){
       const path = (this.props.path === '/signIn'|| this.props.path ==='/signin') ? '/' : this.props.path;
       this.props.history.push(path)
@@ -86,7 +86,7 @@ class SignIn extends React.Component {
 
 
 SignIn.protoTypes = {
-  auth:PropTypes.Number,
+  auth:PropTypes.number,
   signIn:PropTypes.func,
   handleUserName:PropTypes.func,
   handlePassWord:PropTypes.func,

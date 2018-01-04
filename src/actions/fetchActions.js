@@ -94,33 +94,33 @@ export const fetchData = (event, newValue) => (
   }
 );
 
-export const getTacForInfo = (event, newValue) => (
-  dispatch=>{
-    const fetchId= ++ nextFetchId;
-    const dispatchIfValid = (action)=>{
-      if(fetchId === nextFetchId){
-        return dispatch(action);
-      }
-    };
-    fetch(`http://${host}:3001/getTacForInfo`,{
-      method:'post',
-      credentials:'include',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({'tac': newValue.replace(/[\s]*/,'')})
-    })
-    .then(res=>res.json())
-    .then(result=>{
-      if(Array.isArray(result)){
-        dispatchIfValid(fetchDataSuccess(result))
-      }else{
-        dispatchIfValid(fetchDataSuccess([]))
-      }
-    })
-    .catch(err=>{
-      dispatchIfValid(fetchDataFailure(err))
-    })
-  }
-);
+// export const getTacForInfo = (event, newValue) => (
+//   dispatch=>{
+//     const fetchId= ++ nextFetchId;
+//     const dispatchIfValid = (action)=>{
+//       if(fetchId === nextFetchId){
+//         return dispatch(action);
+//       }
+//     };
+//     fetch(`http://${host}:3001/getTacForInfo`,{
+//       method:'post',
+//       credentials:'include',
+//       headers:{'Content-Type':'application/json'},
+//       body:JSON.stringify({'tac': newValue.replace(/[\s]*/,'')})
+//     })
+//     .then(res=>res.json())
+//     .then(result=>{
+//       if(Array.isArray(result)){
+//         dispatchIfValid(fetchDataSuccess(result))
+//       }else{
+//         dispatchIfValid(fetchDataSuccess([]))
+//       }
+//     })
+//     .catch(err=>{
+//       dispatchIfValid(fetchDataFailure(err))
+//     })
+//   }
+// );
 
 
 
@@ -293,7 +293,7 @@ export const checkAuth = ()=>(
     })
     .then(res=>res.json())
     .then(userInfo=>{
-      console.log('userInfo',userInfo);
+      //console.log('userInfo',userInfo);
       dispatch(_signIn(userInfo))
     })
     .catch(console.log)

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {PropTypes} from 'prop-types';
+import PropTypes from 'prop-types';
 import {fetchData, searchData} from '../actions/fetchActions.js'
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
@@ -37,6 +37,7 @@ class Search extends React.Component{
         <div className="searchInput">
           <Paper className="searchPaper">
             <TextField
+              id={'search'}
               style={styles.search}
               hintStyle={styles.hint}
               inputStyle={styles.input}
