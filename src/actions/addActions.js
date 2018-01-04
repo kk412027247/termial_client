@@ -17,24 +17,36 @@ const handleUploadExist = (data)=>({
   uploadExist:data,
 });
 
+
 const handleValid = (data)=>({
   type:'HANDLE_VALID',
   valid:data,
 });
 
+
+const conversion = (data) => data.map(item=>({...item,'TAC': Number(item.TAC)}));
+const doNothing = (...arg)=>arg;
+const _conversion = (data) => data.map(item=>{
+  const {_id,..._item} = item;
+  doNothing(_id);
+  return {..._item,'TAC': Number(item.TAC)}
+});
+
 const _handleDateExist = (data)=>({
   type:'_DATA_EXIST',
-  _dataExist:data,
+  _dataExist:conversion(data),
 });
 
 const _handleUploadExist = (data)=>({
   type:'_UPLOAD_EXIST',
-  _uploadExist:data,
+  _uploadExist:conversion(data),
 });
 
+
+
 const _handleValid = (data) =>({
-  type:'_VALID',
-  _valid:data,
+   type:'_VALID',
+  _valid:_conversion(data),
 });
 
 
@@ -96,8 +108,8 @@ export const handleFilter = (label, _id)=>(
 export const handleFetch = (label)=>(
   (dispatch, getState)=>{
     if(label === 'valid'){
-      fetch('http://127.0.0.1:3001/createTac',{
-        credentials:'include',
+      fetch(`http://${host}:3001/createTac`,{
+        credentials: 'include',
         method:'post',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({docs:getState().addReducer._valid.filter(item=>!item.invalid)}),
@@ -108,8 +120,8 @@ export const handleFetch = (label)=>(
         .catch(err=>dispatch(snackbarMessage(JSON.stringify(err))))
     }
     if(label === 'uploadExist'){
-      fetch('http://127.0.0.1:3001/updateTac',{
-        credentials:'include',
+      fetch(`http://${host}:3001/updateTac`,{
+        credentials: 'include',
         method:'post',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({docs:getState().addReducer._uploadExist.filter(item=>!item.invalid)})
@@ -119,8 +131,8 @@ export const handleFetch = (label)=>(
         }).catch(err=>dispatch(snackbarMessage(JSON.stringify(err))))
     }
     if(label === 'dataExist'){
-      fetch('http://127.0.0.1:3001/updateTac',{
-        credentials:'include',
+      fetch(`http://${host}:3001/updateTac`,{
+        credentials: 'include',
         method:'post',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({docs:getState().addReducer._dataExist.filter(item=>!item.invalid)})
@@ -143,22 +155,22 @@ export const handleChange = (event, value)=>(
 
     if(label === 'dataExist') {
       const oldKeyValue = getState().addReducer._dataExist.filter(item => item._id === _id)[0];
-      const _value = !Number(value) ? value : Number(value);
-      const newKeyValue = [...getState().addReducer._dataExist.filter(item => item._id !== _id),{...oldKeyValue, [_key]:_value}];
+      //const _value = !Number(value) ? value : Number(value);
+      const newKeyValue = [...getState().addReducer._dataExist.filter(item => item._id !== _id),{...oldKeyValue, [_key]:value}];
       dispatch(_handleDateExist(newKeyValue))
     }
 
     if(label === 'uploadExist') {
       const oldKeyValue = getState().addReducer._uploadExist.filter(item => item._id === _id)[0];
-      const _value = !Number(value) ? value : Number(value);
-      const newKeyValue = [...getState().addReducer._uploadExist.filter(item => item._id !== _id),{...oldKeyValue, [_key]:_value}];
+      //const _value = !Number(value) ? value : Number(value);
+      const newKeyValue = [...getState().addReducer._uploadExist.filter(item => item._id !== _id),{...oldKeyValue, [_key]:value}];
       dispatch(_handleUploadExist(newKeyValue))
     }
     
     if(label === 'valid'){
       const oldKeyValue = getState().addReducer._valid.filter(item => item._id === _id)[0];
-      const _value = !Number(value) ? value : Number(value);
-      const newKeyValue = [...getState().addReducer._valid.filter(item => item._id !== _id),{...oldKeyValue, [_key]:_value}];
+      //const _value = !Number(value) ? value : Number(value);
+      const newKeyValue = [...getState().addReducer._valid.filter(item => item._id !== _id),{...oldKeyValue, [_key]:value}];
       dispatch(_handleValid(newKeyValue))
     }
   }

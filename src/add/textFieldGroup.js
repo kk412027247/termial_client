@@ -12,7 +12,7 @@ class TextFieldGroup extends React.Component {
     this.props.handleFilter(this.props.label, _id);
   };
   render(){
-    const {_info, label, _id, invalid} = this.props;
+    const {_info, label, _id} = this.props;
     return(
       <div className={'textFieldGroup'} >
         <KeyValue
