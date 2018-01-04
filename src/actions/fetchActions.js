@@ -65,16 +65,19 @@ const cleanDetail = () =>({
 export const fetchData = (event, newValue) => (
   dispatch=>{
     const fetchId= ++ nextFetchId;
+    //检验返回延时，如果延时产生不一致，则放弃返回值。
     const dispatchIfValid = (action)=>{
       if(fetchId === nextFetchId){
         return dispatch(action);
       }
     };
+
     const query = newValue.replace(/(^\s*)|(\s*$)/g, '')
                         .replace(/\s+/g, ' ').split(' ')
                         .reduce((prev,curr)=>([...prev,`"${curr}"`]),[])
                         .toString()
                         .replace(/,/g,' ');
+    //console.log(query);
     dispatch(fetchInput(newValue));
 
     fetch(`http://${host}:3001/query`,{
@@ -82,14 +85,12 @@ export const fetchData = (event, newValue) => (
       credentials:'include',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({'query': query})
-    })
-    .then(res=>res.json())
-    .then(result=>{
-      dispatchIfValid(fetchDataSuccess(result))
-    })
-    .catch(err=>{
-      dispatchIfValid(fetchDataFailure(err))
-    })
+    }).then(res=>res.json())
+      .then(result=>{
+        dispatchIfValid(fetchDataSuccess(result))
+      }).catch(err=>{
+        dispatchIfValid(fetchDataFailure(err))
+      });
   }
 );
 

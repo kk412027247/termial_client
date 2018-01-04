@@ -79,7 +79,6 @@ class Query extends React.Component {
               style={styles.appBar}
               iconElementLeft={<IconButton><Language/></IconButton>}
             />
-            {/*暂时不让多选，因多选影响了UI展示*/}
             <Table
               multiSelectable={true}
               fixedHeader={true}
@@ -100,7 +99,7 @@ class Query extends React.Component {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {result.map((item,index)=>(
+                {result.map((item)=>(
                   <TableRow key={item["_id"]} >
                     <TableRowColumn >{item["厂商(中文)"]}</TableRowColumn>
                     <TableRowColumn >{item["品牌(英文)"]}</TableRowColumn>

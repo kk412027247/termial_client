@@ -31,9 +31,6 @@ const styles= {
   },
 };
 
-
-
-
 class Search extends React.Component{
 
   render(){
