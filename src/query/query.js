@@ -16,8 +16,12 @@ import Download from '../download/download';
 import DownloadInfo from '../download/downloadInfo';
 import Search from './search';
 import '../main.css';
+
+import {bindActionCreators} from 'redux';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-//import {push} from 'react-router-redux';
+
+
+
 
 const styles= {
   button:{
@@ -68,7 +72,6 @@ class Query extends React.Component {
     const { showDetail, result, downloadQuery,auth} = this.props;
     return(
       <div>
-
         <div id="main">
           <Search/>
           <Divider/>
@@ -143,9 +146,14 @@ const mapStateToProps = (state) => ({
   result:state.fetchReducer.result
 });
 
-const mapDispatchToProps = (dispatch) =>({
-  showDetail: (id) => dispatch(showDetail(id)) ,
-  downloadQuery: (index)=>dispatch(downloadQuery(index)),
-});
+// const mapDispatchToProps = (dispatch) =>({
+//   showDetail: (id) => dispatch(showDetail(id)) ,
+//   downloadQuery: (index)=>dispatch(downloadQuery(index)),
+// });
+
+const mapDispatchToProps = dispatch => bindActionCreators({showDetail, downloadQuery}, dispatch);
+
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Query);

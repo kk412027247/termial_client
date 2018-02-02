@@ -15,18 +15,18 @@ import NoFound from '../noFound/noFound';
 import Analyze from '../analyze/analyze';
 import Delete from '../delete/delete';
 import SignIn from '../signIn/signIn'
-import UpdateHistory from '../updateHistory/updateHistory';
+import UpdateHistory from '../history/history';
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import {signOut,handleChangePassword} from '../actions/fetchActions';
 import {handleDrawer} from '../actions/actions';
 import {ConnectedRouter} from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
+//import createHistory from 'history/createBrowserHistory';
 import ChangePassword from '../signIn/changePassword'
 
+import {history} from "../store";
 
-const history = createHistory();
 const styles={
   AppBar:{
     backgroundColor: '#1976D2',
@@ -71,10 +71,9 @@ class Body extends React.Component {
 
     const Auth = ({component: Component, ...res}) =>(
       <Route {...res} render={props => (
-        (auth >=1 &&  auth <=4 ) ? (
-          <Component {...props}/>
-        ):(
-          <Redirect to={{
+        (auth >=1 &&  auth <=4 ) ?
+          (<Component {...props}/>) :
+          (<Redirect to={{
             pathname:'/signIn'
           }}/>
         )
@@ -131,19 +130,19 @@ class Body extends React.Component {
                 }
                 { auth>=4
                   ?  <MenuItem onClick={hDrawer}>
-                    <NavLink to="/updateHistory"  style={styles.Link}>修改记录</NavLink>
+                    <NavLink to="/updateHistory"  style={styles.Link}>App历史日志</NavLink>
                   </MenuItem>
                   : ''
                 }
-                <MenuItem onClick={hDrawer}>
-                  <NavLink to="/analyze"  style={styles.Link}>数据分析</NavLink>
-                </MenuItem>
-                {auth>=3
-                  ?<MenuItem onClick={hDrawer}>
-                    <NavLink to="/delete"  style={styles.Link}>数据删除</NavLink>
-                  </MenuItem>
-                  : ''
-                }
+                {/*<MenuItem onClick={hDrawer}>*/}
+                  {/*<NavLink to="/analyze"  style={styles.Link}>数据分析</NavLink>*/}
+                {/*</MenuItem>*/}
+                {/*{auth>=3*/}
+                  {/*?<MenuItem onClick={hDrawer}>*/}
+                    {/*<NavLink to="/delete"  style={styles.Link}>数据删除</NavLink>*/}
+                  {/*</MenuItem>*/}
+                  {/*: ''*/}
+                {/*}*/}
 
               </nav>
             </Drawer>

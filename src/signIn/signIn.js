@@ -27,7 +27,6 @@ class SignIn extends React.Component {
     return(this.props.auth !== nextProps.auth)
   }
 
-
   //更新完之后，页面跳转到主页
   componentDidUpdate(){
     //console.log('signInComponentDidUpdate');
@@ -84,7 +83,6 @@ class SignIn extends React.Component {
   }
 }
 
-
 SignIn.protoTypes = {
   auth:PropTypes.number,
   signIn:PropTypes.func,
@@ -108,6 +106,7 @@ const mapDispatchToProps = (dispatch)=>({
   pressEnter:(event)=>dispatch(pressEnter(event)),
 });
 
-
-//redux包着的组件只能是这么复杂地包着。
+// redux包着的组件只能是这么复杂地包着。
+// 用withRouter包了一层之后，dumb component就可以用history.push的方式操作了
+// 因为把prop 全部传到了 内层，是的，这个高级组件包了两层
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignIn))

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
-import './updateHistory.css';
+import './history.css';
 import {getUpdateHistory, handleSkip, handlePageUp, handlePageDown, handleDatePicker, getUserList, handleUser} from '../actions/hIstoryActions';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
