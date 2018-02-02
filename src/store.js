@@ -7,7 +7,7 @@ import fetchReducer from './reducer/fetchReducer.js';
 import adminReducer from './reducer/adminReducer';
 import historyReducer from './reducer/historyReducer';
 import addReducer from './reducer/addReducer';
-const history = createHistory();
+export const history = createHistory();
 const rMiddleware = routerMiddleware(history);
 
 //As of React 16, react-addons-perf is not supported. Please use your browser’s profiling tools to get insight into which components re-render.
@@ -28,7 +28,7 @@ const reducer = combineReducers({
   addReducer,
 });
 
-const middlewares = [rMiddleware,thunkMiddleware, ];
+const middlewares = [rMiddleware,thunkMiddleware];
 if(process.env.NODE_ENV !== 'production'){
   middlewares.push( require('redux-immutable-state-invariant').default());
 }
