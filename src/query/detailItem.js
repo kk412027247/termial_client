@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {PropTypes} from 'prop-types';
+import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import {changeDetail,updateDetail} from '../actions/fetchActions';
@@ -34,7 +34,6 @@ class DetailItem extends React.Component {
             {arg.map(item=>(
               <div className="item" key={item}>
                 <span className="key">{item}</span>
-                {console.log(item)}
                 {auth>1 ?
                   <TextField
                     id = {item}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {PropTypes} from 'prop-types';
+import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
