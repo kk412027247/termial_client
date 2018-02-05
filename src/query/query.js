@@ -20,9 +20,6 @@ import '../main.css';
 import {bindActionCreators} from 'redux';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-
-
-
 const styles= {
   button:{
     display: 'flex',

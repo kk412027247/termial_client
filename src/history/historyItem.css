@@ -1,0 +1,73 @@
+.user_history{
+    display:flex;
+    margin-top:20px;
+    width:1200px;
+    justify-content:flex-start;
+    padding:10px;
+}
+
+div.history_saved,
+div.history_cache,
+div.history_origin{
+    min-width:500px;
+    padding:10px;
+    display:flex;
+    flex-wrap:wrap;
+    transition:300ms;
+    border-radius:5px;
+}
+div.history_cache:hover,
+div.history_origin:hover {
+    background-color:#cccccc;
+
+}
+
+.user_history ul{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+.user_history ul>li{
+    height:30px;
+}
+
+.user_history ul>li:nth-child(1){
+    display: flex;
+    align-items: center;
+    font-weight:bold;
+}
+
+.CloudDownload,
+.history_saved ul>li:nth-child(1){
+    color:#4caf50
+}
+
+.history_cache ul>li:nth-child(1){
+    color:#e91e63
+}
+
+.history_origin ul>li:nth-child(1){
+    color:#2196f3
+}
+
+.user_history img{
+    margin-left:40px;
+    cursor:pointer;
+}
+
+div.history_button{
+    display:flex;
+    flex:1;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    transition:300ms;
+
+}
+
+div.history_cache:hover div.history_button,
+div.history_origin:hover div.history_button{
+    opacity:1;
+}
+

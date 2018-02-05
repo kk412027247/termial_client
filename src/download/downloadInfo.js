@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Chip from 'material-ui/Chip';
-import {PropTypes} from 'prop-types';
+import PropTypes from 'prop-types';
 import {handleCombine} from '../actions/fetchActions'
 import {blue300} from 'material-ui/styles/colors'
 import './downloadInfo.css';

@@ -36,6 +36,18 @@ export default (state={}, action)=>{
         check:action.check,
       }
     }
+
+
+
+
+
+
+    case 'HISTORY':{
+      return{
+        ...state,
+        history:action.history,
+      }
+    }
     default:{
       return state;
     }

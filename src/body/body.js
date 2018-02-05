@@ -114,11 +114,11 @@ class Body extends React.Component {
               />
               <nav>
                 <MenuItem onClick={hDrawer}>
-                  <NavLink exact to="/"  style={styles.Link}>查询数据</NavLink>
+                  <NavLink exact to="/"  style={styles.Link}>数据查询</NavLink>
                 </MenuItem>
                 { auth>=3
                   ? <MenuItem onClick={hDrawer}>
-                    <NavLink to="/add"  style={styles.Link}>新增数据</NavLink>
+                    <NavLink to="/add"  style={styles.Link}>数据新增</NavLink>
                   </MenuItem>
                   : ''
                 }
