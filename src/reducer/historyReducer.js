@@ -42,10 +42,23 @@ export default (state={}, action)=>{
 
 
 
+
     case 'HISTORY':{
       return{
         ...state,
         history:action.history,
+      }
+    }
+    case 'HANDLE_IMAGE':{
+      return{
+        ...state,
+        url:action.url,
+      }
+    }
+    case 'TOGGLE_IMAGE':{
+      return{
+        ...state,
+        openImage: !state.openImage
       }
     }
     default:{

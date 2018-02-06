@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {getHistory} from '../actions/hIstoryActions';
+import {getHistory} from '../actions/historyActions';
 import HistoryItem from './historyItem';
+import ImageDialog from './imageDialog';
 
 
 
@@ -22,6 +23,7 @@ class History extends React.PureComponent{
             history={_history}
           />
         )}
+        <ImageDialog/>
       </div>
     )
   }

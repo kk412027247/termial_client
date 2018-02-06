@@ -10,3 +10,14 @@ export const getHistory = () =>  (
     dispatch({type:'HISTORY', history});
   }
 );
+
+export const handleImage = (url)=>({
+  type:'HANDLE_IMAGE',
+  url,
+});
+
+export const toggleImage = () =>({
+  type:'TOGGLE_IMAGE',
+});
+
+

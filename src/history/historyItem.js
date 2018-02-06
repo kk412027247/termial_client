@@ -1,9 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import CloudDone from 'material-ui/svg-icons/file/cloud-done';
 import CloudDownload from  'material-ui/svg-icons/file/cloud-download';
 import Folder from 'material-ui/svg-icons/file/folder';
+import {handleImage,toggleImage} from '../actions/historyActions';
 import host from '../host'
 import './historyItem.css';
 
@@ -19,7 +22,7 @@ const styles = {
   }
 };
 
-export default ({history})=> {
+const HistoryItem = ({history,handleImage})=> {
   if(history.status === 'saved'){
     return(
       <Paper className={'user_history'} >
@@ -31,7 +34,7 @@ export default ({history})=> {
             <li>TAC：{history.TAC}</li>
           </ul>
           <img
-            onClick={()=>{console.log(1)}}
+            onClick={handleImage.bind(null,`http://${host}:3001/${history.imagePath.replace(/public/,'')}`)}
             src={`http://${host}:3001/${history.imagePath.replace(/public/,'')}`}
             alt="TAC"
             height="110px"/>
@@ -49,7 +52,12 @@ export default ({history})=> {
               <li>型号：{history.cache['型号1']}</li>
               <li>TAC：{history.cache.TAC}</li>
             </ul>
-            <img src={`http://${host}:3001/${history.cache.imagePath.replace(/public/,'')}`} alt="TAC" height="110px"/>
+            <img
+              onClick={handleImage.bind(null,`http://${host}:3001/${history.cache.imagePath.replace(/public/,'')}`)}
+              src={`http://${host}:3001/${history.cache.imagePath.replace(/public/,'')}`}
+              alt="TAC"
+              height="110px"
+            />
             <div className={'history_button'}>
               <RaisedButton secondary={true} label={'存入新数据'}/>
             </div>
@@ -62,7 +70,12 @@ export default ({history})=> {
               <li>型号：{history.origin['型号1']}</li>
               <li>TAC：{history.origin.TAC}</li>
             </ul>
-            <img src={`http://${host}:3001/${history.origin.imagePath.replace(/public/,'')}`} alt="TAC" height="110px"/>
+            <img
+              onClick={handleImage.bind(null,`http://${host}:3001/${history.origin.imagePath.replace(/public/,'')}`)}
+              src={`http://${host}:3001/${history.origin.imagePath.replace(/public/,'')}`}
+              alt="TAC"
+              height="110px"
+            />
             <div className={'history_button'}>
               <RaisedButton primary={true} label={'保留原数据'}/>
             </div>
@@ -72,3 +85,12 @@ export default ({history})=> {
     )
   }
 };
+
+const mapDispatchToProps = dispatch => ({
+  handleImage:(url)=>{
+    dispatch(handleImage(url));
+    dispatch(toggleImage());
+  }
+});
+
+export default connect(null,mapDispatchToProps)(HistoryItem)
