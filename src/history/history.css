@@ -1,0 +1,31 @@
+
+.history-enter {
+    height: 0;
+    opacity:0;
+    transform:scale(0)
+}
+
+.history-enter.history-enter-active {
+    opacity:1;
+    height: 180px;
+    transform:scale(1);
+    transition: 500ms ease-out;
+    overflow:hidden;
+    transform-origin: top left;
+}
+
+.history-leave {
+    transform:scale(1);
+    opacity:1;
+    height: 180px;
+}
+
+.history-leave.history-leave-active {
+    transform:scale(0);
+    opacity:0;
+    height: 0;
+    transition: 500ms ease-out;
+    overflow:hidden;
+    transform-origin:top left;
+}
+

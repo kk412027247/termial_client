@@ -21,3 +21,6 @@ export const toggleImage = () =>({
 });
 
 
+export const toggleCache = () =>({
+  type:'TOGGLE_CACHE',
+});

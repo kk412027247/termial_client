@@ -1,9 +1,12 @@
+
+
 .user_history{
     display:flex;
-    margin-top:20px;
     width:1200px;
     justify-content:flex-start;
-    padding:10px;
+    align-items: center;
+    height:160px;
+    margin:20px 0 0 0;
 }
 
 div.history_saved,
@@ -15,10 +18,11 @@ div.history_origin{
     flex-wrap:wrap;
     transition:300ms;
     border-radius:5px;
+    margin-left:15px;
 }
 div.history_cache:hover,
 div.history_origin:hover {
-    background-color:#cccccc;
+    background-color: #ebebeb;
 
 }
 
@@ -70,4 +74,6 @@ div.history_cache:hover div.history_button,
 div.history_origin:hover div.history_button{
     opacity:1;
 }
+
+
 

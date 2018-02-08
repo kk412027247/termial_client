@@ -6,6 +6,45 @@
 
 #### ReactCSSTransitionGroup 结合 transition 分步变化可以搞很多复杂的效果，因为本质上是css，所以还能跟keyframes一起用。ps 组件动画默认500ms记得。
 
+
+进场组件如果带了高度，需要在外层加一层活动高度的盒子，因为带高度进场会令高度动画无效.
+```
+//定义了进场时的状态，高度是自带的。
+.history-enter {
+    height: 0;
+    opacity:0;
+}
+
+
+
+//定义了进场过程的动画，就和:hover 差不多意思，进场结束后，转成 默认状态。以下动画部分可以用 animation 代替
+.history-enter.history-enter-active {
+    opacity:1;
+    height: 180px;
+    transition: 500ms ease-in;
+    overflow:hidden;
+}
+
+
+//可以替换成以下形式
+.history-enter {
+    height: 160px;
+}
+
+.history-enter.history-enter-active {
+    animation: 500ms rainbow 3 normal;
+}
+
+
+@keyframes rainbow {
+    0% { background-color: yellow; }
+    100% { background: blue; }
+}
+
+
+```
+
+
 #### transparent 透明色
 
 #### 创建搜索索引，文本索引关键字是text

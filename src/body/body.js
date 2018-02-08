@@ -128,9 +128,9 @@ class Body extends React.Component {
                   </MenuItem>
                   : ''
                 }
-                { auth>=4
+                { auth>=1
                   ?  <MenuItem onClick={hDrawer}>
-                    <NavLink to="/updateHistory"  style={styles.Link}>App历史日志</NavLink>
+                    <NavLink to="/history"  style={styles.Link}>App历史日志</NavLink>
                   </MenuItem>
                   : ''
                 }
@@ -153,7 +153,7 @@ class Body extends React.Component {
               <Auth exact path="/" component={Query}/>
               {auth>=3?<Auth path="/add" component={Add}/>:''}
               {auth>=4?<Auth path='/admin' component={Admin}/>:''}
-              {auth>=4?<Auth path='/updateHistory' component={UpdateHistory}/>:''}
+              {auth>=1?<Auth path='/history' component={UpdateHistory}/>:''}
               <Auth path='/analyze' component={Analyze}/>
               {auth>=3?<Auth path='/delete' component={Delete}/>:''}
               <Route path='/signIn' component={SignIn}/>

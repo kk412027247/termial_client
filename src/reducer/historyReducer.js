@@ -61,6 +61,12 @@ export default (state={}, action)=>{
         openImage: !state.openImage
       }
     }
+    case 'TOGGLE_CACHE':{
+      return{
+        ...state,
+        cache: !state.cache,
+      }
+    }
     default:{
       return state;
     }

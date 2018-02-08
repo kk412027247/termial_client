@@ -86,7 +86,8 @@ const iniState ={
 
     history:[],
     openImage:false,
-    url:''
+    url:'' ,
+    cache:false,
   },
   addReducer:{
     dataExist:[],

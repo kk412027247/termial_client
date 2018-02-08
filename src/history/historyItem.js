@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import PropTypes from 'prop-types';
+//import {bindActionCreators} from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import CloudDone from 'material-ui/svg-icons/file/cloud-done';
@@ -22,28 +23,30 @@ const styles = {
   }
 };
 
-const HistoryItem = ({history,handleImage})=> {
+const HistoryItem = ({history,handleImage,savedUrl,cacheUrl,originUrl})=> {
   if(history.status === 'saved'){
     return(
-      <Paper className={'user_history'} >
-        <div className={'history_saved'} >
-          <ul>
-            <li><CloudDone  style={styles.cloudDoneStyle}/>已保存</li>
-            <li>品牌：{history['品牌1']}</li>
-            <li>型号：{history['型号1']}</li>
-            <li>TAC：{history.TAC}</li>
-          </ul>
-          <img
-            onClick={handleImage.bind(null,`http://${host}:3001/${history.imagePath.replace(/public/,'')}`)}
-            src={`http://${host}:3001/${history.imagePath.replace(/public/,'')}`}
-            alt="TAC"
-            height="110px"/>
-        </div>
-      </Paper>
+      <div className={'history_container'}>
+        <Paper className={'user_history'} >
+          <div className={'history_saved'} >
+            <ul>
+              <li><CloudDone  style={styles.cloudDoneStyle}/>已保存</li>
+              <li>品牌：{history['品牌1']}</li>
+              <li>型号：{history['型号1']}</li>
+              <li>TAC：{history.TAC}</li>
+            </ul>
+            <img
+              onClick={handleImage.bind(null,savedUrl)}
+              src={savedUrl}
+              alt="TAC"
+              height="110px"/>
+          </div>
+        </Paper>
+      </div>
     )
   }else{
     return(
-      <div>
+      <div className={'history_container'}>
         <Paper className={'user_history'}>
           <div className={'history_cache'} >
             <ul>
@@ -53,8 +56,8 @@ const HistoryItem = ({history,handleImage})=> {
               <li>TAC：{history.cache.TAC}</li>
             </ul>
             <img
-              onClick={handleImage.bind(null,`http://${host}:3001/${history.cache.imagePath.replace(/public/,'')}`)}
-              src={`http://${host}:3001/${history.cache.imagePath.replace(/public/,'')}`}
+              onClick={handleImage.bind(null,cacheUrl)}
+              src={cacheUrl}
               alt="TAC"
               height="110px"
             />
@@ -70,9 +73,10 @@ const HistoryItem = ({history,handleImage})=> {
               <li>型号：{history.origin['型号1']}</li>
               <li>TAC：{history.origin.TAC}</li>
             </ul>
+            {console.log(history.origin)}
             <img
-              onClick={handleImage.bind(null,`http://${host}:3001/${history.origin.imagePath.replace(/public/,'')}`)}
-              src={`http://${host}:3001/${history.origin.imagePath.replace(/public/,'')}`}
+              onClick={handleImage.bind(null,originUrl)}
+              src={originUrl}
               alt="TAC"
               height="110px"
             />
@@ -86,6 +90,30 @@ const HistoryItem = ({history,handleImage})=> {
   }
 };
 
+
+
+HistoryItem.proptypes = {
+  handleImage:PropTypes.func,
+  savedUrl: PropTypes.string,
+  cacheUrl: PropTypes.string,
+  originUrl: PropTypes.string,
+};
+
+const mapStateToProps = (state, ownProps) =>{
+  let savedUrl,cacheUrl,originUrl;
+  if(ownProps.history.status === 'saved'){
+    savedUrl = ownProps.history.imagePath ?
+      `http://${host}:3001/${ownProps.history.imagePath.replace(/public/,'')}`:'';
+  }else{
+    cacheUrl = ownProps.history.cache.imagePath ?
+      `http://${host}:3001/${ownProps.history.cache.imagePath.replace(/public/,'')}` : '';
+    originUrl  = ownProps.history.origin.imagePath ?
+      `http://${host}:3001/${ownProps.history.origin.imagePath.replace(/public/,'')}`:'';
+  }
+  return {
+    savedUrl,cacheUrl,originUrl
+  }};
+
 const mapDispatchToProps = dispatch => ({
   handleImage:(url)=>{
     dispatch(handleImage(url));
@@ -93,4 +121,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(null,mapDispatchToProps)(HistoryItem)
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(HistoryItem)
