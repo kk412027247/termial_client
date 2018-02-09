@@ -73,7 +73,6 @@ const HistoryItem = ({history,handleImage,savedUrl,cacheUrl,originUrl})=> {
               <li>型号：{history.origin['型号1']}</li>
               <li>TAC：{history.origin.TAC}</li>
             </ul>
-            {console.log(history.origin)}
             <img
               onClick={handleImage.bind(null,originUrl)}
               src={originUrl}

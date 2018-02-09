@@ -15,14 +15,13 @@ import NoFound from '../noFound/noFound';
 import Analyze from '../analyze/analyze';
 import Delete from '../delete/delete';
 import SignIn from '../signIn/signIn'
-import UpdateHistory from '../history/history';
+import History from '../history/history';
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import {signOut,handleChangePassword} from '../actions/fetchActions';
 import {handleDrawer} from '../actions/actions';
 import {ConnectedRouter} from 'react-router-redux';
-//import createHistory from 'history/createBrowserHistory';
 import ChangePassword from '../signIn/changePassword'
 
 import {history} from "../store";
@@ -55,9 +54,9 @@ class Body extends React.Component {
   //   console.log(navigator.userAgent);
   // }
   //
-  // componentDidUpdate(){
-  //   console.log('Body Component did update');
-  // }
+  componentDidUpdate(){
+    console.log('Body Component did update');
+  }
 
 
 
@@ -153,7 +152,7 @@ class Body extends React.Component {
               <Auth exact path="/" component={Query}/>
               {auth>=3?<Auth path="/add" component={Add}/>:''}
               {auth>=4?<Auth path='/admin' component={Admin}/>:''}
-              {auth>=1?<Auth path='/history' component={UpdateHistory}/>:''}
+              {auth>=1?<Auth path='/history' component={History}/>:''}
               <Auth path='/analyze' component={Analyze}/>
               {auth>=3?<Auth path='/delete' component={Delete}/>:''}
               <Route path='/signIn' component={SignIn}/>

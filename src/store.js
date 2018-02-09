@@ -77,7 +77,6 @@ const iniState ={
   historyReducer:{
     updateHistory:[],
     pages:0,
-    date:new Date(Date.now()),
     userList:[],
     user:".*",
 
