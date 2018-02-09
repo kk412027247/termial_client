@@ -1,13 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-//import {bindActionCreators} from 'redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import CloudDone from 'material-ui/svg-icons/file/cloud-done';
 import CloudDownload from  'material-ui/svg-icons/file/cloud-download';
 import Folder from 'material-ui/svg-icons/file/folder';
-import {handleImage,toggleImage} from '../actions/historyActions';
+import {handleImage,toggleImage,updateHistoryByPC} from '../actions/historyActions';
 import host from '../host'
 import './historyItem.css';
 
@@ -23,7 +22,7 @@ const styles = {
   }
 };
 
-const HistoryItem = ({history,handleImage,savedUrl,cacheUrl,originUrl})=> {
+const HistoryItem = ({history,handleImage,savedUrl,cacheUrl,originUrl,updateHistoryByPC})=> {
   if(history.status === 'saved'){
     return(
       <div className={'history_container'}>
@@ -35,15 +34,23 @@ const HistoryItem = ({history,handleImage,savedUrl,cacheUrl,originUrl})=> {
               <li>型号：{history['型号1']}</li>
               <li>TAC：{history.TAC}</li>
             </ul>
-            <img
-              onClick={handleImage.bind(null,savedUrl)}
-              src={savedUrl}
-              alt="TAC"
-              height="110px"/>
+
+            {
+              savedUrl !== ''?
+              <img
+                onClick={handleImage.bind(null,savedUrl)}
+                src={savedUrl}
+                alt="TAC"
+                height="110px"
+              /> :
+              <div/>
+            }
           </div>
         </Paper>
       </div>
     )
+  }else if(history.status === 'empty'){
+    console.log('empty')
   }else{
     return(
       <div className={'history_container'}>
@@ -55,14 +62,22 @@ const HistoryItem = ({history,handleImage,savedUrl,cacheUrl,originUrl})=> {
               <li>型号：{history.cache['型号1']}</li>
               <li>TAC：{history.cache.TAC}</li>
             </ul>
-            <img
-              onClick={handleImage.bind(null,cacheUrl)}
-              src={cacheUrl}
-              alt="TAC"
-              height="110px"
-            />
+            {
+              cacheUrl !== '' ?
+              <img
+                onClick={handleImage.bind(null,cacheUrl)}
+                src={cacheUrl}
+                alt="TAC"
+                height="110px"
+              /> :
+              <div/>
+            }
             <div className={'history_button'}>
-              <RaisedButton secondary={true} label={'存入新数据'}/>
+              <RaisedButton
+                onClick={updateHistoryByPC.bind(null,{status:'saved',TAC:history.cache.TAC})}
+                secondary={true}
+                label={'存入新数据'}
+              />
             </div>
           </div>
 
@@ -73,14 +88,23 @@ const HistoryItem = ({history,handleImage,savedUrl,cacheUrl,originUrl})=> {
               <li>型号：{history.origin['型号1']}</li>
               <li>TAC：{history.origin.TAC}</li>
             </ul>
-            <img
-              onClick={handleImage.bind(null,originUrl)}
-              src={originUrl}
-              alt="TAC"
-              height="110px"
-            />
+            {
+              originUrl !== ''?
+              <img
+                onClick={handleImage.bind(null,originUrl)}
+                src={originUrl}
+                alt="TAC"
+                height="110px"
+              />:
+              <div/>
+            }
+
             <div className={'history_button'}>
-              <RaisedButton primary={true} label={'保留原数据'}/>
+              <RaisedButton
+                onClick={updateHistoryByPC.bind(null,{status:'origin',TAC:history.origin.TAC})}
+                primary={true}
+                label={'保留原数据'}
+              />
             </div>
           </div>
         </Paper>
@@ -96,6 +120,7 @@ HistoryItem.proptypes = {
   savedUrl: PropTypes.string,
   cacheUrl: PropTypes.string,
   originUrl: PropTypes.string,
+  updateHistoryByPC: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) =>{
@@ -117,7 +142,8 @@ const mapDispatchToProps = dispatch => ({
   handleImage:(url)=>{
     dispatch(handleImage(url));
     dispatch(toggleImage());
-  }
+  },
+  updateHistoryByPC:(updateInfo)=>dispatch(updateHistoryByPC(updateInfo)),
 });
 
 

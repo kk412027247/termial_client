@@ -23,7 +23,7 @@ import {signOut,handleChangePassword} from '../actions/fetchActions';
 import {handleDrawer} from '../actions/actions';
 import {ConnectedRouter} from 'react-router-redux';
 import ChangePassword from '../signIn/changePassword'
-
+import {toggleFirstFetchState,handleHistory} from '../actions/historyActions';
 import {history} from "../store";
 
 const styles={
@@ -54,9 +54,9 @@ class Body extends React.Component {
   //   console.log(navigator.userAgent);
   // }
   //
-  componentDidUpdate(){
-    console.log('Body Component did update');
-  }
+  // componentDidUpdate(){
+  //   console.log('Body Component did update');
+  // }
 
 
 
@@ -186,7 +186,11 @@ const mapStateToProps = (state) =>({
 
 const mapDispatchToProps = (dispatch) =>({
   hDrawer: () => dispatch(handleDrawer()),
-  signOut: () => dispatch(signOut()),
+  signOut: () => {
+    dispatch(signOut());
+    dispatch(toggleFirstFetchState(true));
+    dispatch(handleHistory([]));
+  },
   handleChangePassword:()=>dispatch(handleChangePassword()),
   //link:()=>dispatch(push('/somewhere'))
 

@@ -7,8 +7,7 @@ import fetchReducer from './reducer/fetchReducer.js';
 import adminReducer from './reducer/adminReducer';
 import historyReducer from './reducer/historyReducer';
 import addReducer from './reducer/addReducer';
-export const history = createHistory();
-const rMiddleware = routerMiddleware(history);
+
 
 //As of React 16, react-addons-perf is not supported.
 // Please use your browser’s profiling tools to get insight into which components re-render.
@@ -23,6 +22,8 @@ const reducer = combineReducers({
   addReducer,
 });
 
+export const history = createHistory();
+const rMiddleware = routerMiddleware(history);
 const middlewares = [thunkMiddleware, rMiddleware];
 if(process.env.NODE_ENV !== 'production'){
   middlewares.push( require('redux-immutable-state-invariant').default());
@@ -75,18 +76,15 @@ const iniState ={
     removeUser:{}
   },
   historyReducer:{
-    updateHistory:[],
-    pages:0,
-    userList:[],
-    user:".*",
-
-
-
-
     history:[],
     openImage:false,
     url:'' ,
     cache:false,
+    skip:0,
+    loadMore:true,
+    stopLoading:false,
+    loading:false,
+    firstFetch:true,
   },
   addReducer:{
     dataExist:[],
