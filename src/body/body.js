@@ -23,6 +23,8 @@ import ChangePassword from '../signIn/changePassword'
 import {toggleFirstFetchState,handleHistory} from '../actions/historyActions';
 import {history} from "../store";
 import Sidebar from './sidebar';
+import {handleDrawer} from '../actions/actions';
+
 
 const styles={
   AppBar:{
@@ -37,8 +39,7 @@ const styles={
 class Body extends React.Component {
   
   render(){
-
-    const {hDrawer, auth,userName,signOut, handleChangePassword} = this.props;
+    const {auth,userName,signOut, handleChangePassword, handleDrawer} = this.props;
     const position = {
       targetOrigin:{horizontal:'right',vertical:'top'},
       anchorOrigin:{horizontal:'right',vertical:'top'}
@@ -74,7 +75,7 @@ class Body extends React.Component {
                   <MenuItem onClick={signOut} >退出</MenuItem>
                 </IconMenu>
               }
-              onLeftIconButtonTouchTap={auth>=2?hDrawer:doNothing}
+              onLeftIconButtonTouchTap={auth>=2?handleDrawer:doNothing}
               style={styles.AppBar}
             />
             <Sidebar/>
@@ -117,6 +118,7 @@ const mapStateToProps = (state) =>({
 });
 
 const mapDispatchToProps = (dispatch) =>({
+  handleDrawer:()=>dispatch(handleDrawer()),
   signOut: () => {
     dispatch(signOut());
     dispatch(toggleFirstFetchState(true));

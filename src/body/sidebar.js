@@ -11,14 +11,12 @@ import {handleDrawer} from '../actions/actions';
 import PropTypes from "prop-types";
 
 const styles={
-
   AppBarDrawer:{
     backgroundColor: '#1976D2',
   },
   Link:{
     display:'flex'
-  },
-
+  }
 };
 
 const Sidebar = ({auth,drawer,handleDrawer}) => (
