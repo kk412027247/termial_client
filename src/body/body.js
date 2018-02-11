@@ -24,6 +24,7 @@ import {toggleFirstFetchState,handleHistory} from '../actions/historyActions';
 import {history} from "../store";
 import Sidebar from './sidebar';
 import {handleDrawer} from '../actions/actions';
+import Export from '../export/export';
 
 
 const styles={
@@ -86,9 +87,8 @@ class Body extends React.Component {
               {auth>=3?<Auth path="/add" component={Add}/>:''}
               {auth>=4?<Auth path='/admin' component={Admin}/>:''}
               {auth>=1?<Auth path='/history' component={History}/>:''}
-              <Auth path='/analyze' component={Analyze}/>
-              {auth>=3?<Auth path='/delete' component={Delete}/>:''}
               <Route path='/signIn' component={SignIn}/>
+              {auth>=2? <Auth path='/export' component={Export}/>:''}
               <Auth component={NoFound}/>
             </Switch>
           </main>

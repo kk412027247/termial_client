@@ -34,6 +34,12 @@ const Sidebar = ({auth,drawer,handleDrawer}) => (
       <MenuItem onClick={handleDrawer}>
         <NavLink exact to="/"  style={styles.Link}>数据查询</NavLink>
       </MenuItem>
+      { auth>=2
+        ?  <MenuItem onClick={handleDrawer}>
+          <NavLink to="/export"  style={styles.Link}>数据导出</NavLink>
+        </MenuItem>
+        : ''
+      }
       { auth>=3
         ? <MenuItem onClick={handleDrawer}>
           <NavLink to="/add"  style={styles.Link}>数据新增</NavLink>
@@ -52,6 +58,7 @@ const Sidebar = ({auth,drawer,handleDrawer}) => (
         </MenuItem>
         : ''
       }
+
     </nav>
   </Drawer>
 );

@@ -141,11 +141,6 @@ const mapStateToProps = (state) => ({
   result:state.fetchReducer.result
 });
 
-// const mapDispatchToProps = (dispatch) =>({
-//   showDetail: (id) => dispatch(showDetail(id)) ,
-//   downloadQuery: (index)=>dispatch(downloadQuery(index)),
-// });
-
 const mapDispatchToProps = dispatch => bindActionCreators({showDetail, downloadQuery}, dispatch);
 
 
