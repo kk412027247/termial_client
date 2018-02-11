@@ -1,9 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {Route, NavLink, Switch,Redirect} from 'react-router-dom';
+import {Route, Switch,Redirect} from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -17,7 +16,6 @@ import Delete from '../delete/delete';
 import SignIn from '../signIn/signIn'
 import History from '../history/history';
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
-import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import {signOut,handleChangePassword} from '../actions/fetchActions';
 import {handleDrawer} from '../actions/actions';
@@ -25,6 +23,7 @@ import {ConnectedRouter} from 'react-router-redux';
 import ChangePassword from '../signIn/changePassword'
 import {toggleFirstFetchState,handleHistory} from '../actions/historyActions';
 import {history} from "../store";
+import Sidebar from './sidebar';
 
 const styles={
   AppBar:{
@@ -32,37 +31,15 @@ const styles={
     height: '70px',
     display: 'flex',
     alignItems: 'center'
-  },
-  AppBarDrawer:{
-    backgroundColor: '#1976D2',
-  },
-  Link:{
-    display:'flex'
-  },
- 
+  }
 };
 
 
 class Body extends React.Component {
-  // shouldComponentUpdate(nextProps){
-  //   console.log('nextProps',nextProps.location);
-  //   console.log('this.props',this.props.location);
-  //   return (nextProps !== this.props)
-  // }
-
-  // componentDidMount(){
-  //   console.log(navigator.userAgent);
-  // }
-  //
-  // componentDidUpdate(){
-  //   console.log('Body Component did update');
-  // }
-
-
-
+  
   render(){
 
-    const {hDrawer, drawer, auth,userName,signOut, handleChangePassword} = this.props;
+    const {hDrawer, auth,userName,signOut, handleChangePassword} = this.props;
     const position = {
       targetOrigin:{horizontal:'right',vertical:'top'},
       anchorOrigin:{horizontal:'right',vertical:'top'}
@@ -101,50 +78,7 @@ class Body extends React.Component {
               onLeftIconButtonTouchTap={auth>=2?hDrawer:doNothing}
               style={styles.AppBar}
             />
-            <Drawer
-              open={drawer}
-              docked={false}
-              onRequestChange={hDrawer}
-            >
-              <AppBar
-                iconElementLeft={<IconButton><ArrowBack/></IconButton>}
-                onLeftIconButtonTouchTap={hDrawer}
-                style={styles.AppBarDrawer}
-              />
-              <nav>
-                <MenuItem onClick={hDrawer}>
-                  <NavLink exact to="/"  style={styles.Link}>数据查询</NavLink>
-                </MenuItem>
-                { auth>=3
-                  ? <MenuItem onClick={hDrawer}>
-                    <NavLink to="/add"  style={styles.Link}>数据新增</NavLink>
-                  </MenuItem>
-                  : ''
-                }
-                { auth>=4
-                  ?  <MenuItem onClick={hDrawer}>
-                    <NavLink to="/admin"  style={styles.Link}>用户管理</NavLink>
-                  </MenuItem>
-                  : ''
-                }
-                { auth>=1
-                  ?  <MenuItem onClick={hDrawer}>
-                    <NavLink to="/history"  style={styles.Link}>App历史日志</NavLink>
-                  </MenuItem>
-                  : ''
-                }
-                {/*<MenuItem onClick={hDrawer}>*/}
-                  {/*<NavLink to="/analyze"  style={styles.Link}>数据分析</NavLink>*/}
-                {/*</MenuItem>*/}
-                {/*{auth>=3*/}
-                  {/*?<MenuItem onClick={hDrawer}>*/}
-                    {/*<NavLink to="/delete"  style={styles.Link}>数据删除</NavLink>*/}
-                  {/*</MenuItem>*/}
-                  {/*: ''*/}
-                {/*}*/}
-
-              </nav>
-            </Drawer>
+            <Sidebar/>
           </header>
           <main>
             <ChangePassword/>
@@ -192,8 +126,6 @@ const mapDispatchToProps = (dispatch) =>({
     dispatch(handleHistory([]));
   },
   handleChangePassword:()=>dispatch(handleChangePassword()),
-  //link:()=>dispatch(push('/somewhere'))
-
 });
 
 
