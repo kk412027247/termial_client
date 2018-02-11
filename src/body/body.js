@@ -37,7 +37,6 @@ const styles={
 
 
 class Body extends React.Component {
-  
   render(){
     const {auth,userName,signOut, handleChangePassword, handleDrawer} = this.props;
     const position = {
@@ -81,6 +80,7 @@ class Body extends React.Component {
             <Sidebar/>
           </header>
           <main>
+            {console.log(this.props)}
             <ChangePassword/>
             <Switch>
               <Auth exact path="/" component={Query}/>
@@ -114,6 +114,7 @@ const mapStateToProps = (state) =>({
   auth: state.fetchReducer.userInfo.level,
   userName:state.fetchReducer.userInfo.userName,
   spiderStatus:state.fetchReducer.spiderStatus,
+  location:state.routerReducer.location,
   //detail: state.fetchReducer.detail,
 });
 
@@ -126,6 +127,5 @@ const mapDispatchToProps = (dispatch) =>({
   },
   handleChangePassword:()=>dispatch(handleChangePassword()),
 });
-
 
 export default  connect(mapStateToProps, mapDispatchToProps)(Body);

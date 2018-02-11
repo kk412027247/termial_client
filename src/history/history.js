@@ -37,11 +37,12 @@ class History extends React.Component{
         <TransitionGroup>
           {history.map(_history=>
             <CSSTransition
+              key={_history._id? _history._id: _history.cache._id}
               classNames={'history'}
               appear={true}
               timeout={500}
             >
-              <HistoryItem key={_history._id? _history._id: _history.cache._id} history={_history}/>
+              <HistoryItem history={_history}/>
             </CSSTransition>
           )}
         </TransitionGroup>
