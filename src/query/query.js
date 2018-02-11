@@ -16,9 +16,7 @@ import Download from '../download/download';
 import DownloadInfo from '../download/downloadInfo';
 import Search from './search';
 import '../main.css';
-
 import {bindActionCreators} from 'redux';
-//import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const styles= {
   button:{

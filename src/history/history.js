@@ -21,8 +21,7 @@ class History extends React.Component{
   shouldComponentUpdate(nextProps){
     return nextProps.history !== this.props.history;
   }
-
-
+  
   render(){
     const {history,toggleCache,cache}  = this.props;
     const style = {marginTop:20,marginLeft:20,width:120};
