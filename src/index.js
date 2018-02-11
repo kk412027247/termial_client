@@ -5,19 +5,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import App from './body/body.js';
 import registerServiceWorker from './registerServiceWorker';
 import store from './store.js'
-//import {ConnectedRouter} from 'react-router-redux';
-// import createHistory from 'history/createBrowserHistory';
-// const history = createHistory();
-
-
 
 ReactDOM.render(
   <Provider store={store}>
-    {/*<ConnectedRouter history={history}>*/}
-      <MuiThemeProvider>
-        <App />
-      </MuiThemeProvider>
-    {/*</ConnectedRouter>*/}
+    <MuiThemeProvider>
+      <App />
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('root'));
 

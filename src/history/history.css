@@ -14,13 +14,13 @@
     transform-origin: top left;
 }
 
-.history-leave {
+.history-exit {
     transform:scale(1);
     opacity:1;
     height: 180px;
 }
 
-.history-leave.history-leave-active {
+.history-exit.history-exit-active {
     transform:scale(0);
     opacity:0;
     height: 0;
