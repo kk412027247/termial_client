@@ -8,6 +8,7 @@ import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import {NavLink} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {handleDrawer} from '../actions/actions';
+import PropTypes from "prop-types";
 
 const styles={
 
@@ -56,6 +57,12 @@ const Sidebar = ({auth,drawer,handleDrawer}) => (
     </nav>
   </Drawer>
 );
+
+Sidebar.propTypes={
+  handleDrawer: PropTypes.func,
+  drawer: PropTypes.bool,
+  auth: PropTypes.number,
+};
 
 const mapStateToProps = state => ({
   drawer: state.generalReducer.drawer,

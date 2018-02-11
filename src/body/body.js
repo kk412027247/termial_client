@@ -18,7 +18,6 @@ import History from '../history/history';
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
 import Menu from 'material-ui/svg-icons/navigation/menu';
 import {signOut,handleChangePassword} from '../actions/fetchActions';
-import {handleDrawer} from '../actions/actions';
 import {ConnectedRouter} from 'react-router-redux';
 import ChangePassword from '../signIn/changePassword'
 import {toggleFirstFetchState,handleHistory} from '../actions/historyActions';
@@ -102,7 +101,6 @@ class Body extends React.Component {
 }
 
 Body.propTypes={
-  hDrawer: PropTypes.func,
   signOut: PropTypes.func,
   state: PropTypes.object,
   handleChangePassword: PropTypes.func,
@@ -119,7 +117,6 @@ const mapStateToProps = (state) =>({
 });
 
 const mapDispatchToProps = (dispatch) =>({
-  hDrawer: () => dispatch(handleDrawer()),
   signOut: () => {
     dispatch(signOut());
     dispatch(toggleFirstFetchState(true));
