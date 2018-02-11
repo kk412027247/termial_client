@@ -80,7 +80,6 @@ class Body extends React.Component {
             <Sidebar/>
           </header>
           <main>
-            {console.log(this.props)}
             <ChangePassword/>
             <Switch>
               <Auth exact path="/" component={Query}/>
@@ -114,7 +113,6 @@ const mapStateToProps = (state) =>({
   auth: state.fetchReducer.userInfo.level,
   userName:state.fetchReducer.userInfo.userName,
   spiderStatus:state.fetchReducer.spiderStatus,
-  location:state.routerReducer.location,
   //detail: state.fetchReducer.detail,
 });
 

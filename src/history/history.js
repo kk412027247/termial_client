@@ -12,7 +12,6 @@ import {TransitionGroup, CSSTransition} from 'react-transition-group';
 
 //这页的动画会不会太骚气了
 class History extends React.Component{
-  
   componentDidMount(){
     if(this.props.firstFetch){
       this.props.toggleFirstFetchState(false);
@@ -22,7 +21,8 @@ class History extends React.Component{
   shouldComponentUpdate(nextProps){
     return nextProps.history !== this.props.history;
   }
-  
+
+
   render(){
     const {history,toggleCache,cache}  = this.props;
     const style = {marginTop:20,marginLeft:20,width:120};
@@ -34,18 +34,18 @@ class History extends React.Component{
           label={cache ? '缓存数据':'全部数据'}
           labelPosition={'right'}
         />
-        <TransitionGroup>
-          {history.map(_history=>
-            <CSSTransition
-              key={_history._id? _history._id: _history.cache._id}
-              classNames={'history'}
-              appear={true}
-              timeout={500}
-            >
-              <HistoryItem history={_history}/>
-            </CSSTransition>
-          )}
-        </TransitionGroup>
+          <TransitionGroup>
+            {history.map(_history=>
+              <CSSTransition
+                key={_history._id? _history._id: _history.cache._id}
+                classNames={'history'}
+                appear={true}
+                timeout={500}
+              >
+                <HistoryItem history={_history}/>
+              </CSSTransition>
+            )}
+          </TransitionGroup>
         <ImageDialog/>
         <Indicator/>
       </div>
