@@ -11,8 +11,6 @@ import Query from '../query/query.js';
 import Add from '../add/add.js';
 import Admin from '../admin/admin';
 import NoFound from '../noFound/noFound';
-import Analyze from '../analyze/analyze';
-import Delete from '../delete/delete';
 import SignIn from '../signIn/signIn'
 import History from '../history/history';
 import PermIdentity from 'material-ui/svg-icons/action/perm-identity';
@@ -97,7 +95,6 @@ class Body extends React.Component {
       </ConnectedRouter>
     )
   }
-
 }
 
 Body.propTypes={

@@ -7,6 +7,7 @@ import fetchReducer from './reducer/fetchReducer.js';
 import adminReducer from './reducer/adminReducer';
 import historyReducer from './reducer/historyReducer';
 import addReducer from './reducer/addReducer';
+import exportReducer from './reducer/exportReducer';
 
 
 //As of React 16, react-addons-perf is not supported.
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   historyReducer,
   routerReducer,
   addReducer,
+  exportReducer,
 });
 
 export const history = createHistory();
@@ -95,6 +97,12 @@ const iniState ={
     _valid:[],
     focus:{},
     _id:0,
+  },
+  exportReducer:{
+    startDate:'',
+    endDate:'',
+    url:'',
+    bool:false,
   }
 };
 

@@ -1,0 +1,35 @@
+#export{
+    margin-top:30px;
+
+}
+
+.datePicker{
+    display:flex;
+    flex:1;
+    justify-content:space-around;
+    align-items:center;
+    flex-wrap:nowrap;
+    height:70px;
+    width:750px;
+}
+
+.export-button{
+    display: flex;
+    align-items: center;
+}
+
+#export .warning{
+    font-weight:bold;
+    margin:30px 0 0 10px;
+}
+
+
+.warning-exit{
+    opacity:1;
+}
+
+.warning-exit.warning-exit-active{
+    opacity:0;
+    transition:  1000ms linear;
+
+}

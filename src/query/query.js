@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
 import LinearProgress from 'material-ui/LinearProgress';
 import {Table, TableBody, TableHeader, TableHeaderColumn,
   TableRow, TableRowColumn} from 'material-ui/Table';
@@ -69,8 +68,6 @@ class Query extends React.Component {
       <div>
         <div id="main">
           <Search/>
-          <Divider/>
-          <br/>
           <Paper className="show">
             <AppBar
               title="显示数据"

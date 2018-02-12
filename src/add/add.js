@@ -7,7 +7,7 @@ import ManualSpider from './manualSpider';
 import {toggleSpider} from '../actions/addActions';
 import SwipeableViews from 'react-swipeable-views';
 import UploadContent from './uploadContent';
-import './add.css'
+import './add.css';
 
 const toggleStyle = {width:50};
 class Add extends React.Component{
