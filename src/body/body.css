@@ -1,0 +1,23 @@
+.router-enter {
+    opacity: 0;
+    z-index: 1;
+    transform: scale(0);
+}
+
+.router-enter.router-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: 800ms ease-out;
+    transform-origin: top left;
+}
+
+.router-exit{
+    opacity: 1;
+    transform: scale(1);
+}
+
+.router-exit.router-exit-active{
+    opacity:0;
+    transform: scale(0);
+    transition: 800ms ease-out;
+}
