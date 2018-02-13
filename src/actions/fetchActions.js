@@ -162,7 +162,7 @@ export const showDetail = (id) =>(
       body:JSON.stringify({'_id':id})
     }).then(res=>res.json())
       .then(result=>dispatch(saveDetail(result)))
-      .catch(err=>dispatch(snackbarMessage(err)));
+      .catch(err=>dispatch(snackbarMessage(JSON.stringify(err))));
     // const detail = getState().fetchReducer.result.filter(item=>item._id === id);
     // dispatch(saveDetail(detail[0]))
   }
@@ -494,7 +494,14 @@ export const handleChangePassword =()=>({
   type:'HANDLE_CHANGE_PASSWORD',
 });
 
-
+export const handleDetailImageUrl = (detailImageUrl) =>(
+  (dispatch,getState)=>{
+    dispatch({
+      type:'DETAIL_IMAGE_URL',
+      detailImageUrl:getState().fetchReducer.detailImageUrl === '' ? detailImageUrl :'',
+    })
+  }
+);
 
 
 

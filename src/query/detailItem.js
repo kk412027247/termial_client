@@ -3,19 +3,18 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
-import {changeDetail,updateDetail} from '../actions/fetchActions';
+import {changeDetail,updateDetail,handleDetailImageUrl} from '../actions/fetchActions';
+import CheckCircle from 'material-ui/svg-icons/action/check-circle'
+import AddPhoto from 'material-ui/svg-icons/image/add-a-photo';
+import IconButton from 'material-ui/IconButton' ;
+import host from '../host';
+import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import './showDetail.css';
-
 
 class DetailItem extends React.Component {
 
-   componentDidUpdate(){
-     console.log('DetailItemComponent did update')
-   }
-
   render(){
-    
-    const {detail, changeDetail, updateDetail, auth} = this.props;
+    const {detail, changeDetail, updateDetail, auth, handleDetailImageUrl, url} = this.props;
     const styles = {
       underLine:{
         borderColor: '#FFF'
@@ -53,7 +52,6 @@ class DetailItem extends React.Component {
                     underlineShow={false}
                   />
                 }
-
               </div>
             ))}
           </span>
@@ -69,10 +67,22 @@ class DetailItem extends React.Component {
           <span className="contain1">TAC</span>
           <span className="contain2">
             {Array.isArray(detail.tac)? detail.tac.map((tac,index)=>(
-              <div className="item" key={tac.TAC}>
+              <div className="item" key={tac._id}>
+                <div className={'add-photo'}><IconButton><AddPhoto color={'#00acc1'} /></IconButton></div>
                 <span className="key">{`TAC${index+1}`}</span>
+
+                { tac.imagePath ?
+                  <CheckCircle
+                    color={'#43a047'}
+                    className={'check-circle'}
+                    onClick={handleDetailImageUrl.bind(null,`http://${host}:3001${tac.imagePath.replace(/public/,'')}`)}
+                  /> :
+                  <output className={'check-circle'}/>
+                }
+
+
                 <TextField
-                  id = {tac.TAC.toString()}
+                  id = {tac._id}
                   fullWidth={true}
                   underlineStyle={styles.underLine}
                   value={tac.TAC}
@@ -82,6 +92,21 @@ class DetailItem extends React.Component {
                   //onKeyDown={handleKeyDown}
                   underlineShow={false}
                 />
+                <TransitionGroup>
+                  {
+                    url !== '' ?
+                    <CSSTransition
+                      key={url}
+                      classNames={'show'}
+                      timeout={200}
+                    >
+                      <div className={'show-image'} style={{backgroundColor:'red'}}>123</div>
+                      {/*<img className={'show-image'} src={url} alt={url}/>*/}
+                    </CSSTransition> :
+                    ''
+                  }
+                </TransitionGroup>
+
               </div>
             )):''}
           </span>
@@ -93,6 +118,25 @@ class DetailItem extends React.Component {
 
     return(
       <div>
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+        <ShowTac/>
         {DetailItem('概览','厂商(中文)','品牌(英文)','型号','子型号','支持GSM频段','支持TD-SCDMA频段','支持TD-LTE频段','支持WCDMA频段','支持FDD-LTE频段')}
         {DetailItem('基础信息','机长(mm)','机宽(mm)','机厚(mm)','重量(g)','外观','市场价格','上市时间(年月，格式：YYYYMM)','终端支持能力')}
         {DetailItem('CPU','CPU数量','CPU厂家','CPU型号','CPU时钟频率(MHz)')}
@@ -121,24 +165,28 @@ class DetailItem extends React.Component {
         {DetailItem('数据业务支持能力','MM客户端','手机阅读','无线城市','游戏')}
         {DetailItem('终端数据显示','是否支持显示附着状态','是否支持显示激活状态')}
         {DetailItem('新增属性','是否智能机','LTE设备是否支持CSFB','LTE设备是否支持单卡双待','是否支持FR','是否支持上行载波聚合','是否支持下行载波聚合','是否支持VOLTE')}
-        <ShowTac/>
-        <div>
-          <div className="contain0">
-            <span className="contain1">主键</span>
-            <span className="contain2">
-              <div className="item" key={detail._id}>
-                <span className="key">ID</span>
-                  <TextField
-                    id = {detail._id}
-                    fullWidth={true}
-                    value={detail._id}
-                    underlineShow={false}
-                  />
-              </div>
-          </span>
-          </div>
-          <Divider inset={true}/>
-        </div>
+
+
+
+
+        {/*<div>*/}
+          {/*<div className="contain0">*/}
+            {/*<span className="contain1">主键</span>*/}
+            {/*<span className="contain2">*/}
+              {/*<div className="item" key={detail._id}>*/}
+                {/*<span className="key">ID</span>*/}
+                  {/*<TextField*/}
+                    {/*id = {detail._id}*/}
+                    {/*fullWidth={true}*/}
+                    {/*value={detail._id}*/}
+                    {/*underlineShow={false}*/}
+                  {/*/>*/}
+              {/*</div>*/}
+          {/*</span>*/}
+          {/*</div>*/}
+          {/*<Divider inset={true}/>*/}
+        {/*</div>*/}
+
       </div>
     )
   }
@@ -149,17 +197,21 @@ DetailItem.propTypes ={
   changeDetail: PropTypes.func,
   updateDetail: PropTypes.func,
   auth:PropTypes.number,
+  handleDetailImageUrl:PropTypes.func,
+  url:PropTypes.string,
 };
 
 
 const mapStateToProps = (state)=>({
   detail: state.fetchReducer.detail,
   auth: state.fetchReducer.userInfo.level,
+  url:state.fetchReducer.detailImageUrl,
 });
 
 const mapDispatchToProps = (dispatch) =>({
   updateDetail: ()=> dispatch(updateDetail()),
-  changeDetail: (event, newValue)=> dispatch(changeDetail(event, newValue))
+  changeDetail: (event, newValue)=> dispatch(changeDetail(event, newValue)) ,
+  handleDetailImageUrl:(url)=> dispatch(handleDetailImageUrl(url)),
 });
 
 export default connect (mapStateToProps, mapDispatchToProps)(DetailItem)

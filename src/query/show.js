@@ -11,7 +11,6 @@ import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import Language from 'material-ui/svg-icons/action/language';
 
-
 const styles= {
   button:{
     display: 'flex',
@@ -51,13 +50,14 @@ const styles= {
   }
 };
 
+const LeftIcon = ()=> <IconButton><Language color={'#fffffe'}/></IconButton> ;
 
-const Show = ({ showDetail, result, downloadQuery,auth}) =>(
+const Show = ({showDetail, result, downloadQuery,auth}) =>(
   <Paper className="show">
     <AppBar
       title="显示数据"
       style={styles.appBar}
-      iconElementLeft={<IconButton><Language/></IconButton>}
+      iconElementLeft={<LeftIcon/>}
     />
     <Table
       multiSelectable={true}
@@ -105,11 +105,11 @@ const Show = ({ showDetail, result, downloadQuery,auth}) =>(
   </Paper>
 );
 
-
 Show.propTypes = {
   result: PropTypes.array,
   showDetail:PropTypes.func,
   downloadQuery:PropTypes.func,
+  auth:PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
@@ -118,9 +118,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({showDetail, downloadQuery}, dispatch);
-
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Show);
 

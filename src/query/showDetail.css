@@ -31,6 +31,7 @@
 .item{
     display: flex;
     flex-basis: 100%;
+    align-items: center;
 }
 
 .key{
@@ -42,14 +43,75 @@
     color: #040036;
 }
 
-div.table{
+
+
+.check-circle{
+    transform:scale(2);
+    margin-right:30px;
+}
+
+.add-photo{
+    margin-right:30px;
+}
+
+
+.check-circle:hover {
+    cursor:pointer;
+}
+
+.show-image{
+    height:500px;
+    background: indianred;
+    float:left;
+    position:absolute;
+    top:50px;
+    right:500px;
+    z-index: 1;
+}
+
+
+.show-enter{
+    opacity:0;
+}
+
+.show-enter.show-enter-active{
+    opacity:1;
+    transition:200ms ease-out;
+}
+
+.show-exit{
+    opacity:1;
+}
+
+.show-exit.show-exit-active{
+    opacity:0;
+    transition:200ms ease-out;
 }
 
 
 
-
-.value{
-
+.test-enter{
+    transform:rotate(0deg);
+    height:0;
+    opacity:0;
 }
 
+.test-enter.test-enter-active{
+    transform:rotate(360deg);
+    height:21px;
+    opacity:1;
+    transition:500ms linear;
+}
 
+.test-exit{
+    transform:rotate(360deg);
+    height:21px;
+    opacity:1;
+}
+
+.test-exit.test-exit-active{
+    transform:rotate(0deg);
+    height:0;
+    opacity:0;
+    transition:500ms linear;
+}

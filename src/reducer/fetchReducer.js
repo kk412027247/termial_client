@@ -175,6 +175,12 @@ export default (state = {}, action)=>{
         combineInfo:action.combineInfo,
       }
     }
+    case 'DETAIL_IMAGE_URL':{
+      return{
+        ...state,
+        detailImageUrl:action.detailImageUrl
+      }
+    }
     default:{
       return state ;
     }
