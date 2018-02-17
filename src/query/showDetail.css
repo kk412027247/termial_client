@@ -50,13 +50,14 @@
 
 
 .add-photo,.remove-photo{
-    display: none;
+    opacity: 0;
+    transition:200ms;
 }
 
 
 
 .key:hover .add-photo,.key:hover .remove-photo{
-    display: block;
+    opacity: 1;
 }
 
 
@@ -102,4 +103,22 @@
     display: flex;
     align-items:center;
     margin-left:-210px;
+}
+
+.confirm-enter{
+    opacity:0;
+}
+
+.confirm-enter.confirm-enter-active{
+    opacity:0;
+    transition: 200ms;
+}
+
+.confirm-exit{
+    opacity:1;
+}
+
+.confirm-exit.confirm-exit-active{
+    opacity:0;
+    transition:200ms;
 }

@@ -8,9 +8,6 @@ import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import './showDetail.css';
 import ShowTac from './showTac';
 
-
-
-
 class DetailItem extends React.Component {
 
   render(){
@@ -63,6 +60,7 @@ class DetailItem extends React.Component {
 
     return(
       <div>
+        {/*图片显示模块*/}
         <TransitionGroup>
           {
             url !== '' ?
@@ -82,7 +80,22 @@ class DetailItem extends React.Component {
               ''
           }
         </TransitionGroup>
-        <ShowTac detail={detail}/>
+        
+
+        {/*TAC显示模块*/}
+        <div>
+          <div className="contain0">
+            <span className="contain1">TAC</span>
+            <span className="contain2">
+              {Array.isArray(detail.tac) && detail.tac.map((tac,index)=>(
+                <ShowTac tac={tac} index={index} key={tac._id}/>
+              ))}
+            </span>
+          </div>
+          <Divider inset={true}/>
+        </div>
+
+        {/*参数详情显示模块*/}
         {DetailItem('概览','厂商(中文)','品牌(英文)','型号','子型号','支持GSM频段','支持TD-SCDMA频段','支持TD-LTE频段','支持WCDMA频段','支持FDD-LTE频段')}
         {DetailItem('基础信息','机长(mm)','机宽(mm)','机厚(mm)','重量(g)','外观','市场价格','上市时间(年月，格式：YYYYMM)','终端支持能力')}
         {DetailItem('CPU','CPU数量','CPU厂家','CPU型号','CPU时钟频率(MHz)')}
