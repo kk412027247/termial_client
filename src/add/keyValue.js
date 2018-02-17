@@ -19,7 +19,7 @@ class KeyValue extends React.Component{
       this.setState({warning:''});
     }
   };
-  handleFocus = (label)=>{console.log(label)};
+  //handleFocus = (label)=>{console.log(label)};
   render(){
     const {_key, value,invalid, label, _id, handleFocus} = this.props;
     return(

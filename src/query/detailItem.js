@@ -15,7 +15,7 @@ class DetailItem extends React.Component {
     const styles = {
       underLine:{
         borderColor: '#FFF'
-      }
+      },
     };
 
     const handleKeyDown=(event)=>{

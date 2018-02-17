@@ -9,19 +9,30 @@ import AddPhoto from 'material-ui/svg-icons/image/add-a-photo';
 import RemovePhoto from 'material-ui/svg-icons/image/blur-off';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
 import Delete from 'material-ui/svg-icons/action/delete';
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
-
 
 const styles = {
   underLine:{
-    borderColor: '#FFF'
-  }
+    borderColor: 'transparent'
+  } ,
+  error:{
+    color: '#f44335'
+  },
 };
 
 //tac 部分暂时不能修改
 
 class ShowTac extends React.Component{
-  state={showButton:false};
+  state={
+    showButton:false ,
+    warning:'',
+  };
+  handleTACChange = (event,value)=>{
+    if(Number(value) !== this.props.tac.TAC){
+      this.setState({warning:'内容已更改'})
+    }else{
+      this.setState({warning:null})
+    }
+  };
   render(){
     const {tac,index,handleDetailImageUrl} = this.props;
     return(
@@ -42,38 +53,39 @@ class ShowTac extends React.Component{
               <AddPhoto color={'#00acc1'} />
             </IconButton>
           </div>
-          <div className={'remove-photo'}>
-            <IconButton
-              tooltip={this.state.showButton?'取消删除':'删除照片'}
-              onClick={()=>{this.setState({showButton:!this.state.showButton})}}
-            >
-              <RemovePhoto/>
-            </IconButton>
-
+          {
+            !!tac.imagePath &&
+            <div className={'remove-photo'}>
+              <IconButton
+                tooltip={this.state.showButton?'取消删除照片':'删除照片'}
+                onClick={()=>{this.setState({showButton:!this.state.showButton})}}
+              >
+                <RemovePhoto/>
+              </IconButton>
               {
                 this.state.showButton &&
                 <IconButton
-                  tooltip={'确认删除'}
+                  tooltip={'确认删除照片'}
                 >
                   <Delete color={'#f44336'}/>
                 </IconButton>
               }
-
-
-
-          </div>
+            </div>
+          }
         </span>
         <span className={'tac-value'}>
           <TextField
             id = {tac._id}
             fullWidth={true}
             underlineStyle={styles.underLine}
-            value={tac.TAC}
+            defaultValue={tac.TAC}
             hintText={tac.TAC}
-            //onChange={changeDetail}
+            onChange={this.handleTACChange}
             multiLine={false}
+            errorText={this.state.warning}
+            errorStyle={styles.error}
             //onKeyDown={handleKeyDown}
-            underlineShow={false}
+            //underlineShow={false}
           />
           {
             tac.imagePath ?
