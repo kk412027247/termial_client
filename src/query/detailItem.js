@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import {changeDetail,updateDetail,handleDetailImageUrl} from '../actions/fetchActions';
-import CheckCircle from 'material-ui/svg-icons/action/check-circle'
-import AddPhoto from 'material-ui/svg-icons/image/add-a-photo';
-import IconButton from 'material-ui/IconButton' ;
-import host from '../host';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import './showDetail.css';
+import ShowTac from './showTac';
+
+
+
 
 class DetailItem extends React.Component {
 
@@ -60,83 +60,29 @@ class DetailItem extends React.Component {
       </div>
     );
 
-    //tac 部分暂时不能修改
-    const ShowTac = ()=>(
-      <div>
-        <div className="contain0">
-          <span className="contain1">TAC</span>
-          <span className="contain2">
-            {Array.isArray(detail.tac)? detail.tac.map((tac,index)=>(
-              <div className="item" key={tac._id}>
-                <div className={'add-photo'}><IconButton><AddPhoto color={'#00acc1'} /></IconButton></div>
-                <span className="key">{`TAC${index+1}`}</span>
-
-                { tac.imagePath ?
-                  <CheckCircle
-                    color={'#43a047'}
-                    className={'check-circle'}
-                    onClick={handleDetailImageUrl.bind(null,`http://${host}:3001${tac.imagePath.replace(/public/,'')}`)}
-                  /> :
-                  <output className={'check-circle'}/>
-                }
-
-
-                <TextField
-                  id = {tac._id}
-                  fullWidth={true}
-                  underlineStyle={styles.underLine}
-                  value={tac.TAC}
-                  hintText={tac.TAC}
-                  //onChange={changeDetail}
-                  multiLine={false}
-                  //onKeyDown={handleKeyDown}
-                  underlineShow={false}
-                />
-                <TransitionGroup>
-                  {
-                    url !== '' ?
-                    <CSSTransition
-                      key={url}
-                      classNames={'show'}
-                      timeout={200}
-                    >
-                      <div className={'show-image'} style={{backgroundColor:'red'}}>123</div>
-                      {/*<img className={'show-image'} src={url} alt={url}/>*/}
-                    </CSSTransition> :
-                    ''
-                  }
-                </TransitionGroup>
-
-              </div>
-            )):''}
-          </span>
-        </div>
-        <Divider inset={true}/>
-      </div>
-    );
-
 
     return(
       <div>
+        <TransitionGroup>
+          {
+            url !== '' ?
+              <CSSTransition
+                key={url}
+                classNames={'show'}
+                timeout={300}
+              >
+                <img
+                  className={'show-image'}
+                  src={url}
+                  alt={url}
+                  onClick={handleDetailImageUrl.bind(null,'')}
 
-
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-        <ShowTac/>
+                />
+              </CSSTransition> :
+              ''
+          }
+        </TransitionGroup>
+        <ShowTac detail={detail}/>
         {DetailItem('概览','厂商(中文)','品牌(英文)','型号','子型号','支持GSM频段','支持TD-SCDMA频段','支持TD-LTE频段','支持WCDMA频段','支持FDD-LTE频段')}
         {DetailItem('基础信息','机长(mm)','机宽(mm)','机厚(mm)','重量(g)','外观','市场价格','上市时间(年月，格式：YYYYMM)','终端支持能力')}
         {DetailItem('CPU','CPU数量','CPU厂家','CPU型号','CPU时钟频率(MHz)')}

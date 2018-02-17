@@ -82,3 +82,8 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignIn))
 import {history} from "../store";
 
 ```
+
+
+### react-transition-group
+需要在 CSSTransition 添加 'in' prop ，
+并且不要把 把TransitionGroup 放在动态生成的组件中，TransitionGroup要检测，并给内层的CSSTransition动态添加'in'prop

@@ -43,16 +43,22 @@
     color: #040036;
 }
 
-
-
 .check-circle{
-    transform:scale(2);
-    margin-right:30px;
+    transform:scale(1);
 }
 
-.add-photo{
-    margin-right:30px;
+
+
+.add-photo,.remove-photo{
+    display: none;
 }
+
+
+
+.key:hover .add-photo,.key:hover .remove-photo{
+    display: block;
+}
+
 
 
 .check-circle:hover {
@@ -72,46 +78,28 @@
 
 .show-enter{
     opacity:0;
+    transform:translateY(-20px);
 }
 
 .show-enter.show-enter-active{
     opacity:1;
-    transition:200ms ease-out;
+    transform:translateY(0);
+    transition:300ms ease-out;
 }
 
 .show-exit{
     opacity:1;
+    transform:translateY(0);
 }
 
 .show-exit.show-exit-active{
     opacity:0;
+    transform:translateY(-20px);
     transition:200ms ease-out;
 }
 
-
-
-.test-enter{
-    transform:rotate(0deg);
-    height:0;
-    opacity:0;
-}
-
-.test-enter.test-enter-active{
-    transform:rotate(360deg);
-    height:21px;
-    opacity:1;
-    transition:500ms linear;
-}
-
-.test-exit{
-    transform:rotate(360deg);
-    height:21px;
-    opacity:1;
-}
-
-.test-exit.test-exit-active{
-    transform:rotate(0deg);
-    height:0;
-    opacity:0;
-    transition:500ms linear;
+.tac-value{
+    display: flex;
+    align-items:center;
+    margin-left:-210px;
 }
