@@ -175,7 +175,7 @@ export const _changeDetail = (obj) =>({
 
 export const changeDetail = (event, newValue) =>(
   (dispatch, getState) => {
-    // 下面不是一个纯函数了，但是为了缩减代码，想不出其他办法了，下面这数据会把自己再结构一遍
+    // 下面不是一个纯函数了，但是为了缩减代码，想不出其他办法了，下面这数据会把自己再递归一遍
     dispatch(_changeDetail({
       ...getState().fetchReducer.detail,
       ...getState().fetchReducer.updateDetail,
@@ -183,6 +183,29 @@ export const changeDetail = (event, newValue) =>(
     }))
   }
 );
+
+export const changeTAC = (event, newValue) => (
+  (dispatch,getState)=>{
+    if(!getState().fetchReducer.updateDetail._id){
+      dispatch(_changeDetail(getState().fetchReducer.detail))
+    }
+    dispatch(_changeDetail({
+      ...getState().fetchReducer.updateDetail,
+      tac:getState().fetchReducer.updateDetail.tac.map(_tac=>{
+        if(_tac._id !== event.target.id){
+          return _tac
+        }else{
+          return {..._tac,TAC:Number(newValue.replace(/\D/g,''))}
+        }
+      })
+    }))
+  }
+);
+
+
+
+
+
 
 export const updateDetail = ()=>(
   (dispatch,getState)=>{
@@ -194,14 +217,9 @@ export const updateDetail = ()=>(
       body:JSON.stringify({update}),
     })
     .then(res=>res.json())
-    .then((result)=>{
-      if(!!result._id) {
-        dispatch(snackbarMessage('修改成功'))
-      }else if(Object.keys(result).length === 0){
-        dispatch(snackbarMessage('没有任何修改'))
-      }
-    })
-    .catch(err=>{
+    .then(()=>{
+      dispatch(snackbarMessage('修改成功, 重载本页生效'))
+    }).catch(err=>{
       dispatch(snackbarMessage('修改失败',JSON.stringify(err)))
     });
   }

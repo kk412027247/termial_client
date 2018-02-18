@@ -1,10 +1,11 @@
 import React from 'react';
+import {bindActionCreators}  from 'redux';
 import PropTypes from 'prop-types';
 import host from "../host";
 import {connect} from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
-import {handleDetailImageUrl} from "../actions/fetchActions";
+import {handleDetailImageUrl, changeTAC, updateDetail} from "../actions/fetchActions";
 import AddPhoto from 'material-ui/svg-icons/image/add-a-photo';
 import RemovePhoto from 'material-ui/svg-icons/image/blur-off';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
@@ -25,33 +26,43 @@ class ShowTac extends React.Component{
   state={
     showButton:false ,
     warning:'',
+    _id:this.props.tac._id,
   };
-  handleTACChange = (event,value)=>{
-    if(Number(value) !== this.props.tac.TAC){
-      this.setState({warning:'内容已更改'})
-    }else{
-      this.setState({warning:null})
-    }
-  };
+
   render(){
-    const {tac,index,handleDetailImageUrl} = this.props;
+    const {tac,index, handleDetailImageUrl, changeTAC, updateDetail, auth} = this.props;
+    const  handleTACChange = (event,value)=>{
+      if(Number(value) !== this.props.tac.TAC){
+        this.setState({warning:'内容已更改'})
+      }else{
+        this.setState({warning:null})
+      }
+      changeTAC(event,value)
+    };
+    const handleKeyDown=(event)=>{
+      if(event.keyCode === 13) updateDetail()
+    };
     return(
       <div className="item" key={tac._id}>
         <span className="key">
           {`TAC${index+1}`}
           <div className={'add-photo'}>
             {/*创建一个input节点，监听改变事件，再点击*/}
-            <IconButton
-              tooltip={'增加／替换照片'}
-              onClick={()=>{
-                const input  = document.createElement('input');
-                input.type = 'file';
-                input.addEventListener('change',(event)=>{console.log(event)});
-                input.click();
-              }}
-            >
-              <AddPhoto color={'#00acc1'} />
-            </IconButton>
+            {
+              auth>1 &&
+              <IconButton
+                tooltip={'增加／替换照片'}
+                onClick={()=>{
+                  const input  = document.createElement('input');
+                  input.type = 'file';
+                  input.addEventListener('change',(event)=>{console.log(event)});
+                  input.click();
+                }}
+              >
+                <AddPhoto color={'#00acc1'} />
+              </IconButton>
+            }
+
           </div>
           {
             !!tac.imagePath &&
@@ -63,7 +74,7 @@ class ShowTac extends React.Component{
                 <RemovePhoto/>
               </IconButton>
               {
-                this.state.showButton &&
+                this.state.showButton && auth>1 &&
                 <IconButton
                   tooltip={'确认删除照片'}
                 >
@@ -74,19 +85,29 @@ class ShowTac extends React.Component{
           }
         </span>
         <span className={'tac-value'}>
-          <TextField
-            id = {tac._id}
-            fullWidth={true}
-            underlineStyle={styles.underLine}
-            defaultValue={tac.TAC}
-            hintText={tac.TAC}
-            onChange={this.handleTACChange}
-            multiLine={false}
-            errorText={this.state.warning}
-            errorStyle={styles.error}
-            //onKeyDown={handleKeyDown}
-            //underlineShow={false}
-          />
+          {
+            auth>1 ?
+            <TextField
+              id = {tac._id}
+              fullWidth={true}
+              underlineStyle={styles.underLine}
+              defaultValue={tac.TAC}
+              hintText={tac.TAC}
+              onChange={handleTACChange}
+              onKeyDown={handleKeyDown}
+              multiLine={false}
+              errorText={this.state.warning}
+              errorStyle={styles.error}
+            /> :
+            <TextField
+              id = {tac._id}
+              fullWidth={true}
+              value={tac.TAC}
+              multiLine={false}
+              underlineShow={false}
+            />
+          }
+
           {
             tac.imagePath ?
             <IconButton
@@ -109,16 +130,19 @@ ShowTac.propTypes = {
   tac:PropTypes.object,
   index:PropTypes.number,
   handleDetailImageUrl:PropTypes.func,
+  changeTAC: PropTypes.func,
+  updateDetail:PropTypes.func,
+  auth:PropTypes.number,
 };
 
-
 const mapStateToProps = (state, ownProps)=>({
+  auth: state.fetchReducer.userInfo.level,
   tac:ownProps.tac,
   index:ownProps.index,
 });
 
-const mapDispatchToProps = (dispatch) =>({
-  handleDetailImageUrl:(url)=> dispatch(handleDetailImageUrl(url))
-});
+const mapDispatchToProps = (dispatch) =>bindActionCreators({
+  handleDetailImageUrl, changeTAC, updateDetail
+},dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowTac)
