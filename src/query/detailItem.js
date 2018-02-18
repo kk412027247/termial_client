@@ -1,86 +1,52 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
-import {changeDetail,updateDetail,handleDetailImageUrl} from '../actions/fetchActions';
+import {handleDetailImageUrl} from '../actions/fetchActions';
 import {TransitionGroup, CSSTransition} from 'react-transition-group';
 import './showDetail.css';
 import ShowTac from './showTac';
+import ShowDeviceInfo from './showDeviceInfo';
 
 class DetailItem extends React.Component {
 
   render(){
-    const {detail, changeDetail, updateDetail, auth, handleDetailImageUrl, url} = this.props;
-    const styles = {
-      underLine:{
-        borderColor: '#FFF'
-      },
-    };
+    const {detail, handleDetailImageUrl, url} = this.props;
 
-    const handleKeyDown=(event)=>{
-      if(event.keyCode === 13) updateDetail()
-    };
-
+    //显示参数信息模块
     const DetailItem =(info, ...arg)=>(
       <div>
         <div className="contain0">
           <span className="contain1">{info}</span>
           <span className="contain2">
-            {arg.map(item=>(
-              <div className="item" key={item}>
-                <span className="key">{item}</span>
-                {auth>1 ?
-                  <TextField
-                    id = {item}
-                    fullWidth={true}
-                    underlineStyle={styles.underLine}
-                    defaultValue={detail[item]}
-                    hintText={detail[item]}
-                    onChange={changeDetail}
-                    multiLine={false}
-                    onKeyDown={handleKeyDown}
-                  /> :
-                  <TextField
-                    id = {item}
-                    fullWidth={true}
-                    value={detail[item]}
-                    multiLine={false}
-                    underlineShow={false}
-                  />
-                }
-              </div>
-            ))}
+            {arg.map(item=>(<ShowDeviceInfo item={item} key={item} />))}
           </span>
         </div>
         <Divider inset={true}/>
       </div>
     );
-
-
+    
     return(
       <div>
         {/*图片显示模块*/}
         <TransitionGroup>
           {
-            url !== '' ?
-              <CSSTransition
-                key={url}
-                classNames={'show'}
-                timeout={300}
-              >
-                <img
-                  className={'show-image'}
-                  src={url}
-                  alt={url}
-                  onClick={handleDetailImageUrl.bind(null,'')}
+            url !== '' &&
+            <CSSTransition
+              key={url}
+              classNames={'show'}
+              timeout={300}
+            >
+              <img
+                className={'show-image'}
+                src={url}
+                alt={url}
+                onClick={handleDetailImageUrl.bind(null,'')}
 
-                />
-              </CSSTransition> :
-              ''
+              />
+            </CSSTransition> 
           }
         </TransitionGroup>
-        
 
         {/*TAC显示模块*/}
         <div>
@@ -153,9 +119,6 @@ class DetailItem extends React.Component {
 
 DetailItem.propTypes ={
   detail: PropTypes.object,
-  changeDetail: PropTypes.func,
-  updateDetail: PropTypes.func,
-  auth:PropTypes.number,
   handleDetailImageUrl:PropTypes.func,
   url:PropTypes.string,
 };
@@ -163,13 +126,10 @@ DetailItem.propTypes ={
 
 const mapStateToProps = (state)=>({
   detail: state.fetchReducer.detail,
-  auth: state.fetchReducer.userInfo.level,
   url:state.fetchReducer.detailImageUrl,
 });
 
 const mapDispatchToProps = (dispatch) =>({
-  updateDetail: ()=> dispatch(updateDetail()),
-  changeDetail: (event, newValue)=> dispatch(changeDetail(event, newValue)) ,
   handleDetailImageUrl:(url)=> dispatch(handleDetailImageUrl(url)),
 });
 
