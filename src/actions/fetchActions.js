@@ -217,8 +217,13 @@ export const updateDetail = ()=>(
       body:JSON.stringify({update}),
     })
     .then(res=>res.json())
-    .then(()=>{
-      dispatch(snackbarMessage('修改成功, 重载本页生效'))
+    .then((result)=>{
+      if(result.length===0){
+        dispatch(snackbarMessage('无修改'))
+      }else{
+        dispatch(snackbarMessage('修改成功, 重载本页生效'))
+      }
+
     }).catch(err=>{
       dispatch(snackbarMessage('修改失败',JSON.stringify(err)))
     });
