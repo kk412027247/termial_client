@@ -1,0 +1,10 @@
+.upload-animate-enter{
+    opacity:0;
+    transform:translateY(-20%);
+}
+
+.upload-animate-enter.upload-animate-enter-active{
+    opacity:0;
+    transform:translateY(-20%);
+    transition: 300ms ease-out;
+}

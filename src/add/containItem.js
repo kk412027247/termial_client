@@ -19,11 +19,11 @@ class ContainItem extends React.Component{
           <p style={style}>{title}</p>
         </div>
         <div className={'content'}>
-          {info.map((_info)=>(
+          {info.map((_info,index)=>(
             <TextFieldGroup
               label={label}
               _id={_info._id}
-              key={_info._id+label}
+              key={_info._id+label+index}
               _info={_info}
               invalid={_info.invalid}
             />
