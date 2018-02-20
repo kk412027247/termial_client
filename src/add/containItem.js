@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -39,6 +40,10 @@ class ContainItem extends React.Component{
     )
   }
 }
+
+ContainItem.PropTypes = {
+  handleFetch:PropTypes.func,
+};
 
 const mapDispatchToProps = dispatch =>({
   handleFetch:(label)=>dispatch(handleFetch(label))

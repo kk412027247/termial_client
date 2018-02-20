@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import KeyValue from './keyValue';
 import FlatButton from 'material-ui/FlatButton';
@@ -15,6 +16,9 @@ class TextFieldGroup extends React.Component {
     const {_info, label, _id} = this.props;
     return(
       <div className={'textFieldGroup'} >
+        {/*{console.log(_info)}*/}
+        {/*{console.log(label)}*/}
+        {/*{console.log(_id)}*/}
         <KeyValue
           label={label}
           _id={_id}
@@ -39,7 +43,7 @@ class TextFieldGroup extends React.Component {
         <div className={'deleteButton'}>
           <FlatButton
             secondary={true}
-            label={this.state.invalid ? '恢复' : '删除'}
+            label={this.state.invalid ? '恢复' : '禁止'}
             onClick={this.handleInvalid.bind(null,_id)}
           />
         </div>
@@ -47,6 +51,10 @@ class TextFieldGroup extends React.Component {
     )
   }
 }
+
+TextFieldGroup.propTypes = {
+  handleFilter: PropTypes.func,
+};
 
 const mapDispatchToProps = (dispatch) =>({
   handleFilter:(label, _id)=>dispatch(handleFilter(label, _id)),

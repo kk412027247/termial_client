@@ -25,12 +25,7 @@ const handleValid = (data)=>({
 
 
 const conversion = (data) => data.map(item=>({...item,'TAC': Number(item.TAC)}));
-const doNothing = (...arg)=>arg;
-const _conversion = (data) => data.map(item=>{
-  const {_id,..._item} = item;
-  doNothing(_id);
-  return {..._item,'TAC': Number(item.TAC)}
-});
+
 
 const _handleDateExist = (data)=>({
   type:'_DATA_EXIST',
@@ -42,11 +37,9 @@ const _handleUploadExist = (data)=>({
   _uploadExist:conversion(data),
 });
 
-
-
 const _handleValid = (data) =>({
    type:'_VALID',
-  _valid:_conversion(data),
+  _valid:conversion(data),
 });
 
 
@@ -73,7 +66,7 @@ export const uploadFile = (event) =>(
             dispatch(snackbarMessage(result))
           }
         }).catch(err=>{
-          dispatch(snackbarMessage(err));
+          dispatch(snackbarMessage(JSON.stringify(err)));
       })
     }
   }
@@ -104,15 +97,22 @@ export const handleFilter = (label, _id)=>(
   }
 );
 
+const removeId = (data) => data.map(item=>{
+  let {_id,..._item} = item;
+  _id = null;
+  return {..._item}
+});
 
 export const handleFetch = (label)=>(
   (dispatch, getState)=>{
     if(label === 'valid'){
+      //把_id这个索引去掉，如果带了这个提交，会保存不成功，因为这索引太简单，并且会引起冲突。
+      const validDoc = removeId(getState().addReducer._valid);
       fetch(`http://${host}:3001/createTac`,{
         credentials: 'include',
         method:'post',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({docs:getState().addReducer._valid.filter(item=>!item.invalid)}),
+        body:JSON.stringify({docs:validDoc.filter(item=>!item.invalid)}),
       }).then(res=>res.json())
         .then(()=>{
           dispatch(snackbarMessage('保存成功'));
