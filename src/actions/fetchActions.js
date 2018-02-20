@@ -1,6 +1,6 @@
-//import {push} from 'react-router-redux';
 import host from '../host.js';
 import 'whatwg-fetch';
+import {push} from "react-router-redux";
 
 let nextFetchId = 0;
 
@@ -80,7 +80,12 @@ export const fetchData = (event, newValue) => (
       body:JSON.stringify({'query': query})
     }).then(res=>res.json())
       .then(result=>{
-        dispatchIfValid(fetchDataSuccess(result))
+        if(result[0]==='queryNeedSession'){
+          dispatch(push('/signIn'))
+        }else{
+          dispatchIfValid(fetchDataSuccess(result))
+        }
+
       }).catch(err=>{
         dispatchIfValid(fetchDataFailure(err))
       });
@@ -105,6 +110,8 @@ export const searchData = () => (
     .then(result=>{
       if(result.length === 0) {
         dispatch(fetchDataEmpty())
+      }else if(result[0]==='queryNeedSession'){
+        dispatch(push('/signIn'))
       }else{
         dispatchIfValid(fetchDataSuccess(result))
       }
@@ -133,7 +140,11 @@ export const showDetail = (id) =>(
       body:JSON.stringify({'_id':id})
     }).then(res=>res.json())
       .then(result=>{
-        dispatch(saveDetail(result));
+        if(result[0]==='queryNeedSession'){
+          dispatch(push('/signIn'))
+        }else{
+          dispatch(saveDetail(result));
+        }
       })
       .catch(err=>{
         dispatch(snackbarMessage(JSON.stringify(err)));
