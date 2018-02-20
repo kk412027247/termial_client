@@ -42,7 +42,7 @@ const Sidebar = ({auth,drawer,handleDrawer}) => (
       }
       { auth>=3
         ? <MenuItem onClick={handleDrawer}>
-          <NavLink to="/add"  style={styles.Link}>数据新增</NavLink>
+          <NavLink to="/add"  style={styles.Link}>数据录入</NavLink>
         </MenuItem>
         : ''
       }

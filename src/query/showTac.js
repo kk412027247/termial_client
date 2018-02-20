@@ -5,7 +5,7 @@ import host from "../host";
 import {connect} from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
-import {handleDetailImageUrl, changeTAC, updateDetail} from "../actions/fetchActions";
+import {handleDetailImageUrl, changeTAC, updateDetail, updateTacWithImageByPC, deleteTACImageByPC} from "../actions/fetchActions";
 import AddPhoto from 'material-ui/svg-icons/image/add-a-photo';
 import RemovePhoto from 'material-ui/svg-icons/image/blur-off';
 import CheckCircle from 'material-ui/svg-icons/action/check-circle';
@@ -21,16 +21,15 @@ const styles = {
 };
 
 
-
 class ShowTac extends React.Component{
   state={
     showButton:false ,
     warning:'',
-    _id:this.props.tac._id,
   };
 
   render(){
-    const {tac,index, handleDetailImageUrl, changeTAC, updateDetail, auth} = this.props;
+    const {tac,index, handleDetailImageUrl, changeTAC, updateDetail,
+      auth, updateTacWithImageByPC, deleteTACImageByPC} = this.props;
     const  handleTACChange = (event,value)=>{
       if(Number(value) !== this.props.tac.TAC){
         this.setState({warning:'内容已更改'})
@@ -42,6 +41,8 @@ class ShowTac extends React.Component{
     const handleKeyDown=(event)=>{
       if(event.keyCode === 13) updateDetail()
     };
+    const toggleDelete = () => this.setState({showButton: !this.state.showButton});
+
     return(
       <div className="item" key={tac._id}>
         <span className="key">
@@ -52,12 +53,7 @@ class ShowTac extends React.Component{
               auth>1 &&
               <IconButton
                 tooltip={'增加／替换照片'}
-                onClick={()=>{
-                  const input  = document.createElement('input');
-                  input.type = 'file';
-                  input.addEventListener('change',(event)=>{console.log(event)});
-                  input.click();
-                }}
+                onClick={updateTacWithImageByPC.bind(null,tac._id)}
               >
                 <AddPhoto color={'#00acc1'} />
               </IconButton>
@@ -69,13 +65,14 @@ class ShowTac extends React.Component{
             <div className={'remove-photo'}>
               <IconButton
                 tooltip={this.state.showButton?'取消删除照片':'删除照片'}
-                onClick={()=>{this.setState({showButton:!this.state.showButton})}}
+                onClick={toggleDelete}
               >
                 <RemovePhoto/>
               </IconButton>
               {
                 this.state.showButton && auth>1 &&
                 <IconButton
+                  onClick={deleteTACImageByPC.bind(null,tac._id)}
                   tooltip={'确认删除照片'}
                 >
                   <Delete color={'#f44336'}/>
@@ -133,6 +130,8 @@ ShowTac.propTypes = {
   changeTAC: PropTypes.func,
   updateDetail:PropTypes.func,
   auth:PropTypes.number,
+  deleteTACImageByPC:PropTypes.func,
+  updateTacWithImageByPC:PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps)=>({
@@ -142,7 +141,7 @@ const mapStateToProps = (state, ownProps)=>({
 });
 
 const mapDispatchToProps = (dispatch) =>bindActionCreators({
-  handleDetailImageUrl, changeTAC, updateDetail
+  handleDetailImageUrl, changeTAC, updateDetail, updateTacWithImageByPC, deleteTACImageByPC
 },dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowTac)

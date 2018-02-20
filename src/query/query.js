@@ -4,13 +4,13 @@ import Download from '../download/download';
 import DownloadInfo from '../download/downloadInfo';
 import Search from './search';
 import '../main.css';
-import Show from './show';
+import ShowResult from './showResult';
 
 const Query = () => (
   <div>
     <div id="main">
       <Search/>
-      <Show/>
+      <ShowResult/>
       <ShowDetail/>
       <DownloadInfo/>
       <Download/>

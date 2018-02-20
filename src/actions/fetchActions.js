@@ -4,10 +4,6 @@ import 'whatwg-fetch';
 
 let nextFetchId = 0;
 
-// export const fetchDataStarted = () =>({
-//   type:'FETCH_STARTED'
-// });
-
 export const fetchDataEmpty = ()=>({
   type:'FETCH_EMPTY',
   snackbar:true,
@@ -43,9 +39,6 @@ const _saveDetail = (value)=>({
 export const fetchDialog = () =>({
   type: 'FETCH_DIALOG',
 });
-
-
-
 
 export const handleSnackbar = () =>({
   type: 'HANDLE_SNACKBAR',
@@ -94,36 +87,6 @@ export const fetchData = (event, newValue) => (
   }
 );
 
-// export const getTacForInfo = (event, newValue) => (
-//   dispatch=>{
-//     const fetchId= ++ nextFetchId;
-//     const dispatchIfValid = (action)=>{
-//       if(fetchId === nextFetchId){
-//         return dispatch(action);
-//       }
-//     };
-//     fetch(`http://${host}:3001/getTacForInfo`,{
-//       method:'post',
-//       credentials:'include',
-//       headers:{'Content-Type':'application/json'},
-//       body:JSON.stringify({'tac': newValue.replace(/[\s]*/,'')})
-//     })
-//     .then(res=>res.json())
-//     .then(result=>{
-//       if(Array.isArray(result)){
-//         dispatchIfValid(fetchDataSuccess(result))
-//       }else{
-//         dispatchIfValid(fetchDataSuccess([]))
-//       }
-//     })
-//     .catch(err=>{
-//       dispatchIfValid(fetchDataFailure(err))
-//     })
-//   }
-// );
-
-
-
 export const searchData = () => (
   (dispatch,getState)=>{
     const fetchId= ++ nextFetchId;
@@ -153,18 +116,28 @@ export const searchData = () => (
   }
 );
 
+
+
+export const getDetailId = (detailId) =>({
+  type:'DETAIL_ID',
+  detailId,
+});
+
 export const showDetail = (id) =>(
   dispatch=>{
+    dispatch(getDetailId(id));
     fetch(`http://${host}:3001/getInfoTac`,{
       method:'post',
       headers:{'Content-Type':'application/json'},
       credentials:'include',
       body:JSON.stringify({'_id':id})
     }).then(res=>res.json())
-      .then(result=>dispatch(saveDetail(result)))
-      .catch(err=>dispatch(snackbarMessage(JSON.stringify(err))));
-    // const detail = getState().fetchReducer.result.filter(item=>item._id === id);
-    // dispatch(saveDetail(detail[0]))
+      .then(result=>{
+        dispatch(saveDetail(result));
+      })
+      .catch(err=>{
+        dispatch(snackbarMessage(JSON.stringify(err)));
+      });
   }
 );
 
@@ -202,11 +175,6 @@ export const changeTAC = (event, newValue) => (
   }
 );
 
-
-
-
-
-
 export const updateDetail = ()=>(
   (dispatch,getState)=>{
     const update = {...getState().fetchReducer.updateDetail};
@@ -221,7 +189,8 @@ export const updateDetail = ()=>(
       if(result.length===0){
         dispatch(snackbarMessage('无修改'))
       }else{
-        dispatch(snackbarMessage('修改成功, 重载本页生效'))
+        dispatch(showDetail(getState().fetchReducer.detailId));
+        dispatch(snackbarMessage('修改成功'))
       }
 
     }).catch(err=>{
@@ -526,6 +495,48 @@ export const handleDetailImageUrl = (detailImageUrl) =>(
   }
 );
 
+export const updateTacWithImageByPC = (_id) => (
+  (dispatch,getState)=>{
+    const input  = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.addEventListener('change',(event)=>{
+    if(!event.target.files[0]) return;
+    const formData = new FormData();
+    const fileName =getState().fetchReducer.userInfo.userName+Date.now()+event.target.files[0].name.match(/\.[^.]+$/)[0];
+    formData.append('image',event.target.files[0],fileName);
+    formData.append('_id',_id);
+    dispatch(snackbarMessage('正在上传，请稍后'));
+    fetch(`http://${host}:3001/updateTacWithImageByPC`,{
+      method:'post',
+      credentials:'include',
+      body:formData,
+    }).then(res=>res.json())
+      .then(()=> {
+        dispatch(snackbarMessage('上传成功'));
+        dispatch(showDetail(getState().fetchReducer.detailId));
+      })
+      .catch(err=> dispatch(snackbarMessage(JSON.stringify(err))));
+    });
+    input.click();
+  }
+);
+
+export const deleteTACImageByPC = (_id)=>(
+  (dispatch,getState)=>{
+    fetch(`http://${host}:3001/deleteTACImageByPC`,{
+      method:'post',
+      credentials:'include',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({_id})
+    }).then(res=>res.json())
+      .then(()=> {
+        dispatch(snackbarMessage('修改成功'));
+        dispatch(showDetail(getState().fetchReducer.detailId));
+      })
+      .catch(err=> dispatch(snackbarMessage(JSON.stringify(err))));
+  }
+);
 
 
 

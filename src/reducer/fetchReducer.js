@@ -17,7 +17,6 @@ export default (state = {}, action)=>{
       }
     }
     case 'FETCH_EMPTY':{
-      console.log('empty');
       return{
         ...state,
         status:'EMPTY',
@@ -179,6 +178,12 @@ export default (state = {}, action)=>{
       return{
         ...state,
         detailImageUrl:action.detailImageUrl
+      }
+    }
+    case 'DETAIL_ID':{
+      return{
+        ...state,
+        detailId:action.detailId,
       }
     }
     default:{
