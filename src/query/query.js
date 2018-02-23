@@ -7,14 +7,12 @@ import '../main.css';
 import ShowResult from './showResult';
 
 const Query = () => (
-  <div>
-    <div id="main">
-      <Search/>
-      <ShowResult/>
-      <ShowDetail/>
-      <DownloadInfo/>
-      <Download/>
-    </div>
+  <div id="main">
+    <Search/>
+    <ShowResult/>
+    <ShowDetail/>
+    <DownloadInfo/>
+    <Download/>
   </div>
 );
 

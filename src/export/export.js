@@ -45,7 +45,7 @@ class Export extends React.Component{
           </div>
         </Paper>
           <div className={'warning'}>
-            {bool?'':'请输入正确的日期信息'}
+            {!bool && '请输入正确的日期信息'}
           </div>
       </div>
     )
