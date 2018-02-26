@@ -49,8 +49,6 @@ const HistoryItem = ({history,handleImage,savedUrl,cacheUrl,originUrl,updateHist
         </Paper>
       </div>
     )
-  }else if(history.status === 'empty'){
-    console.log('empty')
   }else{
     return(
       <div className={'history_container'}>

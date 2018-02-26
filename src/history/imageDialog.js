@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Dialog from 'material-ui/Dialog';
 import {toggleImage} from '../actions/historyActions';
@@ -22,10 +23,16 @@ const ImageDialog = ({url,openImage, toggleImage}) => (
       onRequestClose={toggleImage}
       contentStyle={styles.dialogContent}
     >
-      <img src={url} height="600" alt="" />
+      <img src={url} height="600" alt="" onClick={toggleImage}/>
     </Dialog>
   </div>
 );
+
+ImageDialog.propTypes = {
+  url:PropTypes.string,
+  openImage:PropTypes.bool,
+  toggleImage:PropTypes.func,
+};
 
 const mapStatusToProps = state =>({
   url:state.historyReducer.url,
