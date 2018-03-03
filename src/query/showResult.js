@@ -12,12 +12,15 @@ import AppBar from 'material-ui/AppBar';
 import Language from 'material-ui/svg-icons/action/language';
 
 const styles= {
+  appBar:{
+    backgroundColor: '#00BCD4'
+  },
   button:{
     display: 'flex',
     flex: 1,
   },
-  appBar:{
-    backgroundColor: '#00BCD4'
+  subModel:{
+    width:180
   },
   search:{
     display:'flex',
@@ -70,11 +73,10 @@ const Show = ({showDetail, result, downloadQuery,auth}) =>(
           <TableHeaderColumn >厂商</TableHeaderColumn>
           <TableHeaderColumn >品牌</TableHeaderColumn>
           <TableHeaderColumn>型号</TableHeaderColumn>
+          <TableHeaderColumn style={styles.subModel}>子型号</TableHeaderColumn>
           <TableHeaderColumn >上市时间</TableHeaderColumn>
           <TableHeaderColumn>市场价格</TableHeaderColumn>
           <TableHeaderColumn >系统</TableHeaderColumn>
-          <TableHeaderColumn>CPU数量</TableHeaderColumn>
-          <TableHeaderColumn>存储空间</TableHeaderColumn>
           <TableHeaderColumn>更多</TableHeaderColumn>
         </TableRow>
       </TableHeader>
@@ -84,11 +86,10 @@ const Show = ({showDetail, result, downloadQuery,auth}) =>(
             <TableRowColumn >{item["厂商(中文)"]}</TableRowColumn>
             <TableRowColumn >{item["品牌(英文)"]}</TableRowColumn>
             <TableRowColumn >{item["型号"]}</TableRowColumn>
+            <TableRowColumn style={styles.subModel}>{item["子型号"]}</TableRowColumn>
             <TableRowColumn >{item["上市时间(年月，格式：YYYYMM)"]}</TableRowColumn>
             <TableRowColumn >{item["市场价格"]}</TableRowColumn>
             <TableRowColumn >{item["操作系统"]}</TableRowColumn>
-            <TableRowColumn >{item["CPU数量"]}</TableRowColumn>
-            <TableRowColumn >{item["手机存储空间大小"]}</TableRowColumn>
             <TableRowColumn >
               <IconButton
                 onClick={showDetail.bind(null,item["_id"])}
