@@ -12,7 +12,6 @@ class DetailItem extends React.Component {
   
   render(){
     const {detail, handleDetailImageUrl, url} = this.props;
-
     //显示参数信息模块
     const DetailItem =(info, ...arg)=>(
       <div>
