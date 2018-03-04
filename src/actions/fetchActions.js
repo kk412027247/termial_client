@@ -179,7 +179,7 @@ export const changeTAC = (event, newValue) => (
         if(_tac._id !== event.target.id){
           return _tac
         }else{
-          return {..._tac,TAC:Number(newValue.replace(/\D/g,''))}
+          return {..._tac, TAC:newValue.replace(/\D/g,'')}
         }
       })
     }))

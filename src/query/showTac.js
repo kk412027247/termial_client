@@ -31,7 +31,7 @@ class ShowTac extends React.Component{
     const {tac,index, handleDetailImageUrl, changeTAC, updateDetail,
       auth, updateTacWithImageByPC, deleteTACImageByPC} = this.props;
     const  handleTACChange = (event,value)=>{
-      if(Number(value) !== this.props.tac.TAC){
+      if(value !== this.props.tac.TAC){
         this.setState({warning:'内容已更改'})
       }else{
         this.setState({warning:null})
