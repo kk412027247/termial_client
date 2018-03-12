@@ -179,7 +179,8 @@ export const changeTAC = (event, newValue) => (
         if(_tac._id !== event.target.id){
           return _tac
         }else{
-          return {..._tac, TAC:newValue.replace(/\D/g,'')}
+          //替换掉字符串中的非数字,再添加一个'。
+          return {..._tac, TAC:"'"+newValue.replace(/\D/g,'')}
         }
       })
     }))
