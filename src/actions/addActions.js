@@ -46,6 +46,10 @@ const _handleValid = (data) =>({
 export const uploadFile = (event) =>(
   (dispatch)=>{
     if(event.target.files[0]){
+      //上传新数据的时候，清理一下原有数据
+      dispatch(handleDateExist([]));
+      dispatch(handleUploadExist([]));
+      dispatch(handleValid([]));
       const formData = new FormData();
       formData.append('file', event.target.files[0]);
       this.formData = formData;
@@ -103,43 +107,49 @@ const removeId = (data) => data.map(item=>{
   return {..._item}
 });
 
+
+//提交上传的数据
 export const handleFetch = (label)=>(
   (dispatch, getState)=>{
     if(label === 'valid'){
-      //把_id这个索引去掉，如果带了这个提交，会保存不成功，因为这索引太简单，并且会引起冲突。
+      //把_id这个索引去掉，如果带了这个提交，会保存不成功，并且会引起冲突。
       const validDoc = removeId(getState().addReducer._valid);
       fetch(`http://${host}:3001/createTac`,{
         credentials: 'include',
         method:'post',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({docs:validDoc.filter(item=>!item.invalid)}),
+        body:JSON.stringify({docs:validDoc.filter(item=>!item.invalid).map(item=>({...item,TAC:"'"+item.TAC}))}),
       }).then(res=>res.json())
         .then(()=>{
           dispatch(snackbarMessage('保存成功'));
         })
-        .catch(err=>dispatch(snackbarMessage(JSON.stringify(err))))
+        .catch(err=>dispatch(snackbarMessage(JSON.stringify(err))));
+      dispatch(handleValid([]));
+
     }
     if(label === 'uploadExist'){
       fetch(`http://${host}:3001/updateTac`,{
         credentials: 'include',
         method:'post',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({docs:getState().addReducer._uploadExist.filter(item=>!item.invalid)})
+        body:JSON.stringify({docs:getState().addReducer._uploadExist.filter(item=>!item.invalid).map(item=>({...item,TAC:"'"+item.TAC}))})
       }).then(res=>res.json())
         .then(()=>{
           dispatch(snackbarMessage('保存成功'));
-        }).catch(err=>dispatch(snackbarMessage(JSON.stringify(err))))
+        }).catch(err=>dispatch(snackbarMessage(JSON.stringify(err))));
+      dispatch(handleUploadExist([]));
     }
     if(label === 'dataExist'){
       fetch(`http://${host}:3001/updateTac`,{
         credentials: 'include',
         method:'post',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({docs:getState().addReducer._dataExist.filter(item=>!item.invalid)})
+        body:JSON.stringify({docs:getState().addReducer._dataExist.filter(item=>!item.invalid).map(item=>({...item,TAC:"'"+item.TAC}))})
       }).then(res=>res.json())
         .then(()=>{
           dispatch(snackbarMessage('保存成功'));
-        }).catch(err=>dispatch(snackbarMessage(JSON.stringify(err))))
+        }).catch(err=>dispatch(snackbarMessage(JSON.stringify(err))));
+      dispatch(handleDateExist([]));
     }
   }
 );
